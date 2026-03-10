@@ -1,8 +1,9 @@
 name: Release
 
 on:
-  push:
-    branches: [main]
+  workflow_dispatch:  # Manual trigger only — enable push trigger after npm org is set up
+  # push:
+  #   branches: [main]
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
