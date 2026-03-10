@@ -10,7 +10,7 @@ out/
 !.env.example
 coverage/
 .mcp.json
-config.json
+/config.json
 .claude/
 .vercel/
 .agents/
