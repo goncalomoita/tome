@@ -14,6 +14,7 @@ import { fileURLToPath } from "url";
 const __dir = dirname(fileURLToPath(import.meta.url));
 const CLI_PATH = join(__dir, "cli.ts");
 const ROOT = join(__dir, "..", "..", "..");
+const TSX = join(ROOT, "node_modules", ".bin", "tsx");
 
 describe("CLI init command", () => {
   let tmpDir: string;
@@ -28,7 +29,7 @@ describe("CLI init command", () => {
 
   function runInit(name?: string): string {
     const args = name ? `init ${name}` : "init";
-    return execSync(`npx tsx ${CLI_PATH} ${args}`, {
+    return execSync(`${TSX} ${CLI_PATH} ${args}`, {
       cwd: tmpDir,
       encoding: "utf-8",
       env: { ...process.env, NODE_NO_WARNINGS: "1" },
@@ -175,7 +176,7 @@ describe("CLI algolia:init command", () => {
   });
 
   function runAlgoliaInit(extraArgs = ""): string {
-    return execSync(`npx tsx ${CLI_PATH} algolia:init ${extraArgs}`, {
+    return execSync(`${TSX} ${CLI_PATH} algolia:init ${extraArgs}`, {
       cwd: tmpDir,
       encoding: "utf-8",
       env: { ...process.env, NODE_NO_WARNINGS: "1" },
@@ -252,7 +253,7 @@ describe("CLI deploy command", () => {
     const fakeHome = mkdtempSync(join(tmpdir(), "tome-fake-home-"));
 
     try {
-      execSync(`npx tsx ${CLI_PATH} deploy`, {
+      execSync(`${TSX} ${CLI_PATH} deploy`, {
         cwd: tmpDir,
         encoding: "utf-8",
         env: {
