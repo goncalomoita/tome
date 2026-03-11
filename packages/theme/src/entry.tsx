@@ -77,8 +77,17 @@ const contentStyles = `
 
   /* Shiki dual-theme support */
   .shiki { background: var(--cdBg) !important; }
-  html.dark .shiki .shiki-light { display: none; }
-  html.light .shiki .shiki-dark { display: none; }
+
+  /* Dark mode: switch Shiki tokens from light-theme inline colors to --shiki-dark CSS vars */
+  html.dark .shiki,
+  html.dark .shiki span {
+    color: var(--shiki-dark) !important;
+  }
+
+  /* Brighten dim comment tokens (github-dark #6A737D is too low-contrast on dark backgrounds) */
+  html.dark .shiki span[style*="--shiki-dark:#6A737D"] {
+    --shiki-dark: #a0aab5 !important;
+  }
 `;
 
 // ── PAGE TYPES ────────────────────────────────────────────
