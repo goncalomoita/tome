@@ -7,7 +7,6 @@ import {
   formatPrice,
   createCheckoutSession,
   createPortalSession,
-  handleWebhookEvent,
 } from "./billing.js";
 
 describe("PLANS", () => {
@@ -166,28 +165,3 @@ describe("createPortalSession", () => {
   });
 });
 
-describe("handleWebhookEvent", () => {
-  it("returns type and handled status", async () => {
-    const payload = JSON.stringify({
-      type: "checkout.session.completed",
-      data: { object: { id: "cs_123" } },
-    });
-
-    const result = await handleWebhookEvent(payload, "whsec_test_sig");
-
-    expect(result.type).toBe("checkout.session.completed");
-    expect(result.handled).toBe(true);
-  });
-
-  it("handles subscription events", async () => {
-    const payload = JSON.stringify({
-      type: "customer.subscription.updated",
-      data: { object: { id: "sub_123" } },
-    });
-
-    const result = await handleWebhookEvent(payload, "whsec_test_sig");
-
-    expect(result.type).toBe("customer.subscription.updated");
-    expect(result.handled).toBe(true);
-  });
-});

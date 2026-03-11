@@ -26,8 +26,6 @@ export { collectBuildFiles, computeFileHashes, deployToCloud, readAuthToken, sav
 export type { DeployConfig, DeployResult } from "./deploy.js";
 
 export {
-  STRIPE_PRODUCT_IDS,
-  STRIPE_PRICE_IDS,
   PLANS,
   getPlan,
   getTrialDays,
@@ -35,7 +33,6 @@ export {
   formatPrice,
   createCheckoutSession,
   createPortalSession,
-  handleWebhookEvent,
 } from "./billing.js";
 export type { Plan, Subscription, BillingCustomer } from "./billing.js";
 

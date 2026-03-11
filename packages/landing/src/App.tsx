@@ -208,7 +208,7 @@ const CONFIG_CODE = `export default {
     { label: "API Reference",   path: "/api"   },
     { label: "Guides",          path: "/guides" },
   ],
-  search: { provider: "pagefind" },
+  search: { provider: "local" },
 };`;
 
 // ── Nav ─────────────────────────────────────────────────

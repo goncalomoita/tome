@@ -80,12 +80,12 @@ describe("AiChat API key handling", () => {
     expect(screen.queryByTestId("ai-chat-no-key")).not.toBeInTheDocument();
   });
 
-  it("reads API key from window.__TOME_AI_KEY__ when prop is not set", () => {
-    (window as any).__TOME_AI_KEY__ = "window-key-456";
+  it("reads API key from window.__TOME_AI_API_KEY__ when prop is not set", () => {
+    (window as any).__TOME_AI_API_KEY__ = "window-key-456";
     renderChat({ apiKey: undefined });
     fireEvent.click(screen.getByTestId("ai-chat-button"));
     expect(screen.queryByTestId("ai-chat-no-key")).not.toBeInTheDocument();
-    delete (window as any).__TOME_AI_KEY__;
+    delete (window as any).__TOME_AI_API_KEY__;
   });
 
   it("disables input when no API key is available", () => {

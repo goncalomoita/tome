@@ -1,4 +1,5 @@
 declare const __TOME_AI_API_KEY__: string | undefined;
+declare const __TOME_VERSION__: string | undefined;
 
 declare module "virtual:tome/config" {
   const config: any;

@@ -118,7 +118,7 @@ export function AiChat({ provider, model, apiKey, context }: AiChatProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const resolvedKey = apiKey || (typeof window !== "undefined" ? (window as any).__TOME_AI_KEY__ : undefined);
+  const resolvedKey = apiKey || (typeof window !== "undefined" ? (window as any).__TOME_AI_API_KEY__ : undefined);
   const resolvedModel = model || getDefaultModel(provider);
 
   // Scroll to bottom on new messages

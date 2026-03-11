@@ -14,18 +14,6 @@ export interface Plan {
   };
 }
 
-// ── STRIPE IDS ───────────────────────────────────────────
-export const STRIPE_PRODUCT_IDS = {
-  community: "prod_U7U0hs37HQwils",
-  cloud: "prod_U7TzrAOcGVhuyf",
-  team: "prod_U7Tz01u06Jjvr9",
-} as const;
-
-export const STRIPE_PRICE_IDS = {
-  community: "price_1T9F2SPMQbf7oJzSNiMbUulc",
-  cloud: "price_1T9F1GPMQbf7oJzS1xKgN8U1",
-  team: "price_1T9F1yPMQbf7oJzSHh8f9djU",
-} as const;
 
 export const PLANS: Record<string, Plan> = {
   community: {
@@ -216,18 +204,3 @@ export async function createPortalSession(options: {
   return (await res.json()) as { url: string };
 }
 
-/**
- * Handle Stripe webhook event.
- * Server-side: runs in the Worker with real signature verification.
- * Client-side: parses the payload and returns the event type.
- */
-export async function handleWebhookEvent(
-  payload: string,
-  signature: string,
-): Promise<{ type: string; handled: boolean }> {
-  const event = JSON.parse(payload) as { type: string };
-  return {
-    type: event.type,
-    handled: true,
-  };
-}

@@ -139,13 +139,23 @@ export default function tomePlugin(options: TomePluginOptions = {}): Plugin[] {
         result.base = cfg.basePath;
       }
 
+      // Inject version at build time
+      let tomeVersion = "0.0.0";
+      try {
+        const corePkg = _require.resolve("@tomehq/core/package.json");
+        tomeVersion = JSON.parse(readFileSync(corePkg, "utf-8")).version ?? "0.0.0";
+      } catch { /* fallback */ }
+      const defines: Record<string, string> = {
+        "__TOME_VERSION__": JSON.stringify(tomeVersion),
+      };
+
       // Inject AI API key from environment at build time
       if (cfg.ai?.enabled && cfg.ai?.apiKeyEnv) {
         const key = process.env[cfg.ai.apiKeyEnv] ?? "";
-        result.define = {
-          "__TOME_AI_API_KEY__": JSON.stringify(key),
-        };
+        defines["__TOME_AI_API_KEY__"] = JSON.stringify(key);
       }
+
+      result.define = defines;
 
       return result;
     },

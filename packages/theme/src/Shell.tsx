@@ -402,7 +402,7 @@ export function Shell({
                 {isDark ? <SunIcon /> : <MoonIcon />}
               </button>
             ) : <div />}
-            <span style={{ fontFamily: "var(--font-code)", fontSize: 10, color: "var(--txM)" }}>v0.1.0</span>
+            <span style={{ fontFamily: "var(--font-code)", fontSize: 10, color: "var(--txM)" }}>{typeof __TOME_VERSION__ !== "undefined" && __TOME_VERSION__ ? `v${__TOME_VERSION__}` : "v0.1.0"}</span>
           </div>
         </aside>
 
