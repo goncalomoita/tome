@@ -1,5 +1,4 @@
-const e={frontmatter:{title:"Project Structure",description:"How a Tome documentation project is organized — pages, config, entry point, and build output.",icon:"folder",hidden:!1},html:`<h1 id="project-structure"><a class="heading-anchor" aria-hidden tabindex="-1" href="#project-structure"><span class="icon icon-link"></span></a>Project Structure</h1>
-<p>Every Tome project follows the same layout. Understanding it helps you customize and extend your docs.</p>
+const e={frontmatter:{title:"Project Structure",description:"How a Tome documentation project is organized — pages, config, entry point, and build output.",icon:"folder",hidden:!1,toc:!0},html:`<p>Every Tome project follows the same layout. Understanding it helps you customize and extend your docs.</p>
 <h2 id="directory-layout"><a class="heading-anchor" aria-hidden tabindex="-1" href="#directory-layout"><span class="icon icon-link"></span></a>Directory layout</h2>
 <pre><code>my-docs/
 ├── pages/                  # Your documentation content
@@ -79,8 +78,6 @@ const e={frontmatter:{title:"Project Structure",description:"How a Tome document
 <li><strong><a href="#components">Components</a></strong> for using interactive elements in <code>.mdx</code> files</li>
 <li><strong><a href="#configuration">Configuration</a></strong> for the full config schema</li>
 </ul>`,headings:[{depth:2,text:"Directory layout",id:"directory-layout"},{depth:2,text:"Key files",id:"key-files"},{depth:3,text:"pages/ directory",id:"pages-directory"},{depth:3,text:"tome.config.js",id:"tomeconfigjs"},{depth:3,text:".tome/entry.tsx",id:"tomeentrytsx"},{depth:3,text:"index.html",id:"indexhtml"},{depth:3,text:"out/ directory",id:"out-directory"},{depth:2,text:"Markdown vs MDX",id:"markdown-vs-mdx"},{depth:2,text:"Next steps",id:"next-steps"}],raw:`
-# Project Structure
-
 Every Tome project follows the same layout. Understanding it helps you customize and extend your docs.
 
 ## Directory layout

@@ -1,5 +1,4 @@
-const s={frontmatter:{title:"Configuration",description:"How to configure your Tome site using tome.config.js — name, logo, navigation, theme, and more.",icon:"gear",hidden:!1},html:`<h1 id="configuration"><a class="heading-anchor" aria-hidden tabindex="-1" href="#configuration"><span class="icon icon-link"></span></a>Configuration</h1>
-<p>All site configuration lives in <code>tome.config.js</code> (or <code>.mjs</code> / <code>.ts</code>) at your project root. Tome validates the config with Zod and provides clear error messages if anything is wrong.</p>
+const s={frontmatter:{title:"Configuration",description:"How to configure your Tome site using tome.config.js — name, logo, navigation, theme, and more.",icon:"gear",hidden:!1,toc:!0},html:`<p>All site configuration lives in <code>tome.config.js</code> (or <code>.mjs</code> / <code>.ts</code>) at your project root. Tome validates the config with Zod and provides clear error messages if anything is wrong.</p>
 <h2 id="minimal-config"><a class="heading-anchor" aria-hidden tabindex="-1" href="#minimal-config"><span class="icon icon-link"></span></a>Minimal config</h2>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">export</span><span style="color:#D73A49;--shiki-dark:#F97583"> default</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
 <span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  name: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"My Docs"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,</span></span>
@@ -84,8 +83,6 @@ const s={frontmatter:{title:"Configuration",description:"How to configure your T
 <span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  search: { provider: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"local"</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> },</span></span>
 <span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">};</span></span></code></pre>
 <p>See the <a href="/docs/reference/config">Config reference</a> for every available field.</p>`,headings:[{depth:2,text:"Minimal config",id:"minimal-config"},{depth:2,text:"Site metadata",id:"site-metadata"},{depth:2,text:"Navigation",id:"navigation"},{depth:3,text:"Nested groups",id:"nested-groups"},{depth:2,text:"Top navigation",id:"top-navigation"},{depth:2,text:"Theme",id:"theme"},{depth:2,text:"Base path",id:"base-path"},{depth:2,text:"Full example",id:"full-example"}],raw:`
-# Configuration
-
 All site configuration lives in \`tome.config.js\` (or \`.mjs\` / \`.ts\`) at your project root. Tome validates the config with Zod and provides clear error messages if anything is wrong.
 
 ## Minimal config

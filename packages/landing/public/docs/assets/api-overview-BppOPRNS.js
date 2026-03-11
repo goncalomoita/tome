@@ -1,5 +1,4 @@
-const e={frontmatter:{title:"Overview",description:"Generate interactive API documentation from OpenAPI specs with Tome.",icon:"code",hidden:!1},html:`<h1 id="api-reference"><a class="heading-anchor" aria-hidden tabindex="-1" href="#api-reference"><span class="icon icon-link"></span></a>API Reference</h1>
-<p>Tome generates a complete API reference from an OpenAPI 3.x specification. Point it at a spec file and get rendered endpoint documentation with an interactive playground — no manual writing required.</p>
+const e={frontmatter:{title:"Overview",description:"Generate interactive API documentation from OpenAPI specs with Tome.",icon:"code",hidden:!1,toc:!0},html:`<p>Tome generates a complete API reference from an OpenAPI 3.x specification. Point it at a spec file and get rendered endpoint documentation with an interactive playground — no manual writing required.</p>
 <h2 id="setup"><a class="heading-anchor" aria-hidden tabindex="-1" href="#setup"><span class="icon icon-link"></span></a>Setup</h2>
 <p>Add the <code>api</code> section to your <code>tome.config.js</code>:</p>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">export</span><span style="color:#D73A49;--shiki-dark:#F97583"> default</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
@@ -59,8 +58,6 @@ const e={frontmatter:{title:"Overview",description:"Generate interactive API doc
 <li><strong><a href="#api-endpoints">Endpoints</a></strong> for details on how endpoints are rendered</li>
 <li><strong><a href="#api-auth">Authentication</a></strong> for configuring auth in the playground</li>
 </ul>`,headings:[{depth:2,text:"Setup",id:"setup"},{depth:2,text:"Supported formats",id:"supported-formats"},{depth:2,text:"What gets generated",id:"what-gets-generated"},{depth:2,text:"Spec organization",id:"spec-organization"},{depth:2,text:"Next steps",id:"next-steps"}],raw:`
-# API Reference
-
 Tome generates a complete API reference from an OpenAPI 3.x specification. Point it at a spec file and get rendered endpoint documentation with an interactive playground — no manual writing required.
 
 ## Setup

@@ -1,5 +1,4 @@
-const n={frontmatter:{title:"Endpoints",description:"How Tome renders API endpoints from your OpenAPI spec — methods, parameters, schemas, and the interactive playground.",icon:"globe",hidden:!1},html:`<h1 id="endpoints"><a class="heading-anchor" aria-hidden tabindex="-1" href="#endpoints"><span class="icon icon-link"></span></a>Endpoints</h1>
-<p>Tome renders each API operation from your OpenAPI spec as a structured endpoint section with method badges, parameter tables, request/response schemas, and an optional interactive playground.</p>
+const n={frontmatter:{title:"Endpoints",description:"How Tome renders API endpoints from your OpenAPI spec — methods, parameters, schemas, and the interactive playground.",icon:"globe",hidden:!1,toc:!0},html:`<p>Tome renders each API operation from your OpenAPI spec as a structured endpoint section with method badges, parameter tables, request/response schemas, and an optional interactive playground.</p>
 <h2 id="endpoint-layout"><a class="heading-anchor" aria-hidden tabindex="-1" href="#endpoint-layout"><span class="icon icon-link"></span></a>Endpoint layout</h2>
 <p>Each endpoint displays:</p>
 <ol>
@@ -92,8 +91,6 @@ const n={frontmatter:{title:"Endpoints",description:"How Tome renders API endpoi
 <span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  },</span></span>
 <span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">},</span></span></code></pre>
 <p>The playground uses <code>fetch</code> directly from the browser. CORS must be enabled on your API for cross-origin requests.</p>`,headings:[{depth:2,text:"Endpoint layout",id:"endpoint-layout"},{depth:2,text:"Tag grouping",id:"tag-grouping"},{depth:2,text:"Parameter rendering",id:"parameter-rendering"},{depth:2,text:"Schema display",id:"schema-display"},{depth:2,text:"Interactive playground",id:"interactive-playground"}],raw:`
-# Endpoints
-
 Tome renders each API operation from your OpenAPI spec as a structured endpoint section with method badges, parameter tables, request/response schemas, and an optional interactive playground.
 
 ## Endpoint layout

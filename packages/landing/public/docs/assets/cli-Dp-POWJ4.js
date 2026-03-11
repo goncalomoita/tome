@@ -1,5 +1,4 @@
-const n={frontmatter:{title:"CLI Reference",description:"Complete reference for every command and flag in the Tome CLI.",icon:"terminal",hidden:!1},html:`<h1 id="cli-reference"><a class="heading-anchor" aria-hidden tabindex="-1" href="#cli-reference"><span class="icon icon-link"></span></a>CLI reference</h1>
-<p>The <code>tome</code> CLI is the primary interface for creating, developing, building, and deploying documentation sites.</p>
+const n={frontmatter:{title:"CLI Reference",description:"Complete reference for every command and flag in the Tome CLI.",icon:"terminal",hidden:!1,toc:!0},html:`<p>The <code>tome</code> CLI is the primary interface for creating, developing, building, and deploying documentation sites.</p>
 <h2 id="installation"><a class="heading-anchor" aria-hidden tabindex="-1" href="#installation"><span class="icon icon-link"></span></a>Installation</h2>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npm</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> install</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> -D</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> @tomehq/cli</span></span>
 <span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D"># or globally</span></span>
@@ -118,8 +117,6 @@ const n={frontmatter:{title:"CLI Reference",description:"Complete reference for 
 <hr>
 <h3 id="tome-mcp"><a class="heading-anchor" aria-hidden tabindex="-1" href="#tome-mcp"><span class="icon icon-link"></span></a><code>tome mcp</code></h3>
 <p>Start the MCP (Model Context Protocol) stdio server for AI tool integration. Exposes documentation content as MCP resources and tools.</p>`,headings:[{depth:2,text:"Installation",id:"installation"},{depth:2,text:"Commands",id:"commands"},{depth:3,text:"tome init [name]",id:"tome-init-name"},{depth:3,text:"tome dev",id:"tome-dev"},{depth:3,text:"tome build",id:"tome-build"},{depth:3,text:"tome deploy",id:"tome-deploy"},{depth:3,text:"tome login",id:"tome-login"},{depth:3,text:"tome domains:add &#x3C;domain>",id:"tome-domainsadd-domain"},{depth:3,text:"tome domains:verify &#x3C;domain>",id:"tome-domainsverify-domain"},{depth:3,text:"tome domains:list",id:"tome-domainslist"},{depth:3,text:"tome domains:remove &#x3C;domain>",id:"tome-domainsremove-domain"},{depth:3,text:"tome algolia:init",id:"tome-algoliainit"},{depth:3,text:"tome mcp",id:"tome-mcp"}],raw:`
-# CLI reference
-
 The \`tome\` CLI is the primary interface for creating, developing, building, and deploying documentation sites.
 
 ## Installation

@@ -1,4 +1,4 @@
-const e={frontmatter:{title:"Introduction",description:"Tome is an open-source documentation platform for Markdown and MDX. Beautiful docs without the $250/month price tag.",hidden:!1},html:`<h1 id="tome"><a class="heading-anchor" aria-hidden tabindex="-1" href="#tome"><span class="icon icon-link"></span></a>Tome</h1>
+const e={frontmatter:{title:"Introduction",description:"Tome is an open-source documentation platform for Markdown and MDX. Beautiful docs without the $250/month price tag.",hidden:!1,toc:!0},html:`<h1 id="tome"><a class="heading-anchor" aria-hidden tabindex="-1" href="#tome"><span class="icon icon-link"></span></a>Tome</h1>
 <p>Welcome to Tome — beautiful documentation, zero vendor lock-in.</p>
 <hr>
 <p>Tome is an open-source documentation platform built for developers who believe great docs shouldn't cost $250/month. Write in Markdown or MDX, deploy anywhere, and own your content forever.</p>

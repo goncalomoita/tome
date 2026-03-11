@@ -1,5 +1,4 @@
-const n={frontmatter:{title:"Components",description:"Built-in MDX components — Callout, Tabs, Card, Steps, Accordion, and more.",icon:"puzzle",hidden:!1},html:`<h1 id="components"><a class="heading-anchor" aria-hidden tabindex="-1" href="#components"><span class="icon icon-link"></span></a>Components</h1>
-<p>Tome includes a set of built-in components available in any <code>.mdx</code> file. No imports needed — they're injected automatically.</p>
+const n={frontmatter:{title:"Components",description:"Built-in MDX components — Callout, Tabs, Card, Steps, Accordion, and more.",icon:"puzzle",hidden:!1,toc:!0},html:`<p>Tome includes a set of built-in components available in any <code>.mdx</code> file. No imports needed — they're injected automatically.</p>
 <h2 id="callout"><a class="heading-anchor" aria-hidden tabindex="-1" href="#callout"><span class="icon icon-link"></span></a>Callout</h2>
 <p>Highlight important information with a styled callout:</p>
 <pre class="tome-code" data-lang="mdx"><code>&#x3C;Callout title="Important">
@@ -108,8 +107,6 @@ title: Getting Started
   &#x3C;/Step>
 &#x3C;/Steps>
 </code></pre>`,headings:[{depth:2,text:"Callout",id:"callout"},{depth:2,text:"Tabs",id:"tabs"},{depth:2,text:"Card",id:"card"},{depth:3,text:"Card group",id:"card-group"},{depth:2,text:"Steps",id:"steps"},{depth:2,text:"Accordion",id:"accordion"},{depth:2,text:"Using components",id:"using-components"}],raw:`
-# Components
-
 Tome includes a set of built-in components available in any \`.mdx\` file. No imports needed — they're injected automatically.
 
 ## Callout

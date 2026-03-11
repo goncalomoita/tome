@@ -1,5 +1,4 @@
-const s={frontmatter:{title:"Installation",description:"System requirements and detailed installation instructions for Tome.",icon:"download",hidden:!1},html:`<h1 id="installation"><a class="heading-anchor" aria-hidden tabindex="-1" href="#installation"><span class="icon icon-link"></span></a>Installation</h1>
-<p>Tome requires Node.js and works with npm, pnpm, or yarn.</p>
+const s={frontmatter:{title:"Installation",description:"System requirements and detailed installation instructions for Tome.",icon:"download",hidden:!1,toc:!0},html:`<p>Tome requires Node.js and works with npm, pnpm, or yarn.</p>
 <h2 id="prerequisites"><a class="heading-anchor" aria-hidden tabindex="-1" href="#prerequisites"><span class="icon icon-link"></span></a>Prerequisites</h2>
 <table>
 <thead>
@@ -91,8 +90,6 @@ const s={frontmatter:{title:"Installation",description:"System requirements and 
 <li><strong><a href="#project-structure">Project Structure</a></strong> to understand how files are organized</li>
 <li><strong><a href="#configuration">Configuration</a></strong> to customize your site</li>
 </ul>`,headings:[{depth:2,text:"Prerequisites",id:"prerequisites"},{depth:2,text:"Create a new project",id:"create-a-new-project"},{depth:2,text:"Install dependencies",id:"install-dependencies"},{depth:2,text:"Start the dev server",id:"start-the-dev-server"},{depth:2,text:"Add to an existing project",id:"add-to-an-existing-project"},{depth:2,text:"Next steps",id:"next-steps"}],raw:`
-# Installation
-
 Tome requires Node.js and works with npm, pnpm, or yarn.
 
 ## Prerequisites

@@ -781,7 +781,7 @@ export function Shell({
                 ) : (
                   <div
                     className="tome-content"
-                    dangerouslySetInnerHTML={{ __html: pageHtml || "" }}
+                    dangerouslySetInnerHTML={{ __html: (pageHtml || "").replace(/<h1[^>]*>[\s\S]*?<\/h1>\s*/, "") }}
                   />
                 )}
               </div>

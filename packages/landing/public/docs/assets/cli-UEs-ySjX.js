@@ -1,5 +1,4 @@
-const n={frontmatter:{title:"CLI Reference",description:"Complete reference for every command and flag in the Tome CLI.",icon:"terminal",hidden:!1},html:`<h1 id="cli-reference"><a class="heading-anchor" aria-hidden tabindex="-1" href="#cli-reference"><span class="icon icon-link"></span></a>CLI reference</h1>
-<p>The <code>tome</code> CLI is the primary interface for creating, developing, building, and deploying documentation sites.</p>
+const n={frontmatter:{title:"CLI Reference",description:"Complete reference for every command and flag in the Tome CLI.",icon:"terminal",hidden:!1,toc:!0},html:`<p>The <code>tome</code> CLI is the primary interface for creating, developing, building, and deploying documentation sites.</p>
 <h2 id="installation"><a class="heading-anchor" aria-hidden tabindex="-1" href="#installation"><span class="icon icon-link"></span></a>Installation</h2>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npm</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> install</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> -D</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> @tomehq/cli</span></span>
 <span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D"># or globally</span></span>
@@ -94,8 +93,88 @@ const n={frontmatter:{title:"CLI Reference",description:"Complete reference for 
 <hr>
 <h3 id="tome-deploy"><a class="heading-anchor" aria-hidden tabindex="-1" href="#tome-deploy"><span class="icon icon-link"></span></a><code>tome deploy</code></h3>
 <p>Deploy the site to Tome Cloud. Requires <code>tome login</code> first.</p>
-<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">tome</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> deploy</span></span></code></pre>
-<p>Builds, collects output files, and uploads using hash-based deduplication.</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">tome</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> deploy</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">tome</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> deploy</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --preview</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --branch</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> feature/auth</span></span></code></pre>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--preview</code></td>
+<td><code>false</code></td>
+<td>Deploy as a preview (branch-based URL)</td>
+</tr>
+<tr>
+<td><code>--branch &#x3C;name></code></td>
+<td>auto-detect</td>
+<td>Git branch name for preview</td>
+</tr>
+<tr>
+<td><code>--expires &#x3C;days></code></td>
+<td><code>7</code></td>
+<td>Preview expiry in days</td>
+</tr>
+</tbody>
+</table>
+<p>Builds, collects output files, and uploads using hash-based deduplication. With <code>--preview</code>, deploys to a branch-specific URL (e.g., <code>feature-auth.preview.my-docs.tome.dev</code>) and injects a preview banner.</p>
+<hr>
+<h3 id="tome-lint"><a class="heading-anchor" aria-hidden tabindex="-1" href="#tome-lint"><span class="icon icon-link"></span></a><code>tome lint</code></h3>
+<p>Lint documentation content for common issues.</p>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">tome</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> lint</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">tome</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> lint</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --strict</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">tome</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> lint</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --banned-words</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> "simply,obviously"</span></span></code></pre>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--max-paragraph &#x3C;n></code></td>
+<td><code>300</code></td>
+<td>Max words per paragraph</td>
+</tr>
+<tr>
+<td><code>--no-heading-increment</code></td>
+<td>—</td>
+<td>Disable heading increment check</td>
+</tr>
+<tr>
+<td><code>--no-image-alt</code></td>
+<td>—</td>
+<td>Disable missing alt text check</td>
+</tr>
+<tr>
+<td><code>--no-single-h1</code></td>
+<td>—</td>
+<td>Disable single H1 check</td>
+</tr>
+<tr>
+<td><code>--no-empty-links</code></td>
+<td>—</td>
+<td>Disable empty link check</td>
+</tr>
+<tr>
+<td><code>--banned-words &#x3C;words></code></td>
+<td>—</td>
+<td>Comma-separated list of banned words</td>
+</tr>
+<tr>
+<td><code>--strict</code></td>
+<td><code>false</code></td>
+<td>Treat warnings as errors</td>
+</tr>
+</tbody>
+</table>
+<p>Checks all pages for heading hierarchy issues, missing image alt text, overly long paragraphs, duplicate H1 tags, empty links, and banned words.</p>
 <hr>
 <h3 id="tome-login"><a class="heading-anchor" aria-hidden tabindex="-1" href="#tome-login"><span class="icon icon-link"></span></a><code>tome login</code></h3>
 <p>Authenticate with Tome Cloud.</p>
@@ -117,9 +196,7 @@ const n={frontmatter:{title:"CLI Reference",description:"Complete reference for 
 <p>Initialize an Algolia DocSearch index. Prompts for credentials and creates a crawler configuration.</p>
 <hr>
 <h3 id="tome-mcp"><a class="heading-anchor" aria-hidden tabindex="-1" href="#tome-mcp"><span class="icon icon-link"></span></a><code>tome mcp</code></h3>
-<p>Start the MCP (Model Context Protocol) stdio server for AI tool integration. Exposes documentation content as MCP resources and tools.</p>`,headings:[{depth:2,text:"Installation",id:"installation"},{depth:2,text:"Commands",id:"commands"},{depth:3,text:"tome init [name]",id:"tome-init-name"},{depth:3,text:"tome dev",id:"tome-dev"},{depth:3,text:"tome build",id:"tome-build"},{depth:3,text:"tome deploy",id:"tome-deploy"},{depth:3,text:"tome login",id:"tome-login"},{depth:3,text:"tome domains:add &#x3C;domain>",id:"tome-domainsadd-domain"},{depth:3,text:"tome domains:verify &#x3C;domain>",id:"tome-domainsverify-domain"},{depth:3,text:"tome domains:list",id:"tome-domainslist"},{depth:3,text:"tome domains:remove &#x3C;domain>",id:"tome-domainsremove-domain"},{depth:3,text:"tome algolia:init",id:"tome-algoliainit"},{depth:3,text:"tome mcp",id:"tome-mcp"}],raw:`
-# CLI reference
-
+<p>Start the MCP (Model Context Protocol) stdio server for AI tool integration. Exposes documentation content as MCP resources and tools.</p>`,headings:[{depth:2,text:"Installation",id:"installation"},{depth:2,text:"Commands",id:"commands"},{depth:3,text:"tome init [name]",id:"tome-init-name"},{depth:3,text:"tome dev",id:"tome-dev"},{depth:3,text:"tome build",id:"tome-build"},{depth:3,text:"tome deploy",id:"tome-deploy"},{depth:3,text:"tome lint",id:"tome-lint"},{depth:3,text:"tome login",id:"tome-login"},{depth:3,text:"tome domains:add &#x3C;domain>",id:"tome-domainsadd-domain"},{depth:3,text:"tome domains:verify &#x3C;domain>",id:"tome-domainsverify-domain"},{depth:3,text:"tome domains:list",id:"tome-domainslist"},{depth:3,text:"tome domains:remove &#x3C;domain>",id:"tome-domainsremove-domain"},{depth:3,text:"tome algolia:init",id:"tome-algoliainit"},{depth:3,text:"tome mcp",id:"tome-mcp"}],raw:`
 The \`tome\` CLI is the primary interface for creating, developing, building, and deploying documentation sites.
 
 ## Installation
@@ -194,9 +271,40 @@ Deploy the site to Tome Cloud. Requires \`tome login\` first.
 
 \`\`\`bash
 tome deploy
+tome deploy --preview --branch feature/auth
 \`\`\`
 
-Builds, collects output files, and uploads using hash-based deduplication.
+| Flag | Default | Description |
+|------|---------|-------------|
+| \`--preview\` | \`false\` | Deploy as a preview (branch-based URL) |
+| \`--branch <name>\` | auto-detect | Git branch name for preview |
+| \`--expires <days>\` | \`7\` | Preview expiry in days |
+
+Builds, collects output files, and uploads using hash-based deduplication. With \`--preview\`, deploys to a branch-specific URL (e.g., \`feature-auth.preview.my-docs.tome.dev\`) and injects a preview banner.
+
+---
+
+### \`tome lint\`
+
+Lint documentation content for common issues.
+
+\`\`\`bash
+tome lint
+tome lint --strict
+tome lint --banned-words "simply,obviously"
+\`\`\`
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| \`--max-paragraph <n>\` | \`300\` | Max words per paragraph |
+| \`--no-heading-increment\` | — | Disable heading increment check |
+| \`--no-image-alt\` | — | Disable missing alt text check |
+| \`--no-single-h1\` | — | Disable single H1 check |
+| \`--no-empty-links\` | — | Disable empty link check |
+| \`--banned-words <words>\` | — | Comma-separated list of banned words |
+| \`--strict\` | \`false\` | Treat warnings as errors |
+
+Checks all pages for heading hierarchy issues, missing image alt text, overly long paragraphs, duplicate H1 tags, empty links, and banned words.
 
 ---
 

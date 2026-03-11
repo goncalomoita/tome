@@ -1,5 +1,4 @@
-const n={frontmatter:{title:"Multi-Version Docs",description:"How to maintain multiple versions of your documentation with Tome's built-in versioning system.",icon:"layers",hidden:!1},html:`<h1 id="multi-version-docs"><a class="heading-anchor" aria-hidden tabindex="-1" href="#multi-version-docs"><span class="icon icon-link"></span></a>Multi-version docs</h1>
-<p>Tome supports maintaining multiple versions of your documentation side by side. This is useful for libraries and APIs that need to document breaking changes across major versions.</p>
+const n={frontmatter:{title:"Multi-Version Docs",description:"How to maintain multiple versions of your documentation with Tome's built-in versioning system.",icon:"layers",hidden:!1,toc:!0},html:`<p>Tome supports maintaining multiple versions of your documentation side by side. This is useful for libraries and APIs that need to document breaking changes across major versions.</p>
 <h2 id="directory-structure"><a class="heading-anchor" aria-hidden tabindex="-1" href="#directory-structure"><span class="icon icon-link"></span></a>Directory structure</h2>
 <p>Organize your pages by version using subdirectories:</p>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span>pages/</span></span>
@@ -82,8 +81,6 @@ const n={frontmatter:{title:"Multi-Version Docs",description:"How to maintain mu
 <li>Remove pages from old versions that no longer apply rather than leaving stale content</li>
 <li>Use the same page IDs across versions so the version switcher can navigate between them</li>
 </ul>`,headings:[{depth:2,text:"Directory structure",id:"directory-structure"},{depth:2,text:"Configuration",id:"configuration"},{depth:2,text:"URL mapping",id:"url-mapping"},{depth:2,text:"Version switcher",id:"version-switcher"},{depth:2,text:"Best practices",id:"best-practices"}],raw:`
-# Multi-version docs
-
 Tome supports maintaining multiple versions of your documentation side by side. This is useful for libraries and APIs that need to document breaking changes across major versions.
 
 ## Directory structure

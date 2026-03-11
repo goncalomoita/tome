@@ -1,5 +1,4 @@
-const e={frontmatter:{title:"Deploy to Tome Cloud",description:"Publish your documentation site to Tome Cloud with a single command. Includes custom domain setup.",icon:"cloud",hidden:!1},html:`<h1 id="deploy-to-tome-cloud"><a class="heading-anchor" aria-hidden tabindex="-1" href="#deploy-to-tome-cloud"><span class="icon icon-link"></span></a>Deploy to Tome Cloud</h1>
-<p>Tome Cloud hosts your documentation site on a global CDN with automatic SSL, custom domains, and analytics. This tutorial covers the full deployment flow.</p>
+const e={frontmatter:{title:"Deploy to Tome Cloud",description:"Publish your documentation site to Tome Cloud with a single command. Includes custom domain setup.",icon:"cloud",hidden:!1,toc:!0},html:`<p>Tome Cloud hosts your documentation site on a global CDN with automatic SSL, custom domains, and analytics. This tutorial covers the full deployment flow.</p>
 <h2 id="prerequisites"><a class="heading-anchor" aria-hidden tabindex="-1" href="#prerequisites"><span class="icon icon-link"></span></a>Prerequisites</h2>
 <ul>
 <li>A Tome documentation project (see <a href="/docs/tutorials/first-site">Create your first site</a>)</li>
@@ -64,8 +63,6 @@ const e={frontmatter:{title:"Deploy to Tome Cloud",description:"Publish your doc
 <li><strong><a href="/docs/guides/configuration">Configuration guide</a></strong> to customize your site before deploying</li>
 <li><strong><a href="/docs/reference/cli">CLI reference</a></strong> for the full list of deployment commands</li>
 </ul>`,headings:[{depth:2,text:"Prerequisites",id:"prerequisites"},{depth:2,text:"1. Authenticate",id:"1-authenticate"},{depth:2,text:"2. Deploy",id:"2-deploy"},{depth:2,text:"3. Add a custom domain",id:"3-add-a-custom-domain"},{depth:2,text:"4. Manage domains",id:"4-manage-domains"},{depth:2,text:"Deployment details",id:"deployment-details"},{depth:2,text:"Next steps",id:"next-steps"}],raw:`
-# Deploy to Tome Cloud
-
 Tome Cloud hosts your documentation site on a global CDN with automatic SSL, custom domains, and analytics. This tutorial covers the full deployment flow.
 
 ## Prerequisites

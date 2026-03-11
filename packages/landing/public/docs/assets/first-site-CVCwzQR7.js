@@ -1,5 +1,4 @@
-const s={frontmatter:{title:"Create Your First Site",description:"A step-by-step tutorial that walks you through creating a documentation site with Tome, from installation to running the dev server.",icon:"rocket",hidden:!1},html:`<h1 id="create-your-first-site"><a class="heading-anchor" aria-hidden tabindex="-1" href="#create-your-first-site"><span class="icon icon-link"></span></a>Create your first site</h1>
-<p>This tutorial walks you through creating a Tome documentation site from scratch. By the end, you'll have a working docs site running locally with custom pages and navigation.</p>
+const s={frontmatter:{title:"Create Your First Site",description:"A step-by-step tutorial that walks you through creating a documentation site with Tome, from installation to running the dev server.",icon:"rocket",hidden:!1,toc:!0},html:`<p>This tutorial walks you through creating a Tome documentation site from scratch. By the end, you'll have a working docs site running locally with custom pages and navigation.</p>
 <h2 id="prerequisites"><a class="heading-anchor" aria-hidden tabindex="-1" href="#prerequisites"><span class="icon icon-link"></span></a>Prerequisites</h2>
 <p>You need <strong>Node.js 18+</strong> and a package manager (<code>npm</code>, <code>yarn</code>, or <code>pnpm</code>).</p>
 <h2 id="1-scaffold-the-project"><a class="heading-anchor" aria-hidden tabindex="-1" href="#1-scaffold-the-project"><span class="icon icon-link"></span></a>1. Scaffold the project</h2>
@@ -76,8 +75,6 @@ const s={frontmatter:{title:"Create Your First Site",description:"A step-by-step
 <li><strong><a href="/docs/guides/configuration">Configuration guide</a></strong> for all available options</li>
 <li><strong><a href="/docs/reference/components">Components reference</a></strong> for the full list of MDX components</li>
 </ul>`,headings:[{depth:2,text:"Prerequisites",id:"prerequisites"},{depth:2,text:"1. Scaffold the project",id:"1-scaffold-the-project"},{depth:2,text:"2. Install dependencies",id:"2-install-dependencies"},{depth:2,text:"3. Start the dev server",id:"3-start-the-dev-server"},{depth:2,text:"4. Add a new page",id:"4-add-a-new-page"},{depth:2,text:"5. Configure navigation",id:"5-configure-navigation"},{depth:2,text:"6. Customize the theme",id:"6-customize-the-theme"},{depth:2,text:"7. Build for production",id:"7-build-for-production"},{depth:2,text:"Next steps",id:"next-steps"}],raw:`
-# Create your first site
-
 This tutorial walks you through creating a Tome documentation site from scratch. By the end, you'll have a working docs site running locally with custom pages and navigation.
 
 ## Prerequisites

@@ -1,5 +1,4 @@
-const s={frontmatter:{title:"Authentication",description:"Configure API authentication for the interactive playground — Bearer tokens, API keys, and custom headers.",icon:"lock",hidden:!1},html:`<h1 id="authentication"><a class="heading-anchor" aria-hidden tabindex="-1" href="#authentication"><span class="icon icon-link"></span></a>Authentication</h1>
-<p>The API playground supports several authentication methods. Users can enter credentials that are included in test requests.</p>
+const s={frontmatter:{title:"Authentication",description:"Configure API authentication for the interactive playground — Bearer tokens, API keys, and custom headers.",icon:"lock",hidden:!1,toc:!0},html:`<p>The API playground supports several authentication methods. Users can enter credentials that are included in test requests.</p>
 <h2 id="configuration"><a class="heading-anchor" aria-hidden tabindex="-1" href="#configuration"><span class="icon icon-link"></span></a>Configuration</h2>
 <p>Add auth settings to your API config:</p>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">export</span><span style="color:#D73A49;--shiki-dark:#F97583"> default</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
@@ -54,8 +53,6 @@ const s={frontmatter:{title:"Authentication",description:"Configure API authenti
 <li>CORS must be enabled on your API server for playground requests to work</li>
 <li>For production APIs, consider providing a sandbox environment URL through the <code>baseUrl</code> config</li>
 </ul>`,headings:[{depth:2,text:"Configuration",id:"configuration"},{depth:2,text:"Bearer token",id:"bearer-token"},{depth:2,text:"API key",id:"api-key"},{depth:2,text:"Basic auth",id:"basic-auth"},{depth:2,text:"OpenAPI security schemes",id:"openapi-security-schemes"},{depth:2,text:"Security notes",id:"security-notes"}],raw:`
-# Authentication
-
 The API playground supports several authentication methods. Users can enter credentials that are included in test requests.
 
 ## Configuration

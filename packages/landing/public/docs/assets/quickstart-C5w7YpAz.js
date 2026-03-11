@@ -1,5 +1,4 @@
-const n={frontmatter:{title:"Quickstart",description:"Get a Tome documentation site running in under a minute.",icon:"zap",hidden:!1},html:`<h1 id="quickstart"><a class="heading-anchor" aria-hidden tabindex="-1" href="#quickstart"><span class="icon icon-link"></span></a>Quickstart</h1>
-<p>Get a working documentation site in three commands.</p>
+const n={frontmatter:{title:"Quickstart",description:"Get a Tome documentation site running in under a minute.",icon:"zap",hidden:!1,toc:!0},html:`<p>Get a working documentation site in three commands.</p>
 <h2 id="create-a-new-project"><a class="heading-anchor" aria-hidden tabindex="-1" href="#create-a-new-project"><span class="icon icon-link"></span></a>Create a new project</h2>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> @tomehq/cli</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> init</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> my-docs</span></span></code></pre>
 <p>This scaffolds a complete documentation project with starter pages, configuration, and build scripts.</p>
@@ -65,8 +64,6 @@ const n={frontmatter:{title:"Quickstart",description:"Get a Tome documentation s
 <li><strong><a href="#configuration">Configuration</a></strong> to customize your site</li>
 <li><strong><a href="#components">Components</a></strong> to use tabs, callouts, and other interactive elements</li>
 </ul>`,headings:[{depth:2,text:"Create a new project",id:"create-a-new-project"},{depth:2,text:"Install and run",id:"install-and-run"},{depth:2,text:"Edit your first page",id:"edit-your-first-page"},{depth:2,text:"Add navigation",id:"add-navigation"},{depth:2,text:"Build for production",id:"build-for-production"},{depth:2,text:"Next steps",id:"next-steps"}],raw:`
-# Quickstart
-
 Get a working documentation site in three commands.
 
 ## Create a new project

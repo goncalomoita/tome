@@ -1,5 +1,4 @@
-const e={frontmatter:{title:"Custom Theme",description:"How to customize your Tome site's appearance — presets, accent colors, fonts, dark mode, and CSS variables.",icon:"palette",hidden:!1},html:`<h1 id="custom-theme"><a class="heading-anchor" aria-hidden tabindex="-1" href="#custom-theme"><span class="icon icon-link"></span></a>Custom theme</h1>
-<p>Tome ships with two theme presets and extensive customization options. Every visual aspect — colors, fonts, spacing — can be adjusted through configuration or CSS variables.</p>
+const e={frontmatter:{title:"Custom Theme",description:"How to customize your Tome site's appearance — presets, accent colors, fonts, dark mode, and CSS variables.",icon:"palette",hidden:!1,toc:!0},html:`<p>Tome ships with two theme presets and extensive customization options. Every visual aspect — colors, fonts, spacing — can be adjusted through configuration or CSS variables.</p>
 <h2 id="presets"><a class="heading-anchor" aria-hidden tabindex="-1" href="#presets"><span class="icon icon-link"></span></a>Presets</h2>
 <p>Choose between two built-in presets:</p>
 <h3 id="amber-default"><a class="heading-anchor" aria-hidden tabindex="-1" href="#amber-default"><span class="icon icon-link"></span></a>Amber (default)</h3>
@@ -113,8 +112,6 @@ const e={frontmatter:{title:"Custom Theme",description:"How to customize your To
 <span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">  radius</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"4px"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,   </span><span style="color:#6A737D;--shiki-dark:#6A737D">// Sharper corners</span></span>
 <span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">  radius</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: </span><span style="color:#032F62;--shiki-dark:#9ECBFF">"12px"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">,  </span><span style="color:#6A737D;--shiki-dark:#6A737D">// Rounder corners</span></span>
 <span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>`,headings:[{depth:2,text:"Presets",id:"presets"},{depth:3,text:"Amber (default)",id:"amber-default"},{depth:3,text:"Editorial",id:"editorial"},{depth:2,text:"Accent color",id:"accent-color"},{depth:2,text:"Color mode",id:"color-mode"},{depth:2,text:"Custom fonts",id:"custom-fonts"},{depth:2,text:"CSS variables",id:"css-variables"},{depth:2,text:"Border radius",id:"border-radius"}],raw:`
-# Custom theme
-
 Tome ships with two theme presets and extensive customization options. Every visual aspect — colors, fonts, spacing — can be adjusted through configuration or CSS variables.
 
 ## Presets

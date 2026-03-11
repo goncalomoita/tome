@@ -1,5 +1,4 @@
-const e={frontmatter:{title:"Architecture",description:"How Tome works internally — the Vite plugin, virtual modules, build pipeline, and theme system.",hidden:!1},html:`<h1 id="architecture"><a class="heading-anchor" aria-hidden tabindex="-1" href="#architecture"><span class="icon icon-link"></span></a>Architecture</h1>
-<p>Tome is built on Vite and React. Understanding the architecture helps when debugging build issues or building advanced customizations.</p>
+const e={frontmatter:{title:"Architecture",description:"How Tome works internally — the Vite plugin, virtual modules, build pipeline, and theme system.",hidden:!1,toc:!0},html:`<p>Tome is built on Vite and React. Understanding the architecture helps when debugging build issues or building advanced customizations.</p>
 <h2 id="overview"><a class="heading-anchor" aria-hidden tabindex="-1" href="#overview"><span class="icon icon-link"></span></a>Overview</h2>
 <p>A Tome site is a Vite application with a custom plugin that handles page discovery, routing, and content processing. The theme package provides the React UI shell.</p>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span>tome.config.js  →  Vite Plugin  →  Virtual Modules  →  Theme Shell  →  Static Site</span></span></code></pre>
@@ -97,8 +96,6 @@ const e={frontmatter:{title:"Architecture",description:"How Tome works internall
 </tr>
 </tbody>
 </table>`,headings:[{depth:2,text:"Overview",id:"overview"},{depth:2,text:"Vite plugin",id:"vite-plugin"},{depth:2,text:"Theme system",id:"theme-system"},{depth:2,text:"Content pipeline",id:"content-pipeline"},{depth:3,text:"Markdown (.md)",id:"markdown-md"},{depth:3,text:"MDX (.mdx)",id:"mdx-mdx"},{depth:2,text:"Build output",id:"build-output"},{depth:2,text:"Package structure",id:"package-structure"}],raw:`
-# Architecture
-
 Tome is built on Vite and React. Understanding the architecture helps when debugging build issues or building advanced customizations.
 
 ## Overview

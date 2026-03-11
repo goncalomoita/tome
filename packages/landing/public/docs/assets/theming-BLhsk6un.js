@@ -1,5 +1,4 @@
-const a={frontmatter:{title:"Theming",description:"Customize the look of your Tome site — presets, colors, fonts, dark mode, and CSS variables.",icon:"palette",hidden:!1},html:`<h1 id="theming"><a class="heading-anchor" aria-hidden tabindex="-1" href="#theming"><span class="icon icon-link"></span></a>Theming</h1>
-<p>Tome ships with two theme presets and extensive customization options. Every visual aspect — colors, fonts, spacing — can be adjusted through configuration or CSS variables.</p>
+const s={frontmatter:{title:"Theming",description:"Customize the look of your Tome site — presets, colors, fonts, dark mode, and CSS variables.",icon:"palette",hidden:!1,toc:!0},html:`<p>Tome ships with two theme presets and extensive customization options. Every visual aspect — colors, fonts, spacing — can be adjusted through configuration or CSS variables.</p>
 <h2 id="presets"><a class="heading-anchor" aria-hidden tabindex="-1" href="#presets"><span class="icon icon-link"></span></a>Presets</h2>
 <h3 id="amber-default"><a class="heading-anchor" aria-hidden tabindex="-1" href="#amber-default"><span class="icon icon-link"></span></a>Amber (default)</h3>
 <p>A warm, golden aesthetic with serif headings. Clean and approachable.</p>
@@ -131,8 +130,6 @@ const a={frontmatter:{title:"Theming",description:"Customize the look of your To
 </tr>
 </tbody>
 </table>`,headings:[{depth:2,text:"Presets",id:"presets"},{depth:3,text:"Amber (default)",id:"amber-default"},{depth:3,text:"Editorial",id:"editorial"},{depth:2,text:"Custom accent color",id:"custom-accent-color"},{depth:2,text:"Dark mode",id:"dark-mode"},{depth:2,text:"Custom fonts",id:"custom-fonts"},{depth:2,text:"Border radius",id:"border-radius"},{depth:2,text:"CSS variables",id:"css-variables"},{depth:3,text:"Variable reference",id:"variable-reference"}],raw:`
-# Theming
-
 Tome ships with two theme presets and extensive customization options. Every visual aspect — colors, fonts, spacing — can be adjusted through configuration or CSS variables.
 
 ## Presets
@@ -259,4 +256,4 @@ For fine-grained control, override CSS variables directly. Add a \`<style>\` blo
 | \`--font-heading\` | Heading font family |
 | \`--font-body\` | Body font family |
 | \`--font-code\` | Code font family |
-`};export{a as default};
+`};export{s as default};

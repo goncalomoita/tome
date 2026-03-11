@@ -1,5 +1,4 @@
-const e={frontmatter:{title:"API Reference Setup",description:"How to generate an interactive API reference from an OpenAPI specification in Tome.",icon:"code",hidden:!1},html:`<h1 id="api-reference-setup"><a class="heading-anchor" aria-hidden tabindex="-1" href="#api-reference-setup"><span class="icon icon-link"></span></a>API reference setup</h1>
-<p>Tome can generate a full API reference from an OpenAPI 3.x specification. The reference includes endpoint documentation, request/response schemas, and an interactive playground for testing endpoints.</p>
+const e={frontmatter:{title:"API Reference Setup",description:"How to generate an interactive API reference from an OpenAPI specification in Tome.",icon:"code",hidden:!1,toc:!0},html:`<p>Tome can generate a full API reference from an OpenAPI 3.x specification. The reference includes endpoint documentation, request/response schemas, and an interactive playground for testing endpoints.</p>
 <h2 id="1-add-your-openapi-spec"><a class="heading-anchor" aria-hidden tabindex="-1" href="#1-add-your-openapi-spec"><span class="icon icon-link"></span></a>1. Add your OpenAPI spec</h2>
 <p>Place your OpenAPI spec file (JSON or YAML) in your project:</p>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span>my-docs/</span></span>
@@ -82,8 +81,6 @@ const e={frontmatter:{title:"API Reference Setup",description:"How to generate a
 <p>The playground sends requests directly from the browser, so CORS must be configured on your API server.</p>
 <h2 id="supported-spec-formats"><a class="heading-anchor" aria-hidden tabindex="-1" href="#supported-spec-formats"><span class="icon icon-link"></span></a>Supported spec formats</h2>
 <p>Tome supports OpenAPI 3.0 and 3.1 specifications in JSON or YAML format. Swagger 2.x specs are not supported — convert them with tools like <code>swagger2openapi</code>.</p>`,headings:[{depth:2,text:"1. Add your OpenAPI spec",id:"1-add-your-openapi-spec"},{depth:2,text:"2. Configure Tome",id:"2-configure-tome"},{depth:3,text:"Options",id:"options"},{depth:2,text:"3. View the reference",id:"3-view-the-reference"},{depth:2,text:"4. Interactive playground",id:"4-interactive-playground"},{depth:2,text:"Supported spec formats",id:"supported-spec-formats"}],raw:`
-# API reference setup
-
 Tome can generate a full API reference from an OpenAPI 3.x specification. The reference includes endpoint documentation, request/response schemas, and an interactive playground for testing endpoints.
 
 ## 1. Add your OpenAPI spec

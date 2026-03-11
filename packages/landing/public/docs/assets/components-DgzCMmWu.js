@@ -1,5 +1,4 @@
-const n={frontmatter:{title:"Components",description:"Reference for all built-in MDX components — Callout, Tabs, Card, Steps, Accordion, and more.",icon:"puzzle",hidden:!1},html:`<h1 id="components"><a class="heading-anchor" aria-hidden tabindex="-1" href="#components"><span class="icon icon-link"></span></a>Components</h1>
-<p>Tome includes built-in components available in any <code>.mdx</code> file without imports.</p>
+const n={frontmatter:{title:"Components",description:"Reference for all built-in MDX components — Callout, Tabs, Card, Steps, Accordion, and more.",icon:"puzzle",hidden:!1,toc:!0},html:`<p>Tome includes built-in components available in any <code>.mdx</code> file without imports.</p>
 <h2 id="callout"><a class="heading-anchor" aria-hidden tabindex="-1" href="#callout"><span class="icon icon-link"></span></a>Callout</h2>
 <p>Draw attention to important information.</p>
 <pre class="tome-code" data-lang="mdx"><code>&#x3C;Callout type="info" title="Note">
@@ -167,8 +166,6 @@ const n={frontmatter:{title:"Components",description:"Reference for all built-in
 <hr>
 <h2 id="md-vs-mdx"><a class="heading-anchor" aria-hidden tabindex="-1" href="#md-vs-mdx"><span class="icon icon-link"></span></a><code>.md</code> vs <code>.mdx</code></h2>
 <p>Components are only available in <code>.mdx</code> files. Rename <code>.md</code> to <code>.mdx</code> to use them — no other changes needed.</p>`,headings:[{depth:2,text:"Callout",id:"callout"},{depth:2,text:"Tabs",id:"tabs"},{depth:2,text:"Card",id:"card"},{depth:2,text:"CardGroup",id:"cardgroup"},{depth:2,text:"Steps",id:"steps"},{depth:2,text:"Accordion",id:"accordion"},{depth:2,text:"API components",id:"api-components"},{depth:2,text:".md vs .mdx",id:"md-vs-mdx"}],raw:`
-# Components
-
 Tome includes built-in components available in any \`.mdx\` file without imports.
 
 ## Callout

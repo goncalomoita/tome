@@ -1,5 +1,4 @@
-const e={frontmatter:{title:"Search",description:"How to set up search in your Tome documentation site — built-in Pagefind and optional Algolia DocSearch.",icon:"search",hidden:!1},html:`<h1 id="search"><a class="heading-anchor" aria-hidden tabindex="-1" href="#search"><span class="icon icon-link"></span></a>Search</h1>
-<p>Tome includes search out of the box. No configuration is needed for the default experience — Pagefind indexes your site at build time and provides fast, client-side search with zero external dependencies.</p>
+const e={frontmatter:{title:"Search",description:"How to set up search in your Tome documentation site — built-in Pagefind and optional Algolia DocSearch.",icon:"search",hidden:!1,toc:!0},html:`<p>Tome includes search out of the box. No configuration is needed for the default experience — Pagefind indexes your site at build time and provides fast, client-side search with zero external dependencies.</p>
 <h2 id="built-in-search-pagefind"><a class="heading-anchor" aria-hidden tabindex="-1" href="#built-in-search-pagefind"><span class="icon icon-link"></span></a>Built-in search (Pagefind)</h2>
 <p>Pagefind is the default search provider. It runs automatically during <code>tome build</code>:</p>
 <ol>
@@ -68,8 +67,6 @@ const e={frontmatter:{title:"Search",description:"How to set up search in your T
 </tbody>
 </table>
 <p>For most documentation sites, Pagefind is sufficient. Consider Algolia if you need search analytics, advanced typo tolerance, or real-time indexing.</p>`,headings:[{depth:2,text:"Built-in search (Pagefind)",id:"built-in-search-pagefind"},{depth:2,text:"Algolia DocSearch",id:"algolia-docsearch"},{depth:3,text:"Initialize the Algolia index",id:"initialize-the-algolia-index"},{depth:3,text:"When to use Algolia",id:"when-to-use-algolia"}],raw:`
-# Search
-
 Tome includes search out of the box. No configuration is needed for the default experience — Pagefind indexes your site at build time and provides fast, client-side search with zero external dependencies.
 
 ## Built-in search (Pagefind)
