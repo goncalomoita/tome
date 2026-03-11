@@ -311,8 +311,10 @@ function formatBytes(bytes: number): string {
 
 // ── Router ─────────────────────────────────────────────────
 
-function matchRoute(hash: string): { page: string; params: Record<string, string> } {
-  const route = hash.replace(/^#/, "") || "/";
+const BASE = "/dashboard";
+
+function matchRoute(path: string): { page: string; params: Record<string, string> } {
+  const route = path.replace(BASE, "") || "/";
   if (route.startsWith("/project/")) {
     return { page: "project", params: { slug: route.slice(9) } };
   }
@@ -323,6 +325,12 @@ function matchRoute(hash: string): { page: string; params: Record<string, string
     "/settings": "settings",
   };
   return { page: pages[route] ?? "projects", params: {} };
+}
+
+function navigate(to: string) {
+  const path = to.startsWith(BASE) ? to : `${BASE}${to}`;
+  window.history.pushState(null, "", path);
+  window.dispatchEvent(new PopStateEvent("popstate"));
 }
 
 // ── Login Page ─────────────────────────────────────────────
@@ -450,8 +458,8 @@ function Shell({
   setDark: (v: boolean) => void;
   children: React.ReactNode;
 }) {
-  const hash = typeof window !== "undefined" ? window.location.hash : "";
-  const { page } = matchRoute(hash);
+  const pathname = typeof window !== "undefined" ? window.location.pathname : BASE;
+  const { page } = matchRoute(pathname);
 
   return (
     <div style={{ minHeight: "100vh", background: "var(--bg)" }}>
@@ -461,15 +469,15 @@ function Shell({
         background: "var(--sf)", position: "sticky", top: 0, zIndex: 100,
       }}>
         <div style={{ display: "flex", alignItems: "center", gap: 32 }}>
-          <a href="#/" style={{ textDecoration: "none" }}>
+          <a href={`${BASE}/`} onClick={(e) => { e.preventDefault(); navigate("/"); }} style={{ textDecoration: "none" }}>
             <span style={{ fontFamily: '"Cormorant Garamond", serif', fontStyle: "italic", fontSize: 22, color: "var(--tx)", fontWeight: 300 }}>
               Tome<span style={{ color: "var(--coral)" }}>.</span>
             </span>
           </a>
           <nav style={{ display: "flex", gap: 20 }}>
-            <a className="nav-link" href="#/" data-active={page === "projects"}>Projects</a>
-            <a className="nav-link" href="#/billing" data-active={page === "billing"}>Billing</a>
-            <a className="nav-link" href="#/settings" data-active={page === "settings"}>Settings</a>
+            <a className="nav-link" href={`${BASE}/`} onClick={(e) => { e.preventDefault(); navigate("/"); }} data-active={page === "projects"}>Projects</a>
+            <a className="nav-link" href={`${BASE}/billing`} onClick={(e) => { e.preventDefault(); navigate("/billing"); }} data-active={page === "billing"}>Billing</a>
+            <a className="nav-link" href={`${BASE}/settings`} onClick={(e) => { e.preventDefault(); navigate("/settings"); }} data-active={page === "settings"}>Settings</a>
           </nav>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
@@ -480,7 +488,7 @@ function Shell({
             Home <ExternalLinkIcon />
           </a>
           <span style={{ width: 1, height: 20, background: "var(--bd)" }} />
-          <a href="#/settings" style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }}>
+          <a href={`${BASE}/settings`} onClick={(e) => { e.preventDefault(); navigate("/settings"); }} style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }}>
             {user.avatarUrl ? (
               <img
                 src={user.avatarUrl}
@@ -618,7 +626,7 @@ function ProjectsPage({ token }: { token: string }) {
       ) : (
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 16 }}>
           {projects.map((p) => (
-            <a key={p.id} href={`#/project/${p.slug}`} className="card" style={{ textDecoration: "none", cursor: "pointer" }}>
+            <a key={p.id} href={`${BASE}/project/${p.slug}`} onClick={(e) => { e.preventDefault(); navigate(`/project/${p.slug}`); }} className="card" style={{ textDecoration: "none", cursor: "pointer" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 12 }}>
                 <span style={{ fontFamily: '"Bricolage Grotesque", sans-serif', fontWeight: 600, fontSize: 15, color: "var(--tx)" }}>{p.slug}</span>
                 <span className={`status-${p.deployStatus ?? "none"}`} style={{ fontFamily: '"Fira Code", monospace', fontSize: 11, textTransform: "uppercase" }}>
@@ -700,7 +708,7 @@ function ProjectDetailPage({ slug, token }: { slug: string; token: string }) {
   return (
     <div className="rv">
       <div style={{ marginBottom: 32, display: "flex", alignItems: "center", gap: 16 }}>
-        <a href="#/" className="nav-link" style={{ fontSize: 12 }}>&larr; Back</a>
+        <a href={`${BASE}/`} onClick={(e) => { e.preventDefault(); navigate("/"); }} className="nav-link" style={{ fontSize: 12 }}>&larr; Back</a>
         <h2 style={{ fontFamily: '"Cormorant Garamond", serif', fontWeight: 400, fontStyle: "italic", fontSize: 28, color: "var(--tx)" }}>
           {slug}
         </h2>
@@ -833,13 +841,13 @@ function BillingPage({ token, user }: { token: string; user: User }) {
 
   // Check for checkout success/cancel in URL
   useEffect(() => {
-    const hash = window.location.hash;
-    if (hash.includes("checkout=success")) {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("checkout") === "success") {
       setSuccess("Subscription activated! Your plan will update shortly.");
-      window.history.replaceState(null, "", window.location.pathname + "#/billing");
-    } else if (hash.includes("checkout=cancelled")) {
+      window.history.replaceState(null, "", `${BASE}/billing`);
+    } else if (params.get("checkout") === "cancelled") {
       setError("Checkout was cancelled.");
-      window.history.replaceState(null, "", window.location.pathname + "#/billing");
+      window.history.replaceState(null, "", `${BASE}/billing`);
     }
   }, []);
 
@@ -848,8 +856,8 @@ function BillingPage({ token, user }: { token: string; user: User }) {
     setError(null);
     setSuccess(null);
     try {
-      const successUrl = `${window.location.origin}${window.location.pathname}#/billing?checkout=success`;
-      const cancelUrl = `${window.location.origin}${window.location.pathname}#/billing?checkout=cancelled`;
+      const successUrl = `${window.location.origin}${BASE}/billing?checkout=success`;
+      const cancelUrl = `${window.location.origin}${BASE}/billing?checkout=cancelled`;
       const data = await api<{ url: string }>("/api/billing/checkout", {
         method: "POST",
         body: { planId, successUrl, cancelUrl },
@@ -1036,13 +1044,13 @@ function SettingsPage({ user, token, onLogout }: { user: User; token: string; on
 export function App() {
   const [auth, setAuth] = useState<AuthState>({ status: "loading" });
   const [isDark, setDark] = useState(true);
-  const [route, setRoute] = useState(window.location.hash || "#/");
+  const [route, setRoute] = useState(window.location.pathname || `${BASE}/`);
 
-  // Listen for hash changes
+  // Listen for popstate (back/forward + navigate() calls)
   useEffect(() => {
-    const onHash = () => setRoute(window.location.hash || "#/");
-    window.addEventListener("hashchange", onHash);
-    return () => window.removeEventListener("hashchange", onHash);
+    const onNav = () => setRoute(window.location.pathname || `${BASE}/`);
+    window.addEventListener("popstate", onNav);
+    return () => window.removeEventListener("popstate", onNav);
   }, []);
 
   // Check for existing token on mount
@@ -1072,13 +1080,13 @@ export function App() {
   const handleLogin = useCallback((token: string, user: User) => {
     localStorage.setItem("tome_token", token);
     setAuth({ status: "logged_in", token, user });
-    window.location.hash = "#/";
+    navigate("/");
   }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("tome_token");
     setAuth({ status: "logged_out" });
-    window.location.hash = "#/login";
+    navigate("/login");
   };
 
   // Loading state

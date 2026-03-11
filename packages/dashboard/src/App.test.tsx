@@ -97,7 +97,7 @@ function mockFetch(overrides: Record<string, unknown> = {}) {
 
 beforeEach(() => {
   localStorage.clear();
-  window.location.hash = "";
+  window.history.replaceState(null, "", "/dashboard");
   vi.restoreAllMocks();
 });
 
@@ -194,7 +194,7 @@ describe("Projects", () => {
 describe("Project Detail", () => {
   beforeEach(() => {
     localStorage.setItem("tome_token", "tome_test123");
-    window.location.hash = "#/project/my-docs";
+    window.history.replaceState(null, "", "/dashboard/project/my-docs");
   });
 
   it("renders deployment history", async () => {
@@ -249,7 +249,7 @@ describe("Project Detail", () => {
 describe("Billing", () => {
   beforeEach(() => {
     localStorage.setItem("tome_token", "tome_test123");
-    window.location.hash = "#/billing";
+    window.history.replaceState(null, "", "/dashboard/billing");
   });
 
   it("shows current plan", async () => {
@@ -278,7 +278,7 @@ describe("Billing", () => {
 describe("Settings", () => {
   beforeEach(() => {
     localStorage.setItem("tome_token", "tome_test123");
-    window.location.hash = "#/settings";
+    window.history.replaceState(null, "", "/dashboard/settings");
   });
 
   it("shows user email and account info", async () => {
