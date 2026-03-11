@@ -12,7 +12,7 @@ const e={frontmatter:{title:"Introduction",description:"Tome is an open-source d
 <p>Documentation platforms have become unreasonably expensive. Most charge hundreds per month for features that should be table stakes. Want custom domains? Pay more. Need versioning? Upgrade your plan. Multiple projects? That'll be $250/month — per project.</p>
 <p>We built Tome because we thought that was absurd. Every developer and team deserves polished, professional documentation without paying a premium for basic functionality. Tome gives you everything you need for free when self-hosted, or at a fraction of the cost on our cloud.</p>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D"># Get started in 30 seconds</span></span>
-<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> @tome/cli</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> init</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> my-docs</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> @tomehq/cli</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> init</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> my-docs</span></span>
 <span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">cd</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> my-docs</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> &#x26;#x26;&#x26;#x26; npm install &#x26;#x26;&#x26;#x26; npm run dev</span></span></code></pre>
 <h2 id="features"><a class="heading-anchor" aria-hidden tabindex="-1" href="#features"><span class="icon icon-link"></span></a>Features</h2>
 <ul>
@@ -57,7 +57,7 @@ We built Tome because we thought that was absurd. Every developer and team deser
 
 \`\`\`bash
 # Get started in 30 seconds
-npx @tome/cli init my-docs
+npx @tomehq/cli init my-docs
 cd my-docs && npm install && npm run dev
 \`\`\`
 

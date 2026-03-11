@@ -35,9 +35,9 @@ const n={frontmatter:{title:"Components",description:"Reference for all built-in
 <h2 id="tabs"><a class="heading-anchor" aria-hidden tabindex="-1" href="#tabs"><span class="icon icon-link"></span></a>Tabs</h2>
 <p>Present content variants — useful for multiple languages or platform-specific instructions.</p>
 <pre class="tome-code" data-lang="mdx"><code>&#x3C;Tabs items={["npm", "yarn", "pnpm"]}>
-  &#x3C;div>npm install @tome/cli&#x3C;/div>
-  &#x3C;div>yarn add @tome/cli&#x3C;/div>
-  &#x3C;div>pnpm add @tome/cli&#x3C;/div>
+  &#x3C;div>npm install @tomehq/cli&#x3C;/div>
+  &#x3C;div>yarn add @tomehq/cli&#x3C;/div>
+  &#x3C;div>pnpm add @tomehq/cli&#x3C;/div>
 &#x3C;/Tabs>
 </code></pre>
 <table>
@@ -196,9 +196,9 @@ Present content variants — useful for multiple languages or platform-specific 
 
 \`\`\`mdx
 <Tabs items={["npm", "yarn", "pnpm"]}>
-  <div>npm install @tome/cli</div>
-  <div>yarn add @tome/cli</div>
-  <div>pnpm add @tome/cli</div>
+  <div>npm install @tomehq/cli</div>
+  <div>yarn add @tomehq/cli</div>
+  <div>pnpm add @tomehq/cli</div>
 </Tabs>
 \`\`\`
 

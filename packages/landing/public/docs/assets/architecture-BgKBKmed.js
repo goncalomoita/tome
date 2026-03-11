@@ -4,7 +4,7 @@ const e={frontmatter:{title:"Architecture",description:"How Tome works internall
 <p>A Tome site is a Vite application with a custom plugin that handles page discovery, routing, and content processing. The theme package provides the React UI shell.</p>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span>tome.config.js  →  Vite Plugin  →  Virtual Modules  →  Theme Shell  →  Static Site</span></span></code></pre>
 <h2 id="vite-plugin"><a class="heading-anchor" aria-hidden tabindex="-1" href="#vite-plugin"><span class="icon icon-link"></span></a>Vite plugin</h2>
-<p>The core of Tome is <code>vite-plugin-tome</code> in <code>@tome/core</code>. It has three responsibilities:</p>
+<p>The core of Tome is <code>vite-plugin-tome</code> in <code>@tomehq/core</code>. It has three responsibilities:</p>
 <p><strong>1. Page discovery</strong> — On startup, the plugin scans <code>pages/</code> for <code>.md</code> and <code>.mdx</code> files, extracts frontmatter, and builds a route table. It watches for file changes during development and triggers hot reloads.</p>
 <p><strong>2. Virtual modules</strong> — The plugin exposes content through Vite's virtual module system:</p>
 <table>
@@ -39,14 +39,14 @@ const e={frontmatter:{title:"Architecture",description:"How Tome works internall
 </table>
 <p><strong>3. Build-time generation</strong> — During builds, the plugin injects analytics scripts and generates the <code>mcp.json</code> manifest.</p>
 <h2 id="theme-system"><a class="heading-anchor" aria-hidden tabindex="-1" href="#theme-system"><span class="icon icon-link"></span></a>Theme system</h2>
-<p>The theme package (<code>@tome/theme</code>) provides the React shell:</p>
+<p>The theme package (<code>@tomehq/theme</code>) provides the React shell:</p>
 <ul>
 <li><strong>Shell component</strong> — Header, sidebar, content area, footer</li>
 <li><strong>Preset system</strong> — Color tokens and CSS variables per preset</li>
 <li><strong>Search integration</strong> — Pagefind or Algolia, loaded dynamically</li>
 <li><strong>AI chat</strong> — Optional floating widget</li>
 </ul>
-<p>The entry point (<code>.tome/entry.tsx</code>) bootstraps the shell by importing <code>@tome/theme/entry</code>.</p>
+<p>The entry point (<code>.tome/entry.tsx</code>) bootstraps the shell by importing <code>@tomehq/theme/entry</code>.</p>
 <h2 id="content-pipeline"><a class="heading-anchor" aria-hidden tabindex="-1" href="#content-pipeline"><span class="icon icon-link"></span></a>Content pipeline</h2>
 <h3 id="markdown-md"><a class="heading-anchor" aria-hidden tabindex="-1" href="#markdown-md"><span class="icon icon-link"></span></a>Markdown (<code>.md</code>)</h3>
 <ol>
@@ -80,19 +80,19 @@ const e={frontmatter:{title:"Architecture",description:"How Tome works internall
 </thead>
 <tbody>
 <tr>
-<td><code>@tome/cli</code></td>
+<td><code>@tomehq/cli</code></td>
 <td>CLI commands (init, dev, build, deploy)</td>
 </tr>
 <tr>
-<td><code>@tome/core</code></td>
+<td><code>@tomehq/core</code></td>
 <td>Config, routing, Vite plugin, markdown processing</td>
 </tr>
 <tr>
-<td><code>@tome/theme</code></td>
+<td><code>@tomehq/theme</code></td>
 <td>Shell UI, presets, search, AI chat</td>
 </tr>
 <tr>
-<td><code>@tome/components</code></td>
+<td><code>@tomehq/components</code></td>
 <td>MDX components (Callout, Tabs, Card, etc.)</td>
 </tr>
 </tbody>
@@ -111,7 +111,7 @@ tome.config.js  →  Vite Plugin  →  Virtual Modules  →  Theme Shell  →  S
 
 ## Vite plugin
 
-The core of Tome is \`vite-plugin-tome\` in \`@tome/core\`. It has three responsibilities:
+The core of Tome is \`vite-plugin-tome\` in \`@tomehq/core\`. It has three responsibilities:
 
 **1. Page discovery** — On startup, the plugin scans \`pages/\` for \`.md\` and \`.mdx\` files, extracts frontmatter, and builds a route table. It watches for file changes during development and triggers hot reloads.
 
@@ -129,14 +129,14 @@ The core of Tome is \`vite-plugin-tome\` in \`@tome/core\`. It has three respons
 
 ## Theme system
 
-The theme package (\`@tome/theme\`) provides the React shell:
+The theme package (\`@tomehq/theme\`) provides the React shell:
 
 - **Shell component** — Header, sidebar, content area, footer
 - **Preset system** — Color tokens and CSS variables per preset
 - **Search integration** — Pagefind or Algolia, loaded dynamically
 - **AI chat** — Optional floating widget
 
-The entry point (\`.tome/entry.tsx\`) bootstraps the shell by importing \`@tome/theme/entry\`.
+The entry point (\`.tome/entry.tsx\`) bootstraps the shell by importing \`@tomehq/theme/entry\`.
 
 ## Content pipeline
 
@@ -171,8 +171,8 @@ The output is a single-page application. Search is fully static.
 
 | Package | Purpose |
 |---------|---------|
-| \`@tome/cli\` | CLI commands (init, dev, build, deploy) |
-| \`@tome/core\` | Config, routing, Vite plugin, markdown processing |
-| \`@tome/theme\` | Shell UI, presets, search, AI chat |
-| \`@tome/components\` | MDX components (Callout, Tabs, Card, etc.) |
+| \`@tomehq/cli\` | CLI commands (init, dev, build, deploy) |
+| \`@tomehq/core\` | Config, routing, Vite plugin, markdown processing |
+| \`@tomehq/theme\` | Shell UI, presets, search, AI chat |
+| \`@tomehq/components\` | MDX components (Callout, Tabs, Card, etc.) |
 `};export{e as default};

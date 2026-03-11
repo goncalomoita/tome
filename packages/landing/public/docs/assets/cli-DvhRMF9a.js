@@ -1,9 +1,9 @@
 const n={frontmatter:{title:"CLI Reference",description:"Complete reference for every command and flag in the Tome CLI.",icon:"terminal",hidden:!1},html:`<h1 id="cli-reference"><a class="heading-anchor" aria-hidden tabindex="-1" href="#cli-reference"><span class="icon icon-link"></span></a>CLI reference</h1>
 <p>The <code>tome</code> CLI is the primary interface for creating, developing, building, and deploying documentation sites.</p>
 <h2 id="installation"><a class="heading-anchor" aria-hidden tabindex="-1" href="#installation"><span class="icon icon-link"></span></a>Installation</h2>
-<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npm</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> install</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> -D</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> @tome/cli</span></span>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npm</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> install</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> -D</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> @tomehq/cli</span></span>
 <span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D"># or globally</span></span>
-<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npm</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> install</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> -g</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> @tome/cli</span></span></code></pre>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npm</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> install</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> -g</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> @tomehq/cli</span></span></code></pre>
 <h2 id="commands"><a class="heading-anchor" aria-hidden tabindex="-1" href="#commands"><span class="icon icon-link"></span></a>Commands</h2>
 <h3 id="tome-init-name"><a class="heading-anchor" aria-hidden tabindex="-1" href="#tome-init-name"><span class="icon icon-link"></span></a><code>tome init [name]</code></h3>
 <p>Create a new Tome documentation project.</p>
@@ -125,9 +125,9 @@ The \`tome\` CLI is the primary interface for creating, developing, building, an
 ## Installation
 
 \`\`\`bash
-npm install -D @tome/cli
+npm install -D @tomehq/cli
 # or globally
-npm install -g @tome/cli
+npm install -g @tomehq/cli
 \`\`\`
 
 ## Commands

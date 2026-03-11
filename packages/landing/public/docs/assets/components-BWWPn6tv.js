@@ -40,9 +40,9 @@ const n={frontmatter:{title:"Components",description:"Built-in MDX components �
 <h2 id="tabs"><a class="heading-anchor" aria-hidden tabindex="-1" href="#tabs"><span class="icon icon-link"></span></a>Tabs</h2>
 <p>Present content variants — useful for multiple languages or platform-specific instructions:</p>
 <pre class="tome-code" data-lang="mdx"><code>&#x3C;Tabs items={["npm", "pnpm", "yarn"]}>
-  &#x3C;Tab>npm install @tome/cli&#x3C;/Tab>
-  &#x3C;Tab>pnpm add @tome/cli&#x3C;/Tab>
-  &#x3C;Tab>yarn add @tome/cli&#x3C;/Tab>
+  &#x3C;Tab>npm install @tomehq/cli&#x3C;/Tab>
+  &#x3C;Tab>pnpm add @tomehq/cli&#x3C;/Tab>
+  &#x3C;Tab>yarn add @tomehq/cli&#x3C;/Tab>
 &#x3C;/Tabs>
 </code></pre>
 <p>The active tab persists across page navigations within the same session.</p>
@@ -101,7 +101,7 @@ title: Getting Started
 
 &#x3C;Steps>
   &#x3C;Step title="Create project">
-    Run \`npx @tome/cli init my-docs\`
+    Run \`npx @tomehq/cli init my-docs\`
   &#x3C;/Step>
   &#x3C;Step title="Start dev server">
     Run \`npm run dev\`
@@ -143,9 +143,9 @@ Present content variants — useful for multiple languages or platform-specific 
 
 \`\`\`mdx
 <Tabs items={["npm", "pnpm", "yarn"]}>
-  <Tab>npm install @tome/cli</Tab>
-  <Tab>pnpm add @tome/cli</Tab>
-  <Tab>yarn add @tome/cli</Tab>
+  <Tab>npm install @tomehq/cli</Tab>
+  <Tab>pnpm add @tomehq/cli</Tab>
+  <Tab>yarn add @tomehq/cli</Tab>
 </Tabs>
 \`\`\`
 
@@ -230,7 +230,7 @@ title: Getting Started
 
 <Steps>
   <Step title="Create project">
-    Run \`npx @tome/cli init my-docs\`
+    Run \`npx @tomehq/cli init my-docs\`
   </Step>
   <Step title="Start dev server">
     Run \`npm run dev\`

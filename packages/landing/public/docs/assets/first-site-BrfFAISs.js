@@ -4,7 +4,7 @@ const s={frontmatter:{title:"Create Your First Site",description:"A step-by-step
 <p>You need <strong>Node.js 18+</strong> and a package manager (<code>npm</code>, <code>yarn</code>, or <code>pnpm</code>).</p>
 <h2 id="1-scaffold-the-project"><a class="heading-anchor" aria-hidden tabindex="-1" href="#1-scaffold-the-project"><span class="icon icon-link"></span></a>1. Scaffold the project</h2>
 <p>Run the init command to create a new project:</p>
-<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> @tome/cli</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> init</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> my-docs</span></span></code></pre>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> @tomehq/cli</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> init</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> my-docs</span></span></code></pre>
 <p>This creates a directory with the following structure:</p>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span>my-docs/</span></span>
 <span class="line"><span>├── tome.config.js     # Site configuration</span></span>
@@ -89,7 +89,7 @@ You need **Node.js 18+** and a package manager (\`npm\`, \`yarn\`, or \`pnpm\`).
 Run the init command to create a new project:
 
 \`\`\`bash
-npx @tome/cli init my-docs
+npx @tomehq/cli init my-docs
 \`\`\`
 
 This creates a directory with the following structure:

@@ -60,7 +60,7 @@ const e={frontmatter:{title:"Project Structure",description:"How a Tome document
 <p>See <strong><a href="#configuration">Configuration</a></strong> for the full schema.</p>
 <h3 id="tomeentrytsx"><a class="heading-anchor" aria-hidden tabindex="-1" href="#tomeentrytsx"><span class="icon icon-link"></span></a><code>.tome/entry.tsx</code></h3>
 <p>The application entry point. For most projects, this is a single import:</p>
-<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">import</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> "@tome/theme/entry"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">;</span></span></code></pre>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">import</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> "@tomehq/theme/entry"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">;</span></span></code></pre>
 <p>This boots the Tome shell — the sidebar, search, theme switcher, and content renderer. You generally don't need to modify this file.</p>
 <h3 id="indexhtml"><a class="heading-anchor" aria-hidden tabindex="-1" href="#indexhtml"><span class="icon icon-link"></span></a><code>index.html</code></h3>
 <p>The HTML shell that loads your documentation app. Contains the <code>&#x3C;div id="tome-root"></code> mount point and the script tag for the entry file.</p>
@@ -139,7 +139,7 @@ See **[Configuration](#configuration)** for the full schema.
 The application entry point. For most projects, this is a single import:
 
 \`\`\`tsx
-import "@tome/theme/entry";
+import "@tomehq/theme/entry";
 \`\`\`
 
 This boots the Tome shell — the sidebar, search, theme switcher, and content renderer. You generally don't need to modify this file.

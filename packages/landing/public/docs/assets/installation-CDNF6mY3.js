@@ -21,7 +21,7 @@ const s={frontmatter:{title:"Installation",description:"System requirements and 
 </table>
 <h2 id="create-a-new-project"><a class="heading-anchor" aria-hidden tabindex="-1" href="#create-a-new-project"><span class="icon icon-link"></span></a>Create a new project</h2>
 <p>The fastest way to start is with the CLI:</p>
-<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> @tome/cli</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> init</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> my-docs</span></span></code></pre>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npx</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> @tomehq/cli</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> init</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> my-docs</span></span></code></pre>
 <p>This creates a new directory with everything you need:</p>
 <pre><code>my-docs/
 ├── pages/
@@ -47,7 +47,7 @@ const s={frontmatter:{title:"Installation",description:"System requirements and 
 <p>The dev server starts at <code>http://localhost:3000</code> with hot reload enabled. Changes to any <code>.md</code> or <code>.mdx</code> file in <code>pages/</code> trigger an instant refresh. Config changes in <code>tome.config.js</code> trigger a full reload.</p>
 <h2 id="add-to-an-existing-project"><a class="heading-anchor" aria-hidden tabindex="-1" href="#add-to-an-existing-project"><span class="icon icon-link"></span></a>Add to an existing project</h2>
 <p>If you already have a project and want to add Tome documentation:</p>
-<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npm</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> install</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> @tome/cli</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> @tome/theme</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> react</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> react-dom</span></span></code></pre>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">npm</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> install</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> @tomehq/cli</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> @tomehq/theme</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> react</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> react-dom</span></span></code></pre>
 <p>Create the required files:</p>
 <p><strong><code>tome.config.js</code></strong></p>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">export</span><span style="color:#D73A49;--shiki-dark:#F97583"> default</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
@@ -78,7 +78,7 @@ const s={frontmatter:{title:"Installation",description:"System requirements and 
 <span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">&#x26;#x3C;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">/body></span></span>
 <span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">&#x26;#x3C;</span><span style="color:#24292E;--shiki-dark:#E1E4E8">/html></span></span></code></pre>
 <p><strong><code>.tome/entry.tsx</code></strong></p>
-<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">import</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> "@tome/theme/entry"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">;</span></span></code></pre>
+<pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">import</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> "@tomehq/theme/entry"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">;</span></span></code></pre>
 <p>Add scripts to <code>package.json</code>:</p>
 <pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">{</span></span>
 <span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">  "scripts"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">: {</span></span>
@@ -107,7 +107,7 @@ Tome requires Node.js and works with npm, pnpm, or yarn.
 The fastest way to start is with the CLI:
 
 \`\`\`bash
-npx @tome/cli init my-docs
+npx @tomehq/cli init my-docs
 \`\`\`
 
 This creates a new directory with everything you need:
@@ -154,7 +154,7 @@ The dev server starts at \`http://localhost:3000\` with hot reload enabled. Chan
 If you already have a project and want to add Tome documentation:
 
 \`\`\`bash
-npm install @tome/cli @tome/theme react react-dom
+npm install @tomehq/cli @tomehq/theme react react-dom
 \`\`\`
 
 Create the required files:
@@ -198,7 +198,7 @@ Your documentation starts here.
 
 **\`.tome/entry.tsx\`**
 \`\`\`tsx
-import "@tome/theme/entry";
+import "@tomehq/theme/entry";
 \`\`\`
 
 Add scripts to \`package.json\`:
