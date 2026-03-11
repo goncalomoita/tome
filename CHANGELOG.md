@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.4
+
+### Bug Fixes
+
+- **Fix dark mode code blocks (for real this time)** — the `html.dark` class was never set on the document element, so the Shiki dual-theme CSS selectors from v0.2.3 never matched; added `useEffect` in Shell to sync `isDark` state to `document.documentElement.classList`
+
 ## 0.2.3
 
 ### New Features
