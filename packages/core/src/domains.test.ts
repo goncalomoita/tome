@@ -25,12 +25,12 @@ describe("generateDnsRecords", () => {
     const records = generateDnsRecords("docs.acme.io", "acme-docs");
 
     const cname = records.find((r) => r.type === "CNAME")!;
-    expect(cname.name).toBe("docs");
+    expect(cname.name).toBe("docs.acme.io");
     expect(cname.value).toBe("acme-docs.tome.center");
     expect(cname.verified).toBe(false);
 
     const txt = records.find((r) => r.type === "TXT")!;
-    expect(txt.name).toBe("_tome-verify.docs");
+    expect(txt.name).toBe("_tome-verify.docs.acme.io");
     expect(txt.value).toBe("tome-verify=acme-docs");
     expect(txt.verified).toBe(false);
   });

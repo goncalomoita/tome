@@ -163,7 +163,7 @@ billing.post("/setup", async (c) => {
   }
 
   // Create webhook endpoint (if it doesn't already exist)
-  const webhookUrl = `https://tome-api.tome-api.workers.dev/api/webhooks/stripe`;
+  const webhookUrl = `https://api.tome.center/api/webhooks/stripe`;
   let webhookResult: { id: string; secret?: string } | null = null;
 
   try {

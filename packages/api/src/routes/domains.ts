@@ -120,8 +120,8 @@ domains.post("/", async (c) => {
     verified: false,
     sslStatus: "pending",
     dnsRecords: [
-      { type: "CNAME", name: "docs", value: `${projectSlug}.tome.center`, verified: false },
-      { type: "TXT", name: "_tome-verify.docs", value: `tome-verify=${projectSlug}`, verified: false },
+      { type: "CNAME", name: domain, value: `${projectSlug}.tome.center`, verified: false },
+      { type: "TXT", name: `_tome-verify.${domain}`, value: `tome-verify=${projectSlug}`, verified: false },
     ],
   });
 });
@@ -183,8 +183,8 @@ domains.get("/", async (c) => {
       verified: d.verified === 1,
       sslStatus: d.ssl_status,
       dnsRecords: [
-        { type: "CNAME", name: "docs", value: `${d.project_slug}.tome.center`, verified: d.verified === 1 },
-        { type: "TXT", name: "_tome-verify.docs", value: `tome-verify=${d.project_slug}`, verified: d.verified === 1 },
+        { type: "CNAME", name: d.domain as string, value: `${d.project_slug}.tome.center`, verified: d.verified === 1 },
+        { type: "TXT", name: `_tome-verify.${d.domain}`, value: `tome-verify=${d.project_slug}`, verified: d.verified === 1 },
       ],
     }))
   );
@@ -251,8 +251,8 @@ domains.get("/:domain/verify", async (c) => {
     verified,
     sslStatus,
     dnsRecords: [
-      { type: "CNAME", name: "docs", value: `${row.project_slug}.tome.center`, verified },
-      { type: "TXT", name: "_tome-verify.docs", value: `tome-verify=${row.project_slug}`, verified },
+      { type: "CNAME", name: row.domain, value: `${row.project_slug}.tome.center`, verified },
+      { type: "TXT", name: `_tome-verify.${row.domain}`, value: `tome-verify=${row.project_slug}`, verified },
     ],
   });
 });

@@ -720,7 +720,7 @@ program
       try {
         const result = await deployPreview(
           {
-            apiUrl: process.env.TOME_API_URL ?? "https://tome-api.tome-api.workers.dev",
+            apiUrl: process.env.TOME_API_URL ?? "https://api.tome.center",
             token,
             slug,
             branch,
@@ -751,7 +751,7 @@ program
 
     try {
       const result = await deployToCloud(
-        { apiUrl: process.env.TOME_API_URL ?? "https://tome-api.tome-api.workers.dev", token, slug },
+        { apiUrl: process.env.TOME_API_URL ?? "https://api.tome.center", token, slug },
         outDir,
       );
 

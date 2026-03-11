@@ -437,7 +437,7 @@ export default function tomePlugin(options: TomePluginOptions = {}): Plugin[] {
     async generateBundle(_outputOptions, bundle) {
       // TOM-24: Inject analytics script into HTML files
       if (config.analytics?.provider && config.analytics?.key) {
-        const endpoint = "https://tome-api.tome-api.workers.dev/api/analytics/event";
+        const endpoint = "https://api.tome.center/api/analytics/event";
         const script = generateAnalyticsScript({
           endpoint,
           siteId: config.analytics.key,

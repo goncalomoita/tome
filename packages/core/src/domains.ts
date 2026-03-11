@@ -24,18 +24,21 @@ export interface DnsRecord {
 /**
  * Generate the required DNS records for a custom domain.
  * Returns CNAME and TXT verification records.
+ *
+ * The CNAME name is the user's actual domain (e.g. "docs.acme.io"),
+ * and the value targets the project's subdomain on tome.center.
  */
 export function generateDnsRecords(domain: string, projectSlug: string): DnsRecord[] {
   return [
     {
       type: "CNAME",
-      name: "docs",
+      name: domain,
       value: `${projectSlug}.tome.center`,
       verified: false,
     },
     {
       type: "TXT",
-      name: "_tome-verify.docs",
+      name: `_tome-verify.${domain}`,
       value: `tome-verify=${projectSlug}`,
       verified: false,
     },
@@ -72,7 +75,7 @@ export function validateDomain(domain: string): { valid: boolean; error?: string
 
 // ── API CONFIG ──────────────────────────────────────────
 
-const API_URL = process.env.TOME_API_URL ?? "https://tome-api.tome-api.workers.dev";
+const API_URL = process.env.TOME_API_URL ?? "https://api.tome.center";
 
 // ── DNS CHECK ───────────────────────────────────────────
 

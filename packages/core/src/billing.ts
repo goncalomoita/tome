@@ -91,7 +91,7 @@ export interface BillingCustomer {
 
 // ── API CONFIG ──────────────────────────────────────────
 
-const API_URL = process.env.TOME_API_URL ?? "https://tome-api.tome-api.workers.dev";
+const API_URL = process.env.TOME_API_URL ?? "https://api.tome.center";
 
 // ── PLAN HELPERS ────────────────────────────────────────
 

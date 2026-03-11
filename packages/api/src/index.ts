@@ -35,6 +35,14 @@ app.use("*", async (c, next) => {
   return serveFromR2(slug, c.req.path, c.env.TOME_BUCKET);
 });
 
+// ── Analytics CORS (permissive — public endpoint, any site can send events) ──
+app.use("/api/analytics/event", cors({
+  origin: "*",
+  allowMethods: ["POST", "OPTIONS"],
+  allowHeaders: ["Content-Type"],
+  maxAge: 86400,
+}));
+
 // ── Global middleware ────────────────────────────────────
 app.use("*", cors({
   origin: (origin) => {

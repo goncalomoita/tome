@@ -61,7 +61,7 @@ type AuthState =
 
 // ── API helper ─────────────────────────────────────────────
 
-const API_URL = import.meta.env.VITE_API_URL ?? "https://tome-api.tome-api.workers.dev";
+const API_URL = import.meta.env.VITE_API_URL ?? "https://api.tome.center";
 
 async function api<T>(
   path: string,
