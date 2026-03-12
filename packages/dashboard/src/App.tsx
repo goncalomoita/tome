@@ -129,13 +129,17 @@ const THEMES = {
     "--bd": "#1a2050", "--bdA": "#252d66",
     "--tx": "#e8e6f0", "--tx2": "#b5b1c8", "--txM": "#9490ae",
     "--coral": "#ff6b4a", "--coralD": "rgba(255,107,74,0.1)", "--coralT": "#ff8a70",
+    "--coralBtn": "#c0402a",
+    "--green": "#22c55e", "--yellow": "#eab308", "--red": "#f87171",
     "--cdBg": "#0a0e27", "--cdTx": "#b8b4cc", "--cdBd": "#1a2050",
   },
   light: {
     "--bg": "#f6f4f0", "--sf": "#ffffff", "--sfH": "#eeece6",
     "--bd": "#ddd9d0", "--bdA": "#c8c3b8",
     "--tx": "#1a1716", "--tx2": "#4a443e", "--txM": "#706960",
-    "--coral": "#b83d22", "--coralD": "rgba(184,61,34,0.07)", "--coralT": "#9c3019",
+    "--coral": "#a33520", "--coralD": "rgba(184,61,34,0.07)", "--coralT": "#8a2c18",
+    "--coralBtn": "#a33520",
+    "--green": "#15803d", "--yellow": "#a16207", "--red": "#dc2626",
     "--cdBg": "#edeae4", "--cdTx": "#3a3530", "--cdBd": "#ddd9d0",
   },
 } as const;
@@ -175,7 +179,7 @@ const CSS = `
 
 .btn-primary{
   display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  padding:10px 24px;background:var(--coral);color:#fff;border:none;
+  padding:10px 24px;background:var(--coralBtn);color:#fff;border:none;
   font-family:"Bricolage Grotesque",sans-serif;font-size:13px;
   font-weight:600;letter-spacing:.5px;text-transform:uppercase;
   cursor:pointer;transition:all .2s cubic-bezier(.22,1,.36,1);
@@ -212,9 +216,9 @@ const CSS = `
 .nav-link:hover{color:var(--coral)}
 .nav-link[data-active="true"]{color:var(--coral)}
 
-.status-live{color:#22c55e}
-.status-uploading{color:#eab308}
-.status-failed{color:#ef4444}
+.status-live{color:var(--green)}
+.status-uploading{color:var(--yellow)}
+.status-failed{color:var(--red)}
 
 .card{
   background:var(--sf);border:1px solid var(--bd);padding:24px;
@@ -408,7 +412,7 @@ function LoginPage({ onLogin }: { onLogin: (token: string, user: User) => void }
           </p>
 
           {error && (
-            <p style={{ fontFamily: '"Bricolage Grotesque", sans-serif', fontSize: 13, color: "#ef4444", marginBottom: 16 }}>{error}</p>
+            <p style={{ fontFamily: '"Bricolage Grotesque", sans-serif', fontSize: 13, color: "var(--red)", marginBottom: 16 }}>{error}</p>
           )}
 
           {/* OAuth Providers */}
@@ -650,7 +654,7 @@ function ProjectsPage({ token }: { token: string }) {
                   </span>
                   <button
                     className="btn-ghost btn-sm"
-                    style={{ color: "#ef4444", fontSize: 11, padding: "2px 6px" }}
+                    style={{ color: "var(--red)", fontSize: 11, padding: "4px 10px", minHeight: 24, minWidth: 24 }}
                     onClick={(e) => deleteProject(p.slug, e)}
                     title="Delete project"
                   >
@@ -833,7 +837,7 @@ function ProjectDetailPage({ slug, token }: { slug: string; token: string }) {
                 <span>
                   <button
                     className="btn-ghost btn-sm"
-                    style={{ color: "#ef4444", fontSize: 11, padding: "2px 6px" }}
+                    style={{ color: "var(--red)", fontSize: 11, padding: "4px 10px", minHeight: 24, minWidth: 24 }}
                     onClick={() => deleteDeployment(d.id)}
                     title={d.id === activeDeploymentId ? "Delete active deployment (site will go offline)" : "Delete deployment"}
                   >
@@ -856,7 +860,7 @@ function ProjectDetailPage({ slug, token }: { slug: string; token: string }) {
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
                   <span style={{ fontFamily: '"Bricolage Grotesque", sans-serif', fontWeight: 600, fontSize: 14, color: "var(--tx)" }}>{d.domain}</span>
                   <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                    <span style={{ fontFamily: '"Fira Code", monospace', fontSize: 11, color: d.verified ? "#22c55e" : "#eab308" }}>
+                    <span style={{ fontFamily: '"Fira Code", monospace', fontSize: 11, color: d.verified ? "var(--green)" : "var(--yellow)" }}>
                       {d.verified ? "VERIFIED" : "PENDING"}
                     </span>
                     <button className="btn-ghost btn-sm" onClick={() => removeDomain(d.domain)}>Remove</button>
@@ -882,13 +886,13 @@ function ProjectDetailPage({ slug, token }: { slug: string; token: string }) {
           <button className="btn-primary btn-sm" type="submit">Add Domain</button>
         </form>
         {domainError && (
-          <p style={{ fontFamily: '"Bricolage Grotesque", sans-serif', fontSize: 13, color: "#ef4444", marginTop: 8 }}>{domainError}</p>
+          <p style={{ fontFamily: '"Bricolage Grotesque", sans-serif', fontSize: 13, color: "var(--red)", marginTop: 8 }}>{domainError}</p>
         )}
       </div>
 
       {/* Danger Zone */}
       <div style={{ marginTop: 40, paddingTop: 24, borderTop: "1px solid var(--bd)" }}>
-        <h3 className="section-title" style={{ fontSize: 20, color: "#ef4444" }}>Danger Zone</h3>
+        <h3 className="section-title" style={{ fontSize: 20, color: "var(--red)" }}>Danger Zone</h3>
         <div className="card" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderColor: "rgba(239,68,68,0.3)" }}>
           <div>
             <p style={{ fontFamily: '"Bricolage Grotesque", sans-serif', fontWeight: 600, fontSize: 14, color: "var(--tx)", marginBottom: 4 }}>Delete this project</p>
@@ -896,7 +900,7 @@ function ProjectDetailPage({ slug, token }: { slug: string; token: string }) {
           </div>
           <button
             className="btn-ghost btn-sm"
-            style={{ color: "#ef4444", borderColor: "rgba(239,68,68,0.4)", whiteSpace: "nowrap" }}
+            style={{ color: "var(--red)", borderColor: "rgba(239,68,68,0.4)", whiteSpace: "nowrap", minHeight: 24 }}
             onClick={deleteProject}
           >
             Delete Project
@@ -969,12 +973,12 @@ function BillingPage({ token, user }: { token: string; user: User }) {
     <div className="rv">
       <h2 className="section-title">Billing</h2>
       {success && (
-        <div style={{ padding: "12px 16px", marginBottom: 16, background: "rgba(34,197,94,.1)", border: "1px solid rgba(34,197,94,.3)", fontFamily: '"Bricolage Grotesque", sans-serif', fontSize: 13, color: "#22c55e" }}>
+        <div style={{ padding: "12px 16px", marginBottom: 16, background: "rgba(34,197,94,.1)", border: "1px solid rgba(34,197,94,.3)", fontFamily: '"Bricolage Grotesque", sans-serif', fontSize: 13, color: "var(--green)" }}>
           {success}
         </div>
       )}
       {error && (
-        <div style={{ padding: "12px 16px", marginBottom: 16, background: "rgba(239,68,68,.1)", border: "1px solid rgba(239,68,68,.3)", fontFamily: '"Bricolage Grotesque", sans-serif', fontSize: 13, color: "#ef4444" }}>
+        <div style={{ padding: "12px 16px", marginBottom: 16, background: "rgba(239,68,68,.1)", border: "1px solid rgba(239,68,68,.3)", fontFamily: '"Bricolage Grotesque", sans-serif', fontSize: 13, color: "var(--red)" }}>
           {error}
         </div>
       )}
