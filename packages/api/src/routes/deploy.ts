@@ -82,6 +82,17 @@ deploy.post("/start", async (c) => {
     .first();
 
   if (!project) {
+    // Check if slug is taken by another user
+    const existing = await c.env.TOME_DB.prepare(
+      "SELECT id FROM projects WHERE slug = ?"
+    )
+      .bind(body.slug)
+      .first();
+
+    if (existing) {
+      return c.json({ error: `Slug "${body.slug}" is already taken. Please choose a different project name.` }, 409);
+    }
+
     const projectId = crypto.randomUUID();
     await c.env.TOME_DB.prepare(
       "INSERT INTO projects (id, user_id, slug, name) VALUES (?, ?, ?, ?)"
