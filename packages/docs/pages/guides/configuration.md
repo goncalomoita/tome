@@ -105,6 +105,58 @@ basePath: "/docs/",
 
 This configures Vite's `base` option so all asset paths resolve correctly.
 
+## Banner
+
+Show an announcement at the top of every page:
+
+```javascript
+banner: {
+  text: "We just launched v2.0!",
+  link: "/changelog",       // Optional — wraps text in a link
+  dismissible: true,        // Default true — shows close button
+},
+```
+
+The banner uses your accent color as its background. When a user dismisses it, a hash of the text is saved to localStorage. Change the text to show the banner again for all users.
+
+## Math / KaTeX
+
+Enable LaTeX math rendering with:
+
+```javascript
+math: true,
+```
+
+Then install the peer dependencies:
+
+```bash
+npm install remark-math rehype-katex katex
+```
+
+Use `$...$` for inline math and `$$...$$` for display blocks in your Markdown pages.
+
+## Mermaid diagrams
+
+Mermaid diagrams require no configuration. Use a `mermaid` code fence in any page:
+
+````markdown
+```mermaid
+flowchart LR
+    A["Input"] --> B["Process"] --> C["Output"]
+```
+````
+
+Mermaid is loaded from a CDN on demand — no install needed. Diagrams adapt to your light/dark theme automatically.
+
+## AI discoverability (llms.txt)
+
+At build time, Tome automatically generates:
+
+- **`llms.txt`** — Page index with titles, descriptions, and URLs
+- **`llms-full.txt`** — Complete Markdown content of every non-hidden page
+
+No configuration needed. Hidden pages (frontmatter `hidden: true`) are excluded. These files help AI assistants and language models understand your documentation.
+
 ## Full example
 
 ```javascript

@@ -118,6 +118,57 @@ search: {
 },
 ```
 
+## Banner
+
+Display an announcement banner at the top of every page:
+
+```javascript
+banner: {
+  text: "v2.0 is now available!",
+  link: "/changelog",         // Optional — makes the text a link
+  dismissible: true,          // Default: true — shows a close button
+},
+```
+
+When a user dismisses the banner, it stays hidden until you change the text. Updating the `text` value automatically shows the banner again for all users.
+
+## Math rendering
+
+Enable LaTeX math support with KaTeX:
+
+```javascript
+math: true,
+```
+
+Once enabled, you can use inline math with `$E = mc^2$` and display math with `$$` blocks in your Markdown pages. Requires `remark-math`, `rehype-katex`, and `katex` as peer dependencies:
+
+```bash
+npm install remark-math rehype-katex katex
+```
+
+## Mermaid diagrams
+
+Mermaid diagrams work out of the box with no configuration. Use a `mermaid` code fence in any `.md` or `.mdx` file:
+
+````markdown
+```mermaid
+flowchart LR
+    A["Start"] --> B["Process"]
+    B --> C["End"]
+```
+````
+
+Diagrams are rendered client-side and automatically adapt to your site's light/dark theme.
+
+## AI discoverability
+
+Tome automatically generates two files at build time to make your docs accessible to AI tools:
+
+- **`llms.txt`** — A page index with titles, descriptions, and URLs
+- **`llms-full.txt`** — Full raw Markdown content of all non-hidden pages
+
+These are always generated — no configuration needed. Hidden pages (with `hidden: true` in frontmatter) are excluded.
+
 ## Full example
 
 ```javascript
@@ -140,5 +191,11 @@ export default {
     { label: "Changelog", href: "/changelog" },
   ],
   search: { provider: "local" },
+  banner: {
+    text: "v2.0 is now available!",
+    link: "/changelog",
+    dismissible: true,
+  },
+  math: true,
 };
 ```

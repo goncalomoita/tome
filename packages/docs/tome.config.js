@@ -6,6 +6,11 @@ export default {
     preset: "editorial",
     mode: "auto",
   },
+  banner: {
+    text: "New in v0.3 — Mermaid diagrams, KaTeX math, FileTree, PackageManager, and more!",
+    link: "#components",
+    dismissible: true,
+  },
   topNav: [
     { label: "Home", href: "/" },
     { label: "Dashboard", href: "/dashboard" },

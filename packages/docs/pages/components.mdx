@@ -1,6 +1,6 @@
 ---
 title: Components
-description: Built-in MDX components — Callout, Tabs, Card, Steps, Accordion, and more.
+description: Built-in MDX components — Callout, Tabs, Card, Steps, Accordion, PackageManager, TypeTable, FileTree, and more.
 icon: puzzle
 ---
 
@@ -98,6 +98,88 @@ Collapsible content sections for FAQs or optional details:
 ```
 
 Multiple accordions stack vertically. Only one opens at a time by default.
+
+## PackageManager
+
+Display install commands across all package managers with automatic translation:
+
+<PackageManager command="install @tomehq/cli" />
+
+Pass any npm command string and Tome translates it for yarn, pnpm, and bun:
+
+```mdx
+<PackageManager command="install @tomehq/cli" />
+```
+
+It works with dev dependencies too:
+
+<PackageManager command="install -D vitest" />
+
+```mdx
+<PackageManager command="install -D vitest" />
+```
+
+## TypeTable
+
+Document TypeScript interfaces and prop types with a structured table:
+
+<TypeTable
+  name="TomeConfig"
+  fields={[
+    { name: "name", type: "string", required: true, description: "Your documentation site name" },
+    { name: "theme", type: "ThemeConfig", required: false, default: '{ preset: "amber" }', description: "Theme and appearance settings" },
+    { name: "navigation", type: "NavGroup[]", required: true, description: "Sidebar navigation structure" },
+    { name: "math", type: "boolean", required: false, default: "false", description: "Enable KaTeX math rendering" },
+    { name: "banner", type: "BannerConfig", required: false, description: "Top-of-page announcement banner" },
+  ]}
+/>
+
+```mdx
+<TypeTable
+  name="TomeConfig"
+  fields={[
+    { name: "name", type: "string", required: true, description: "Site name" },
+    { name: "theme", type: "ThemeConfig", default: '{ preset: "amber" }', description: "Theme settings" },
+    { name: "math", type: "boolean", default: "false", description: "Enable KaTeX" },
+  ]}
+/>
+```
+
+## FileTree
+
+Visualize directory structures with collapsible folders:
+
+<FileTree>
+  <FileTree.Folder name="pages" defaultOpen>
+    <FileTree.File name="index.md" />
+    <FileTree.File name="quickstart.mdx" />
+    <FileTree.Folder name="guides">
+      <FileTree.File name="setup.md" />
+      <FileTree.File name="deploy.md" />
+    </FileTree.Folder>
+  </FileTree.Folder>
+  <FileTree.Folder name=".tome">
+    <FileTree.File name="entry.tsx" />
+  </FileTree.Folder>
+  <FileTree.File name="tome.config.js" />
+  <FileTree.File name="package.json" />
+</FileTree>
+
+```mdx
+<FileTree>
+  <FileTree.Folder name="pages" defaultOpen>
+    <FileTree.File name="index.md" />
+    <FileTree.File name="quickstart.mdx" />
+    <FileTree.Folder name="guides">
+      <FileTree.File name="setup.md" />
+      <FileTree.File name="deploy.md" />
+    </FileTree.Folder>
+  </FileTree.Folder>
+  <FileTree.File name="tome.config.js" />
+</FileTree>
+```
+
+Click any folder to expand or collapse it. Use `defaultOpen` to start a folder in the expanded state.
 
 ## Using components
 

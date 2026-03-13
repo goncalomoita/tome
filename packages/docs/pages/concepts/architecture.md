@@ -9,8 +9,12 @@ Tome is built on Vite and React. Understanding the architecture helps when debug
 
 A Tome site is a Vite application with a custom plugin that handles page discovery, routing, and content processing. The theme package provides the React UI shell.
 
-```text
-tome.config.js  →  Vite Plugin  →  Virtual Modules  →  Theme Shell  →  Static Site
+```mermaid
+flowchart LR
+    A["tome.config.js"] --> B["Vite Plugin"]
+    B --> C["Virtual Modules"]
+    C --> D["Theme Shell"]
+    D --> E["Static Site"]
 ```
 
 ## Vite plugin
@@ -44,11 +48,28 @@ The entry point (`.tome/entry.tsx`) bootstraps the shell by importing `@tomehq/t
 
 ## Content pipeline
 
+```mermaid
+flowchart TD
+    A["pages/*.md"] --> B["gray-matter"]
+    B --> C["Frontmatter"]
+    B --> D["Markdown body"]
+    D --> E["remark + rehype"]
+    E --> F["Shiki highlighting"]
+    F --> G["DOMPurify sanitize"]
+    G --> H["HTML + headings"]
+
+    I["pages/*.mdx"] --> J["Extract frontmatter"]
+    J --> K["@mdx-js/rollup"]
+    K --> L["React component"]
+```
+
 ### Markdown (`.md`)
 
 1. Frontmatter extracted via `gray-matter`
-2. Markdown processed to HTML (syntax highlighting, GFM tables, headings)
-3. HTML + headings + frontmatter served as virtual module
+2. Markdown processed through remark (GFM, math) and rehype (slugs, autolink headings)
+3. Code blocks highlighted with Shiki (mermaid blocks converted to client-side placeholders)
+4. HTML sanitized with DOMPurify, headings extracted for table of contents
+5. HTML + headings + frontmatter served as virtual module
 
 ### MDX (`.mdx`)
 
@@ -66,10 +87,12 @@ out/
 │   └── index-[hash].css # Styles
 ├── _pagefind/           # Search index
 ├── mcp.json             # MCP manifest
+├── llms.txt             # AI-readable page index
+├── llms-full.txt        # Full page content for LLMs
 └── 404.html             # Error page
 ```
 
-The output is a single-page application. Search is fully static.
+The output is a single-page application. Search is fully static. The `llms.txt` and `llms-full.txt` files are auto-generated at build time to make your documentation discoverable by AI tools and language models.
 
 ## Package structure
 
