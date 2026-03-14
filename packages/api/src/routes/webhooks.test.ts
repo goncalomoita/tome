@@ -28,6 +28,7 @@ vi.mock("stripe", () => {
       return {
         webhooks: {
           constructEvent: mockConstructEvent,
+          constructEventAsync: mockConstructEvent,
         },
         subscriptions: {
           retrieve: mockSubscriptionsRetrieve,
@@ -69,9 +70,7 @@ describe("webhook routes", () => {
     });
 
     it("rejects invalid webhook signature", async () => {
-      mockConstructEvent.mockImplementationOnce(() => {
-        throw new Error("Invalid signature");
-      });
+      mockConstructEvent.mockRejectedValueOnce(new Error("Invalid signature"));
 
       const app = makeApp();
       const env = makeEnv();
@@ -88,7 +87,7 @@ describe("webhook routes", () => {
     it("handles checkout.session.completed", async () => {
       dbRunMock.mockClear();
 
-      mockConstructEvent.mockReturnValueOnce({
+      mockConstructEvent.mockResolvedValueOnce({
         type: "checkout.session.completed",
         data: {
           object: {
@@ -126,7 +125,7 @@ describe("webhook routes", () => {
     it("handles customer.subscription.deleted by reverting to community", async () => {
       dbRunMock.mockClear();
 
-      mockConstructEvent.mockReturnValueOnce({
+      mockConstructEvent.mockResolvedValueOnce({
         type: "customer.subscription.deleted",
         data: {
           object: {
@@ -152,7 +151,7 @@ describe("webhook routes", () => {
     });
 
     it("handles customer.subscription.updated", async () => {
-      mockConstructEvent.mockReturnValueOnce({
+      mockConstructEvent.mockResolvedValueOnce({
         type: "customer.subscription.updated",
         data: {
           object: {
@@ -182,7 +181,7 @@ describe("webhook routes", () => {
     });
 
     it("reverts to community when subscription status is not active", async () => {
-      mockConstructEvent.mockReturnValueOnce({
+      mockConstructEvent.mockResolvedValueOnce({
         type: "customer.subscription.updated",
         data: {
           object: {
