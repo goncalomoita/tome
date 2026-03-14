@@ -595,7 +595,7 @@ export function Shell({
       {config.banner?.text && !bannerDismissed && (
         <div style={{
           display: "flex", alignItems: "center", justifyContent: "center", gap: 12,
-          background: "var(--ac)", color: "#fff", padding: "8px 16px",
+          background: isDark ? "var(--ac)" : "#1a1a1a", color: "#fff", padding: "8px 16px",
           fontSize: 13, fontFamily: "var(--font-body)", fontWeight: 500, textAlign: "center",
           width: "100%", boxSizing: "border-box",
         }}>
@@ -603,7 +603,7 @@ export function Shell({
             <a
               href={bannerIsInternal && bannerLink!.startsWith("#") ? (basePath + "/" + bannerLink!.slice(1)) : bannerLink!}
               {...(bannerIsInternal ? {} : { target: "_blank", rel: "noopener noreferrer" })}
-              style={{ color: "#fff", textDecoration: "underline" }}
+              style={{ color: isDark ? "#fff" : "var(--ac)", textDecoration: "underline" }}
               onClick={bannerIsInternal ? (e: React.MouseEvent) => {
                 e.preventDefault();
                 const bp = basePath.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");

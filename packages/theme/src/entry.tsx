@@ -75,6 +75,12 @@ const contentStyles = `
   .tome-mermaid { margin: 1.2em 0; text-align: center; overflow-x: auto; }
   .tome-mermaid svg { max-width: 100%; height: auto; overflow: visible; }
   .tome-mermaid svg .nodeLabel { overflow: visible; white-space: nowrap; }
+  /* Ensure mermaid text meets WCAG AA contrast in light mode */
+  html:not(.dark) .tome-mermaid svg .nodeLabel { color: #1a1a1a; }
+  html:not(.dark) .tome-mermaid svg .edgeLabel { color: #333; }
+  html:not(.dark) .tome-mermaid svg text { fill: #1a1a1a; }
+  html:not(.dark) .tome-mermaid svg .node rect,
+  html:not(.dark) .tome-mermaid svg .node polygon { stroke: #555; }
 
   /* Mobile responsive content */
   @media (max-width: 767px) {
