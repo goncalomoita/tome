@@ -359,6 +359,8 @@ export function Shell({
   const isOldVersion = versioning && currentVersion && currentVersion !== versioning.current;
   const [expanded, setExpanded] = useState<string[]>(navigation.map(n => n.section));
   const contentRef = useRef<HTMLDivElement>(null);
+  const htmlContentRef = useRef<HTMLDivElement>(null);
+  const lastHtmlRef = useRef<string>("");
   const [wide, setWide] = useState(() => typeof window !== "undefined" && window.innerWidth > 1100);
 
   const preset = (config.theme?.preset || "amber") as PresetName;
@@ -530,6 +532,17 @@ export function Shell({
 
   // Reset active heading when page changes
   useEffect(() => { setActiveHeadingId(""); }, [currentPageId]);
+
+  // Set HTML content via ref so React doesn't re-set innerHTML on re-renders
+  // (scroll-spy state changes would otherwise destroy client-side mermaid SVGs)
+  useEffect(() => {
+    if (!htmlContentRef.current || !pageHtml) return;
+    const stripped = pageHtml.replace(/<h1[^>]*>[\s\S]*?<\/h1>\s*/, "");
+    if (stripped !== lastHtmlRef.current) {
+      htmlContentRef.current.innerHTML = stripped;
+      lastHtmlRef.current = stripped;
+    }
+  }, [pageHtml]);
 
   // Smooth scroll handler for TOC links
   const scrollToHeading = useCallback((e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
@@ -977,7 +990,7 @@ export function Shell({
                 ) : (
                   <div
                     className="tome-content"
-                    dangerouslySetInnerHTML={{ __html: (pageHtml || "").replace(/<h1[^>]*>[\s\S]*?<\/h1>\s*/, "") }}
+                    ref={htmlContentRef}
                   />
                 )}
               </div>
