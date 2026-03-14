@@ -76,11 +76,26 @@ const contentStyles = `
   .tome-mermaid svg { max-width: 100%; height: auto; overflow: visible; }
   .tome-mermaid svg .nodeLabel { overflow: visible; white-space: nowrap; }
   /* Ensure mermaid text meets WCAG AA contrast in light mode */
-  html:not(.dark) .tome-mermaid svg .nodeLabel { color: #1a1a1a; }
-  html:not(.dark) .tome-mermaid svg .edgeLabel { color: #333; }
-  html:not(.dark) .tome-mermaid svg text { fill: #1a1a1a; }
+  /* Mermaid v11 uses foreignObject with inline-styled spans — !important needed */
+  html:not(.dark) .tome-mermaid svg .nodeLabel,
+  html:not(.dark) .tome-mermaid svg .nodeLabel span,
+  html:not(.dark) .tome-mermaid svg .nodeLabel div,
+  html:not(.dark) .tome-mermaid svg foreignObject div,
+  html:not(.dark) .tome-mermaid svg foreignObject span { color: #1a1a1a !important; }
+  html:not(.dark) .tome-mermaid svg .edgeLabel,
+  html:not(.dark) .tome-mermaid svg .edgeLabel span { color: #333 !important; }
+  html:not(.dark) .tome-mermaid svg text { fill: #1a1a1a !important; }
   html:not(.dark) .tome-mermaid svg .node rect,
-  html:not(.dark) .tome-mermaid svg .node polygon { stroke: #555; }
+  html:not(.dark) .tome-mermaid svg .node polygon { stroke: #555 !important; }
+  /* Dark mode: force bright text in mermaid nodes for readability */
+  html.dark .tome-mermaid svg .nodeLabel,
+  html.dark .tome-mermaid svg .nodeLabel span,
+  html.dark .tome-mermaid svg .nodeLabel div,
+  html.dark .tome-mermaid svg foreignObject div,
+  html.dark .tome-mermaid svg foreignObject span { color: #f0f0f0 !important; }
+  html.dark .tome-mermaid svg .edgeLabel,
+  html.dark .tome-mermaid svg .edgeLabel span { color: #ddd !important; }
+  html.dark .tome-mermaid svg text { fill: #f0f0f0 !important; }
 
   /* Mobile responsive content */
   @media (max-width: 767px) {
@@ -253,8 +268,7 @@ function App() {
           if (!encoded) continue;
           try {
             const code = atob(encoded);
-            // Clear existing SVG so mermaid re-renders with current theme
-            el.innerHTML = "";
+            // Render new SVG off-screen first, then swap — avoids white flash on theme change
             const { svg } = await mermaid.render(`tome-mermaid-${i}-${Date.now()}`, code);
             if (!cancelled) {
               el.innerHTML = svg;
