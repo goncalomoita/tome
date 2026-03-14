@@ -64,12 +64,31 @@ webhooks.post("/stripe", async (c) => {
         );
         const priceId = sub.items.data[0]?.price?.id;
         const plan = await resolvePlan(stripe, priceId, sub);
+        const customerId = session.customer as string;
+        const userId = sub.metadata?.tome_user_id;
 
-        await c.env.TOME_DB.prepare(
-          "UPDATE users SET plan = ?, stripe_customer_id = ?, updated_at = datetime('now') WHERE stripe_customer_id = ? OR email = ?"
-        )
-          .bind(plan, session.customer as string, session.customer as string, session.customer_email ?? "")
-          .run();
+        // Try multiple lookup strategies: user ID (most reliable), then customer ID, then email
+        let updated = false;
+
+        if (userId) {
+          const r = await c.env.TOME_DB.prepare(
+            "UPDATE users SET plan = ?, stripe_customer_id = ?, updated_at = datetime('now') WHERE id = ?"
+          ).bind(plan, customerId, userId).run();
+          updated = (r.meta?.changes ?? 0) > 0;
+        }
+
+        if (!updated) {
+          const r = await c.env.TOME_DB.prepare(
+            "UPDATE users SET plan = ?, stripe_customer_id = ?, updated_at = datetime('now') WHERE stripe_customer_id = ?"
+          ).bind(plan, customerId, customerId).run();
+          updated = (r.meta?.changes ?? 0) > 0;
+        }
+
+        if (!updated && session.customer_email) {
+          await c.env.TOME_DB.prepare(
+            "UPDATE users SET plan = ?, stripe_customer_id = ?, updated_at = datetime('now') WHERE email = ?"
+          ).bind(plan, customerId, session.customer_email).run();
+        }
       }
       break;
     }

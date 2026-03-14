@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { createRoot } from "react-dom/client";
 import { Shell } from "./Shell.js";
 import { pathnameToPageId as _pathnameToPageId, pageIdToPath as _pageIdToPath } from "./routing.js";
@@ -201,7 +201,23 @@ function App() {
     return () => window.removeEventListener("popstate", onPopState);
   }, [currentPageId, navigateTo]);
 
-  // Mermaid diagram rendering: load from CDN and render .tome-mermaid elements
+  // Mermaid diagram rendering: load from CDN and render .tome-mermaid elements.
+  // Also re-renders when theme changes (dark ↔ light) so colors stay correct.
+  const mermaidModuleRef = useRef<any>(null);
+  const [mermaidTheme, setMermaidTheme] = useState(() =>
+    typeof document !== "undefined" && document.documentElement.classList.contains("dark") ? "dark" : "light"
+  );
+
+  // Watch for dark class changes on <html> to trigger mermaid re-render
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      const isDark = document.documentElement.classList.contains("dark");
+      setMermaidTheme(isDark ? "dark" : "light");
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+    return () => observer.disconnect();
+  }, []);
+
   useEffect(() => {
     const els = document.querySelectorAll(".tome-mermaid[data-mermaid]");
     if (els.length === 0) return;
@@ -211,11 +227,12 @@ function App() {
 
     (async () => {
       try {
-        // Load mermaid from CDN (ESM) — works in all browsers, no bundler dependency
-        const { default: mermaid } = await import(/* @vite-ignore */ MERMAID_CDN);
+        if (!mermaidModuleRef.current) {
+          mermaidModuleRef.current = (await import(/* @vite-ignore */ MERMAID_CDN)).default;
+        }
+        const mermaid = mermaidModuleRef.current;
         if (cancelled) return;
-        const isDark = document.documentElement.classList.contains("dark");
-        // Resolve CSS variable to concrete font name — mermaid can't resolve CSS vars for text measurement
+        const isDark = mermaidTheme === "dark";
         const resolvedFont = getComputedStyle(document.documentElement).getPropertyValue("--font-body").trim() || "sans-serif";
         mermaid.initialize({
           startOnLoad: false,
@@ -226,16 +243,14 @@ function App() {
 
         for (let i = 0; i < els.length; i++) {
           const el = els[i] as HTMLElement;
-          if (el.querySelector("svg")) continue; // already rendered
           const encoded = el.getAttribute("data-mermaid");
           if (!encoded) continue;
           try {
             const code = atob(encoded);
+            // Clear existing SVG so mermaid re-renders with current theme
+            el.innerHTML = "";
             const { svg } = await mermaid.render(`tome-mermaid-${i}-${Date.now()}`, code);
             if (!cancelled) {
-              // Mermaid SVG is trusted: input comes from site owner's markdown,
-              // base64-encoded at build time. DOMPurify strips foreignObject/text
-              // elements that mermaid needs for labels, so we skip sanitization here.
               el.innerHTML = svg;
             }
           } catch (err) {
@@ -254,7 +269,7 @@ function App() {
     })();
 
     return () => { cancelled = true; };
-  }, [pageData, loading]);
+  }, [pageData, loading, mermaidTheme]);
 
   const allPages = routes.map((r: any) => ({
     id: r.id,
