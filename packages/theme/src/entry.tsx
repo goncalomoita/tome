@@ -156,17 +156,22 @@ function pageIdToPath(id: string): string {
   return _pageIdToPath(id, basePath, routes);
 }
 
+// ── EAGER INITIAL PAGE LOAD ──────────────────────────────
+// Start loading the initial page at module scope — before React mounts —
+// so the data is ready (or nearly ready) by the time App first renders.
+// This eliminates the "Loading..." flash on production.
+const _initialPageId = resolveInitialPageId(
+  window.location.pathname,
+  window.location.hash,
+  routes,
+  basePath,
+  _pathnameToPageId,
+);
+const _initialPagePromise = loadPage(_initialPageId, routes, loadPageModule);
+
 // ── APP ──────────────────────────────────────────────────
 function App() {
-  const [currentPageId, setCurrentPageId] = useState(() =>
-    resolveInitialPageId(
-      window.location.pathname,
-      window.location.hash,
-      routes,
-      basePath,
-      _pathnameToPageId,
-    )
-  );
+  const [currentPageId, setCurrentPageId] = useState(_initialPageId);
 
   const [pageData, setPageData] = useState<LoadedPage | null>(null);
   const [loading, setLoading] = useState(true);
@@ -197,7 +202,7 @@ function App() {
     }
   }, []);
 
-  // Initial page load
+  // Initial page load — use the eagerly-started promise from module scope
   useEffect(() => {
     // If user landed on a legacy hash URL, redirect to clean path
     const hash = window.location.hash.slice(1);
@@ -206,7 +211,13 @@ function App() {
       window.history.replaceState(null, "", fullPath);
       navigateTo(hash, { replace: true });
     } else {
-      navigateTo(currentPageId, { replace: true, skipScroll: true });
+      // Use the pre-fetched promise instead of starting a new load
+      const fullPath = pageIdToPath(currentPageId);
+      window.history.replaceState(null, "", fullPath);
+      _initialPagePromise.then((data) => {
+        setPageData(data);
+        setLoading(false);
+      });
     }
   }, []);
 
@@ -364,10 +375,10 @@ function App() {
         config={config}
         navigation={navigation}
         currentPageId={currentPageId}
-        pageHtml={!pageData?.isMdx ? (loading ? "<p>Loading...</p>" : pageData?.html || "<p>Page not found</p>") : undefined}
+        pageHtml={!pageData?.isMdx ? (loading ? "" : pageData?.html || "<p>Page not found</p>") : undefined}
         pageComponent={pageData?.isMdx ? pageData.component : undefined}
         mdxComponents={MDX_COMPONENTS}
-        pageTitle={pageData?.frontmatter.title || (loading ? "Loading..." : "Not Found")}
+        pageTitle={pageData?.frontmatter.title || (loading ? "" : "Not Found")}
         pageDescription={pageData?.frontmatter.description}
         headings={pageData?.headings || []}
         tocEnabled={pageData?.frontmatter.toc !== false}
