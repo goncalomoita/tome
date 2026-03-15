@@ -2,7 +2,7 @@
   "version": 1,
   "generator": "tome",
   "site": "Tome",
-  "totalPages": 54,
+  "totalPages": 82,
   "searchEndpoint": "/pagefind/pagefind.js",
   "pages": [
     {
@@ -99,7 +99,7 @@
         "Package structure"
       ],
       "tags": [],
-      "wordCount": 510
+      "wordCount": 611
     },
     {
       "id": "concepts/file-routing",
@@ -134,11 +134,11 @@
         "Banner",
         "Math rendering",
         "Mermaid diagrams",
-        "AI discoverability",
+        "Agent-friendly output",
         "Full example"
       ],
       "tags": [],
-      "wordCount": 627
+      "wordCount": 753
     },
     {
       "id": "guides/api-reference",
@@ -242,10 +242,11 @@
         "Built-in search (Pagefind)",
         "Algolia DocSearch",
         "Initialize the Algolia index",
-        "When to use Algolia"
+        "When to use Algolia",
+        "Structured search API (search.json)"
       ],
       "tags": [],
-      "wordCount": 263
+      "wordCount": 354
     },
     {
       "id": "guides/versioning",
@@ -274,7 +275,7 @@
         "Learn more"
       ],
       "tags": [],
-      "wordCount": 404
+      "wordCount": 445
     },
     {
       "id": "installation",
@@ -387,10 +388,11 @@
         "I18nConfig",
         "VersioningConfig",
         "AnalyticsConfig",
+        "BannerConfig",
         "WebhookConfig"
       ],
       "tags": [],
-      "wordCount": 896
+      "wordCount": 1002
     },
     {
       "id": "reference/frontmatter",
@@ -471,6 +473,488 @@
     {
       "id": "tutorials/first-site",
       "url": "/tutorials/first-site",
+      "title": "Create Your First Site",
+      "description": "A step-by-step tutorial that walks you through creating a documentation site with Tome, from installation to running the dev server.",
+      "headings": [
+        "Prerequisites",
+        "1. Scaffold the project",
+        "2. Install dependencies",
+        "3. Start the dev server",
+        "4. Add a new page",
+        "5. Configure navigation",
+        "6. Customize the theme",
+        "7. Build for production",
+        "Next steps"
+      ],
+      "tags": [],
+      "wordCount": 383
+    },
+    {
+      "id": "v2/api-auth",
+      "url": "/v2/api-auth",
+      "title": "Authentication",
+      "description": "Configure API authentication for the interactive playground — Bearer tokens, API keys, and custom headers.",
+      "headings": [
+        "Configuration",
+        "Bearer token",
+        "API key",
+        "Basic auth",
+        "OpenAPI security schemes",
+        "Security notes"
+      ],
+      "tags": [],
+      "wordCount": 275
+    },
+    {
+      "id": "v2/api-endpoints",
+      "url": "/v2/api-endpoints",
+      "title": "Endpoints",
+      "description": "How Tome renders API endpoints from your OpenAPI spec — methods, parameters, schemas, and the interactive playground.",
+      "headings": [
+        "Endpoint layout",
+        "Tag grouping",
+        "Parameter rendering",
+        "Schema display",
+        "Interactive playground"
+      ],
+      "tags": [],
+      "wordCount": 356
+    },
+    {
+      "id": "v2/api-overview",
+      "url": "/v2/api-overview",
+      "title": "Overview",
+      "description": "Generate interactive API documentation from OpenAPI specs with Tome.",
+      "headings": [
+        "Setup",
+        "Supported formats",
+        "What gets generated",
+        "Spec organization",
+        "Next steps"
+      ],
+      "tags": [],
+      "wordCount": 277
+    },
+    {
+      "id": "v2/cli",
+      "url": "/v2/cli",
+      "title": "CLI Reference",
+      "description": "Complete reference for every command and flag in the Tome CLI.",
+      "headings": [
+        "Installation",
+        "Commands",
+        "tome init [name]",
+        "tome dev",
+        "tome build",
+        "tome deploy",
+        "tome login",
+        "tome domains:add &lt;domain&gt;",
+        "tome domains:verify &lt;domain&gt;",
+        "tome domains:list",
+        "tome domains:remove &lt;domain&gt;",
+        "tome algolia:init",
+        "tome mcp"
+      ],
+      "tags": [],
+      "wordCount": 356
+    },
+    {
+      "id": "v2/components",
+      "url": "/v2/components",
+      "title": "Components",
+      "description": "Built-in MDX components — Callout, Tabs, Card, Steps, Accordion, PackageManager, TypeTable, FileTree, and more.",
+      "headings": [],
+      "tags": [],
+      "wordCount": 0
+    },
+    {
+      "id": "v2/concepts/architecture",
+      "url": "/v2/concepts/architecture",
+      "title": "Architecture",
+      "description": "How Tome works internally — the Vite plugin, virtual modules, build pipeline, and theme system.",
+      "headings": [
+        "Overview",
+        "Vite plugin",
+        "Theme system",
+        "Content pipeline",
+        "Markdown (.md)",
+        "MDX (.mdx)",
+        "Build output",
+        "Package structure"
+      ],
+      "tags": [],
+      "wordCount": 510
+    },
+    {
+      "id": "v2/concepts/file-routing",
+      "url": "/v2/concepts/file-routing",
+      "title": "File-System Routing",
+      "description": "How Tome maps files in the pages/ directory to URLs — naming conventions, nested routes, i18n, and versioning.",
+      "headings": [
+        "Basic routing",
+        "Page IDs",
+        "Navigation vs. routing",
+        "i18n routing",
+        "Versioned routing",
+        "File discovery"
+      ],
+      "tags": [],
+      "wordCount": 343
+    },
+    {
+      "id": "v2/configuration",
+      "url": "/v2/configuration",
+      "title": "Configuration",
+      "description": "How to configure your Tome site using tome.config.js — name, logo, navigation, theme, and more.",
+      "headings": [
+        "Minimal config",
+        "Site metadata",
+        "Navigation",
+        "Nested groups",
+        "Top navigation",
+        "Theme",
+        "Base path",
+        "Search",
+        "Banner",
+        "Math rendering",
+        "Mermaid diagrams",
+        "AI discoverability",
+        "Full example"
+      ],
+      "tags": [],
+      "wordCount": 627
+    },
+    {
+      "id": "v2/guides/api-reference",
+      "url": "/v2/guides/api-reference",
+      "title": "API Reference Setup",
+      "description": "How to generate an interactive API reference from an OpenAPI specification in Tome.",
+      "headings": [
+        "1. Add your OpenAPI spec",
+        "2. Configure Tome",
+        "Options",
+        "3. View the reference",
+        "4. Interactive playground",
+        "Supported spec formats"
+      ],
+      "tags": [],
+      "wordCount": 313
+    },
+    {
+      "id": "v2/guides/configuration",
+      "url": "/v2/guides/configuration",
+      "title": "Configuration",
+      "description": "How to configure your Tome site using tome.config.js — name, logo, navigation, theme, and more.",
+      "headings": [
+        "Minimal config",
+        "Site metadata",
+        "Navigation",
+        "Nested groups",
+        "Top navigation",
+        "Theme",
+        "Base path",
+        "Banner",
+        "Math / KaTeX",
+        "Mermaid diagrams",
+        "AI discoverability (llms.txt)",
+        "Full example"
+      ],
+      "tags": [],
+      "wordCount": 582
+    },
+    {
+      "id": "v2/guides/custom-theme",
+      "url": "/v2/guides/custom-theme",
+      "title": "Custom Theme",
+      "description": "How to customize your Tome site's appearance — presets, accent colors, fonts, dark mode, and CSS variables.",
+      "headings": [
+        "Presets",
+        "Amber (default)",
+        "Editorial",
+        "Accent color",
+        "Color mode",
+        "Custom fonts",
+        "CSS variables",
+        "Border radius"
+      ],
+      "tags": [],
+      "wordCount": 345
+    },
+    {
+      "id": "v2/guides/migration",
+      "url": "/v2/guides/migration",
+      "title": "Migrate from GitBook or Mintlify",
+      "description": "Move your existing documentation to Tome with a single command. Covers content conversion, navigation, redirects, and assets.",
+      "headings": [
+        "Migrate from GitBook",
+        "What gets converted",
+        "Options",
+        "How it works",
+        "Migrate from Mintlify",
+        "What gets converted",
+        "Options",
+        "After migration",
+        "Review redirects",
+        "Start the dev server",
+        "Deploy"
+      ],
+      "tags": [],
+      "wordCount": 546
+    },
+    {
+      "id": "v2/guides/redirects",
+      "url": "/v2/guides/redirects",
+      "title": "Redirects",
+      "description": "Set up URL redirects to preserve links when pages move. Supports config-level and per-page frontmatter redirects.",
+      "headings": [
+        "Config-level redirects",
+        "Frontmatter redirects",
+        "How redirects work",
+        "Development",
+        "Production builds",
+        "Migration redirects"
+      ],
+      "tags": [],
+      "wordCount": 282
+    },
+    {
+      "id": "v2/guides/search",
+      "url": "/v2/guides/search",
+      "title": "Search",
+      "description": "How to set up search in your Tome documentation site — built-in Pagefind and optional Algolia DocSearch.",
+      "headings": [
+        "Built-in search (Pagefind)",
+        "Algolia DocSearch",
+        "Initialize the Algolia index",
+        "When to use Algolia"
+      ],
+      "tags": [],
+      "wordCount": 263
+    },
+    {
+      "id": "v2/guides/versioning",
+      "url": "/v2/guides/versioning",
+      "title": "Multi-Version Docs",
+      "description": "How to maintain multiple versions of your documentation with Tome's built-in versioning system.",
+      "headings": [
+        "Directory structure",
+        "Configuration",
+        "URL mapping",
+        "Version switcher",
+        "Best practices"
+      ],
+      "tags": [],
+      "wordCount": 295
+    },
+    {
+      "id": "v2/index",
+      "url": "/v2",
+      "title": "Introduction",
+      "description": "Tome is an open-source documentation platform for Markdown and MDX. Beautiful docs without the $250/month price tag.",
+      "headings": [
+        "What is Tome?",
+        "Why Tome?",
+        "Features",
+        "Learn more"
+      ],
+      "tags": [],
+      "wordCount": 404
+    },
+    {
+      "id": "v2/installation",
+      "url": "/v2/installation",
+      "title": "Installation",
+      "description": "System requirements and detailed installation instructions for Tome.",
+      "headings": [],
+      "tags": [],
+      "wordCount": 0
+    },
+    {
+      "id": "v2/pages-routing",
+      "url": "/v2/pages-routing",
+      "title": "Pages & Routing",
+      "description": "How Tome maps files in the pages/ directory to URLs — naming conventions, nested routes, i18n, and versioning.",
+      "headings": [
+        "Basic routing",
+        "Page IDs",
+        "Navigation vs. routing",
+        "Frontmatter",
+        "i18n routing",
+        "Versioned routing",
+        "File discovery"
+      ],
+      "tags": [],
+      "wordCount": 490
+    },
+    {
+      "id": "v2/project-structure",
+      "url": "/v2/project-structure",
+      "title": "Project Structure",
+      "description": "How a Tome documentation project is organized — pages, config, entry point, and build output.",
+      "headings": [],
+      "tags": [],
+      "wordCount": 0
+    },
+    {
+      "id": "v2/quickstart",
+      "url": "/v2/quickstart",
+      "title": "Quickstart",
+      "description": "Get a Tome documentation site running in under a minute.",
+      "headings": [
+        "Create a new project",
+        "Install and run",
+        "Edit your first page",
+        "Add navigation",
+        "Build for production",
+        "Next steps"
+      ],
+      "tags": [],
+      "wordCount": 229
+    },
+    {
+      "id": "v2/reference/cli",
+      "url": "/v2/reference/cli",
+      "title": "CLI Reference",
+      "description": "Complete reference for every command and flag in the Tome CLI.",
+      "headings": [
+        "Installation",
+        "Commands",
+        "tome init [name]",
+        "tome dev",
+        "tome build",
+        "tome deploy",
+        "tome lint",
+        "tome login",
+        "tome domains:add &lt;domain&gt;",
+        "tome domains:verify &lt;domain&gt;",
+        "tome domains:list",
+        "tome domains:remove &lt;domain&gt;",
+        "tome migrate gitbook &lt;source-dir&gt;",
+        "tome migrate mintlify &lt;source-dir&gt;",
+        "tome algolia:init",
+        "tome mcp"
+      ],
+      "tags": [],
+      "wordCount": 824
+    },
+    {
+      "id": "v2/reference/components",
+      "url": "/v2/reference/components",
+      "title": "Components",
+      "description": "Reference for all built-in MDX components — Callout, Tabs, Card, Steps, Accordion, and more.",
+      "headings": [
+        "Callout",
+        "Tabs",
+        "Card",
+        "CardGroup",
+        "Steps",
+        "Accordion",
+        "API components",
+        ".md vs .mdx"
+      ],
+      "tags": [],
+      "wordCount": 399
+    },
+    {
+      "id": "v2/reference/config",
+      "url": "/v2/reference/config",
+      "title": "Config Reference",
+      "description": "Complete reference for every field in tome.config.js — types, defaults, and descriptions.",
+      "headings": [
+        "Top-level fields",
+        "ThemeConfig",
+        "NavigationGroup",
+        "SearchConfig",
+        "ApiConfig",
+        "AiConfig",
+        "McpConfig",
+        "I18nConfig",
+        "VersioningConfig",
+        "AnalyticsConfig",
+        "WebhookConfig"
+      ],
+      "tags": [],
+      "wordCount": 896
+    },
+    {
+      "id": "v2/reference/frontmatter",
+      "url": "/v2/reference/frontmatter",
+      "title": "Frontmatter",
+      "description": "Reference for all YAML frontmatter fields supported in Tome documentation pages.",
+      "headings": [
+        "Syntax",
+        "Fields",
+        "Title resolution",
+        "Hidden pages",
+        "Tags",
+        "Icons",
+        "OpenGraph images"
+      ],
+      "tags": [],
+      "wordCount": 387
+    },
+    {
+      "id": "v2/reference/theme-presets",
+      "url": "/v2/reference/theme-presets",
+      "title": "Theme Presets",
+      "description": "Detailed reference for Tome's built-in theme presets — color tokens, CSS variables, and font stacks.",
+      "headings": [
+        "Amber",
+        "Dark mode",
+        "Light mode",
+        "Fonts",
+        "Editorial",
+        "Dark mode",
+        "Light mode",
+        "Fonts",
+        "Additional variables"
+      ],
+      "tags": [],
+      "wordCount": 506
+    },
+    {
+      "id": "v2/theming",
+      "url": "/v2/theming",
+      "title": "Theming",
+      "description": "Customize the look of your Tome site — presets, colors, fonts, dark mode, and CSS variables.",
+      "headings": [
+        "Presets",
+        "Amber (default)",
+        "Editorial",
+        "Custom accent color",
+        "Dark mode",
+        "Custom fonts",
+        "Border radius",
+        "CSS variables",
+        "Variable reference"
+      ],
+      "tags": [],
+      "wordCount": 434
+    },
+    {
+      "id": "v2/tutorials/deploy-to-cloud",
+      "url": "/v2/tutorials/deploy-to-cloud",
+      "title": "Deploy to Tome Cloud",
+      "description": "Publish your documentation site to Tome Cloud with a single command. Includes custom domain setup.",
+      "headings": [
+        "Prerequisites",
+        "1. Authenticate",
+        "2. Deploy",
+        "3. Add a custom domain",
+        "4. Manage domains",
+        "5. Automatic deploys with CI/CD",
+        "Setup",
+        "GitLab CI",
+        "Bitbucket Pipelines",
+        "Deployment details",
+        "Next steps"
+      ],
+      "tags": [],
+      "wordCount": 454
+    },
+    {
+      "id": "v2/tutorials/first-site",
+      "url": "/v2/tutorials/first-site",
       "title": "Create Your First Site",
       "description": "A step-by-step tutorial that walks you through creating a documentation site with Tome, from installation to running the dev server.",
       "headings": [

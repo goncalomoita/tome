@@ -7,8 +7,8 @@ export default {
     mode: "auto",
   },
   banner: {
-    text: "New in v2 — GitBook & Mintlify migration, CI/CD auto-deploy, redirects, and MDX sandbox security!",
-    link: "/docs/guides/migration",
+    text: "New in v3 — Agent-friendly output, MDX mermaid & math, JSON-LD schema markup!",
+    link: "/docs/configuration",
     dismissible: true,
   },
   topNav: [
@@ -16,8 +16,8 @@ export default {
     { label: "Dashboard", href: "/dashboard" },
   ],
   versioning: {
-    current: "v2",
-    versions: ["v2", "v1"],
+    current: "v3",
+    versions: ["v3", "v2", "v1"],
   },
   navigation: [
     {

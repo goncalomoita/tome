@@ -6,7 +6,7 @@
 <title>Architecture | Tome</title>
 <meta name="description" content="How Tome works internally — the Vite plugin, virtual modules, build pipeline, and theme system.">
 <link rel="canonical" href="/docs/concepts/architecture">
-<script type="module" src="/docs/assets/index-DkSoJG12.js"></script>
+<script type="module" src="/docs/assets/index-BaHmlOUJ.js"></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Architecture","description":"How Tome works internally — the Vite plugin, virtual modules, build pipeline, and theme system.","url":"/concepts/architecture","isPartOf":{"@type":"WebSite","name":"Tome"}}</script>
 </head>
 <body>
@@ -42,7 +42,7 @@ The core of Tome is `vite-plugin-tome` in `@tomehq/core`. It has three responsib
 | `virtual:tome/api` | Parsed OpenAPI manifest |
 | `virtual:tome/analytics` | Analytics provider settings |
 
-**3. Build-time generation** — During builds, the plugin injects analytics scripts and generates the `mcp.json` manifest.
+**3. Build-time generation** — During builds, the plugin injects analytics scripts, JSON-LD schema markup, and generates machine-readable files (`mcp.json`, `llms.txt`, `skill.md`, `robots.txt`, `search.json`).
 
 ## Theme system
 
@@ -83,25 +83,34 @@ flowchart TD
 ### MDX (`.mdx`)
 
 1. Frontmatter and headings extracted from raw source
-2. File passed to `@mdx-js/rollup` for JSX compilation
-3. Virtual module re-exports the compiled React component + metadata
+2. Custom remark plugins transform `mermaid` and `math` code blocks into JSX placeholder elements
+3. File passed to `@mdx-js/rollup` for JSX compilation
+4. Virtual module re-exports the compiled React component + metadata
+5. Client-side: mermaid and KaTeX render the placeholders (same as `.md` files)
 
 ## Build output
 
 ```text
 out/
-├── index.html           # SPA entry
+├── index.html           # SPA entry with JSON-LD schema
 ├── assets/
 │   ├── index-[hash].js  # Application bundle
 │   └── index-[hash].css # Styles
+├── [page]/index.html    # Per-page HTML shells (SEO + Pagefind)
 ├── _pagefind/           # Search index
 ├── mcp.json             # MCP manifest
 ├── llms.txt             # AI-readable page index
 ├── llms-full.txt        # Full page content for LLMs
+├── skill.md             # Agent capability file
+├── robots.txt           # Crawler directives (AI-friendly)
+├── search.json          # Structured page index (JSON API)
+├── og/                  # Auto-generated Open Graph images
 └── 404.html             # Error page
 ```
 
-The output is a single-page application. Search is fully static. The `llms.txt` and `llms-full.txt` files are auto-generated at build time to make your documentation discoverable by AI tools and language models.
+The output is a single-page application with per-page HTML shells for SEO and search indexing. Each page shell contains the content in a `data-pagefind-body` div for Pagefind and a `TechArticle` JSON-LD schema in the `<head>`.
+
+Six machine-readable files are auto-generated at build time to make your docs discoverable by AI tools, search engines, and language models — no configuration needed.
 
 ## Package structure
 

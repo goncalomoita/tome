@@ -6,7 +6,7 @@
 <title>Config Reference | Tome</title>
 <meta name="description" content="Complete reference for every field in tome.config.js — types, defaults, and descriptions.">
 <link rel="canonical" href="/docs/reference/config">
-<script type="module" src="/docs/assets/index-DkSoJG12.js"></script>
+<script type="module" src="/docs/assets/index-BaHmlOUJ.js"></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Config Reference","description":"Complete reference for every field in tome.config.js — types, defaults, and descriptions.","url":"/reference/config","isPartOf":{"@type":"WebSite","name":"Tome"}}</script>
 </head>
 <body>
@@ -33,6 +33,8 @@ The config file (`tome.config.js`, `.mjs`, or `.ts`) is validated at startup. In
 | `i18n` | `I18nConfig` | — | Internationalization settings |
 | `versioning` | `VersioningConfig` | — | Multi-version documentation |
 | `analytics` | `AnalyticsConfig` | — | Analytics provider settings |
+| `banner` | `BannerConfig` | — | Announcement banner at the top of every page |
+| `math` | `boolean` | `false` | Enable `$` inline and `$$` display math in `.md` files |
 | `webhooks` | `WebhookConfig[]` | — | Webhook notifications for deploy events |
 
 ## ThemeConfig
@@ -117,6 +119,16 @@ Page IDs are filenames without extensions, relative to `pages/`. Nested groups a
 |-------|------|---------|-------------|
 | `provider` | `"plausible" \| "posthog" \| "custom"` | — | Analytics provider |
 | `key` | `string` | — | Site ID or API key |
+
+## BannerConfig
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `text` | `string` | — | Banner message text (required) |
+| `link` | `string` | — | URL to navigate to when clicked |
+| `dismissible` | `boolean` | `true` | Show a close button |
+
+When a user dismisses the banner, it stays hidden until the `text` value changes. Updating the text resets dismissal for all users.
 
 ## WebhookConfig
 

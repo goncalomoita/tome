@@ -6,7 +6,7 @@
 <title>Search | Tome</title>
 <meta name="description" content="How to set up search in your Tome documentation site — built-in Pagefind and optional Algolia DocSearch.">
 <link rel="canonical" href="/docs/guides/search">
-<script type="module" src="/docs/assets/index-DkSoJG12.js"></script>
+<script type="module" src="/docs/assets/index-BaHmlOUJ.js"></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Search","description":"How to set up search in your Tome documentation site — built-in Pagefind and optional Algolia DocSearch.","url":"/guides/search","isPartOf":{"@type":"WebSite","name":"Tome"}}</script>
 </head>
 <body>
@@ -66,6 +66,31 @@ This creates a crawler configuration optimized for Tome's HTML structure.
 | Analytics | No | Yes |
 | Real-time indexing | At build time | Crawler-based |
 
-For most documentation sites, Pagefind is sufficient. Consider Algolia if you need search analytics, advanced typo tolerance, or real-time indexing.</div>
+For most documentation sites, Pagefind is sufficient. Consider Algolia if you need search analytics, advanced typo tolerance, or real-time indexing.
+
+## Structured search API (`search.json`)
+
+Every build also generates a `search.json` file — a structured JSON index of all pages. This is useful for AI agents and programmatic tools that need to search your docs without loading JavaScript.
+
+```json
+{
+  "siteName": "My Docs",
+  "generatedAt": "2026-03-14T...",
+  "searchEndpoint": "/_pagefind/pagefind.js",
+  "pages": [
+    {
+      "id": "quickstart",
+      "title": "Quickstart",
+      "description": "Get started in 30 seconds",
+      "url": "/quickstart",
+      "headings": ["Prerequisites", "Installation", "First page"],
+      "wordCount": 342,
+      "tags": []
+    }
+  ]
+}
+```
+
+No configuration is needed — `search.json` is generated automatically alongside `llms.txt`, `skill.md`, and other agent-friendly files.</div>
 </body>
 </html>

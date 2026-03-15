@@ -1,0 +1,155 @@
+---
+title: Config Reference
+description: Complete reference for every field in tome.config.js — types, defaults, and descriptions.
+icon: file-text
+---
+
+The config file (`tome.config.js`, `.mjs`, or `.ts`) is validated at startup. Invalid values produce clear error messages with the field path and expected type.
+
+## Top-level fields
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `name` | `string` | `"My Docs"` | Site name shown in the header and browser tab |
+| `logo` | `string` | — | Path to logo image, relative to `public/` |
+| `favicon` | `string` | — | Path to favicon, relative to `public/` |
+| `baseUrl` | `string` | — | Full URL where the site is hosted (for analytics, canonical links) |
+| `basePath` | `string` | — | URL subpath prefix (e.g., `"/docs/"`) — sets Vite's `base` option |
+| `theme` | `ThemeConfig` | `{}` | Theme configuration (see below) |
+| `navigation` | `NavigationGroup[]` | `[]` | Sidebar navigation structure |
+| `topNav` | `TopNavItem[]` | — | Header navigation links |
+| `search` | `SearchConfig` | `{ provider: "local" }` | Search provider configuration |
+| `api` | `ApiConfig` | — | OpenAPI spec and playground settings |
+| `ai` | `AiConfig` | — | AI chat widget configuration |
+| `mcp` | `McpConfig` | `{ enabled: true }` | MCP server manifest generation |
+| `i18n` | `I18nConfig` | — | Internationalization settings |
+| `versioning` | `VersioningConfig` | — | Multi-version documentation |
+| `analytics` | `AnalyticsConfig` | — | Analytics provider settings |
+| `banner` | `BannerConfig` | — | Announcement banner at the top of every page |
+| `math` | `boolean` | `false` | Enable `$` inline and `$$` display math in `.md` files |
+| `webhooks` | `WebhookConfig[]` | — | Webhook notifications for deploy events |
+
+## ThemeConfig
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `preset` | `"amber" \| "editorial"` | `"amber"` | Base theme preset |
+| `accent` | `string` | — | Custom accent color (hex, e.g., `"#ff6b4a"`) |
+| `mode` | `"light" \| "dark" \| "auto"` | `"auto"` | Color mode |
+| `fonts.heading` | `string` | — | Heading font family |
+| `fonts.body` | `string` | — | Body font family |
+| `fonts.code` | `string` | — | Code font family |
+| `radius` | `string` | — | Border radius (e.g., `"8px"`) |
+
+## NavigationGroup
+
+```typescript
+{
+  group: string;
+  pages: Array<string | NavigationGroup>;
+}
+```
+
+Page IDs are filenames without extensions, relative to `pages/`. Nested groups are supported.
+
+## SearchConfig
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `provider` | `"local" \| "algolia"` | `"local"` | Search provider |
+| `appId` | `string` | — | Algolia application ID |
+| `apiKey` | `string` | — | Algolia search-only API key |
+| `indexName` | `string` | — | Algolia index name |
+
+## ApiConfig
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `spec` | `string` | — | Path to OpenAPI spec file (required) |
+| `playground` | `boolean` | `true` | Enable interactive API playground |
+| `baseUrl` | `string` | — | Base URL for playground requests |
+| `auth.type` | `"bearer" \| "apiKey" \| "oauth2"` | — | Authentication type |
+| `auth.header` | `string` | — | Auth header name |
+
+## AiConfig
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `enabled` | `boolean` | `false` | Enable AI chat widget |
+| `provider` | `"openai" \| "anthropic" \| "custom"` | `"anthropic"` | AI provider |
+| `model` | `string` | — | Model identifier |
+| `apiKeyEnv` | `string` | `"TOME_AI_KEY"` | Environment variable for API key |
+
+## McpConfig
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `enabled` | `boolean` | `true` | Generate `mcp.json` manifest at build time |
+| `server` | `boolean` | `false` | Enable MCP stdio server |
+| `includeContent` | `boolean` | `true` | Include page content in the manifest |
+| `excludePages` | `string[]` | `[]` | Page IDs to exclude |
+
+## I18nConfig
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `defaultLocale` | `string` | `"en"` | Default locale code |
+| `locales` | `string[]` | `["en"]` | All available locale codes |
+| `localeNames` | `Record<string, string>` | — | Display names (e.g., `{ en: "English" }`) |
+| `fallback` | `boolean` | `true` | Fall back to default locale for missing translations |
+
+## VersioningConfig
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `current` | `string` | — | Label for the current version (required) |
+| `versions` | `string[]` | — | All version labels, newest first (required) |
+
+## AnalyticsConfig
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `provider` | `"plausible" \| "posthog" \| "custom"` | — | Analytics provider |
+| `key` | `string` | — | Site ID or API key |
+
+## BannerConfig
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `text` | `string` | — | Banner message text (required) |
+| `link` | `string` | — | URL to navigate to when clicked |
+| `dismissible` | `boolean` | `true` | Show a close button |
+
+When a user dismisses the banner, it stays hidden until the `text` value changes. Updating the text resets dismissal for all users.
+
+## WebhookConfig
+
+Send notifications to Slack, Discord, or generic HTTP endpoints when deploy events occur.
+
+```js
+webhooks: [
+  {
+    url: "https://hooks.slack.com/services/T.../B.../...",
+    channel: "slack",
+    events: ["deploy.succeeded", "deploy.failed"],
+  },
+  {
+    url: "https://discord.com/api/webhooks/...",
+    channel: "discord",
+  },
+  {
+    url: "https://example.com/webhook",
+    channel: "http",
+    secret: "my-hmac-secret",
+  },
+]
+```
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `url` | `string` | — | Webhook endpoint URL (required) |
+| `channel` | `"slack" \| "discord" \| "http"` | — | Notification format (required) |
+| `events` | `WebhookEventType[]` | all | Filter which events trigger the webhook |
+| `secret` | `string` | — | HMAC-SHA256 secret for HTTP signature (`X-Tome-Signature` header) |
+
+**Event types:** `deploy.succeeded`, `deploy.failed`, `preview.deployed`, `domain.verified`

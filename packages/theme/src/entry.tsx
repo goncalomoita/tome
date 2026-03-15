@@ -225,9 +225,16 @@ function App() {
   // Mermaid diagram rendering: load from CDN and render .tome-mermaid elements.
   // Also re-renders when theme changes (dark ↔ light) so colors stay correct.
   const mermaidModuleRef = useRef<any>(null);
-  const [mermaidTheme, setMermaidTheme] = useState(() =>
-    typeof document !== "undefined" && document.documentElement.classList.contains("dark") ? "dark" : "light"
-  );
+  const [mermaidTheme, setMermaidTheme] = useState(() => {
+    if (typeof document === "undefined") return "light";
+    // Check the class first (already set), then fall back to config + system preference
+    // to avoid a white flash before Shell syncs the dark class onto <html>
+    if (document.documentElement.classList.contains("dark")) return "dark";
+    const mode = config.theme?.mode || "auto";
+    if (mode === "dark") return "dark";
+    if (mode === "light") return "light";
+    return window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  });
 
   // Watch for dark class changes on <html> to trigger mermaid re-render
   useEffect(() => {
