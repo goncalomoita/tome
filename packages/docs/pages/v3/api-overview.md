@@ -15,9 +15,7 @@ export default {
   name: "My API Docs",
   api: {
     spec: "./openapi.yaml",   // Path to your OpenAPI spec
-    playground: {
-      enabled: true,          // Enable interactive playground
-    },
+    playground: true,           // Enable interactive playground
   },
 };
 ```

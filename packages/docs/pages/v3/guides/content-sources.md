@@ -149,3 +149,7 @@ export default {
 ```
 
 Content is fetched once at build time (and on startup in dev mode). Failed sources log a warning but don't block the build — your local pages will still work.
+
+## External group in the sidebar
+
+When you use an explicit `navigation` array in your config, remote pages that are **not** listed in the navigation will automatically appear under an "External" group at the bottom of the sidebar. This ensures fetched content is always accessible even if you haven't manually added every remote page to your navigation config. If you want full control over placement, add the remote page IDs to your `navigation` array and they will appear in the specified group instead.
