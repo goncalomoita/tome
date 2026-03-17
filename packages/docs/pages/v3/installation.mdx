@@ -27,8 +27,23 @@ This creates a new directory with everything you need:
   <FileTree.Folder name="my-docs" defaultOpen>
     <FileTree.Folder name="pages" defaultOpen>
       <FileTree.File name="index.md" />
-      <FileTree.File name="quickstart.md" />
-      <FileTree.File name="components.mdx" />
+      <FileTree.Folder name="tutorials" defaultOpen>
+        <FileTree.File name="getting-started.md" />
+        <FileTree.File name="deploy.md" />
+      </FileTree.Folder>
+      <FileTree.Folder name="guides" defaultOpen>
+        <FileTree.File name="components.mdx" />
+        <FileTree.File name="configuration.md" />
+      </FileTree.Folder>
+      <FileTree.Folder name="reference" defaultOpen>
+        <FileTree.File name="cli.md" />
+        <FileTree.File name="components.md" />
+        <FileTree.File name="config.md" />
+      </FileTree.Folder>
+      <FileTree.Folder name="concepts" defaultOpen>
+        <FileTree.File name="how-tome-works.md" />
+        <FileTree.File name="file-routing.md" />
+      </FileTree.Folder>
     </FileTree.Folder>
     <FileTree.Folder name=".tome">
       <FileTree.File name="entry.tsx" />
@@ -39,6 +54,8 @@ This creates a new directory with everything you need:
     <FileTree.File name=".gitignore" />
   </FileTree.Folder>
 </FileTree>
+
+Pages are organized using the [Diataxis framework](https://diataxis.fr/) — tutorials, guides, reference, and concepts — giving you a proven structure from the start.
 
 ## Install dependencies
 

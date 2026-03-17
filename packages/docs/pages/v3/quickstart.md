@@ -45,25 +45,23 @@ Every `.md` or `.mdx` file in `pages/` becomes a page on your site. Subdirectori
 | File | URL |
 |------|-----|
 | `pages/index.md` | `/` |
-| `pages/quickstart.md` | `/quickstart` |
-| `pages/guides/setup.md` | `/guides/setup` |
+| `pages/tutorials/getting-started.md` | `/tutorials/getting-started` |
+| `pages/guides/configuration.md` | `/guides/configuration` |
+| `pages/reference/cli.md` | `/reference/cli` |
 
 ## Add navigation
 
-Open `tome.config.js` and define your sidebar:
+Open `tome.config.js` to customize your sidebar. The scaffold uses the [Diataxis framework](https://diataxis.fr/) by default:
 
 ```javascript
 export default {
   name: "My Project",
   navigation: [
-    {
-      group: "Getting Started",
-      pages: ["index", "quickstart"],
-    },
-    {
-      group: "Guides",
-      pages: ["guides/setup"],
-    },
+    { group: "Overview", pages: ["index"] },
+    { group: "Tutorials", pages: ["tutorials/getting-started", "tutorials/deploy"] },
+    { group: "Guides", pages: ["guides/components", "guides/configuration"] },
+    { group: "Reference", pages: ["reference/config", "reference/components", "reference/cli"] },
+    { group: "Concepts", pages: ["concepts/how-tome-works", "concepts/file-routing"] },
   ],
 };
 ```

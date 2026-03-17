@@ -12,13 +12,22 @@ Every Tome project follows the same layout. Understanding it helps you customize
   <FileTree.Folder name="my-docs" defaultOpen>
     <FileTree.Folder name="pages" defaultOpen>
       <FileTree.File name="index.md" />
-      <FileTree.File name="quickstart.md" />
-      <FileTree.Folder name="guides" defaultOpen>
-        <FileTree.File name="setup.md" />
+      <FileTree.Folder name="tutorials" defaultOpen>
+        <FileTree.File name="getting-started.md" />
         <FileTree.File name="deploy.md" />
       </FileTree.Folder>
-      <FileTree.Folder name="api">
-        <FileTree.File name="endpoints.mdx" />
+      <FileTree.Folder name="guides" defaultOpen>
+        <FileTree.File name="components.mdx" />
+        <FileTree.File name="configuration.md" />
+      </FileTree.Folder>
+      <FileTree.Folder name="reference" defaultOpen>
+        <FileTree.File name="cli.md" />
+        <FileTree.File name="components.md" />
+        <FileTree.File name="config.md" />
+      </FileTree.Folder>
+      <FileTree.Folder name="concepts" defaultOpen>
+        <FileTree.File name="how-tome-works.md" />
+        <FileTree.File name="file-routing.md" />
       </FileTree.Folder>
     </FileTree.Folder>
     <FileTree.Folder name=".tome">
@@ -37,6 +46,15 @@ Every Tome project follows the same layout. Understanding it helps you customize
   </FileTree.Folder>
 </FileTree>
 
+This follows the [Diataxis framework](https://diataxis.fr/) — a proven approach to organizing documentation into four categories based on what the reader needs:
+
+| Category | Purpose | Examples |
+|----------|---------|---------|
+| **Tutorials** | Learning by doing — guided walkthroughs | "Build your first site", "Deploy to production" |
+| **Guides** | Solving specific problems — how-to recipes | "Add search", "Customize your theme" |
+| **Reference** | Exact specifications — lookup material | CLI flags, config schema, component props |
+| **Concepts** | Understanding why — architecture and design | "How Tome works", "File-based routing" |
+
 ## Key files
 
 ### `pages/` directory
@@ -46,8 +64,9 @@ All your documentation lives here. Every `.md` and `.mdx` file becomes a page. T
 | File path | Page ID | URL path |
 |-----------|---------|----------|
 | `pages/index.md` | `index` | `/` |
-| `pages/quickstart.md` | `quickstart` | `/quickstart` |
-| `pages/guides/setup.md` | `guides/setup` | `/guides/setup` |
+| `pages/tutorials/getting-started.md` | `tutorials/getting-started` | `/tutorials/getting-started` |
+| `pages/guides/configuration.md` | `guides/configuration` | `/guides/configuration` |
+| `pages/reference/cli.md` | `reference/cli` | `/reference/cli` |
 
 Files named `index.md` in subdirectories resolve to the directory path. For example, `pages/guides/index.md` maps to `/guides`.
 
@@ -60,8 +79,11 @@ export default {
   name: "My Docs",
   theme: { preset: "amber", mode: "auto" },
   navigation: [
-    { group: "Getting Started", pages: ["index", "quickstart"] },
-    { group: "Guides", pages: ["guides/setup", "guides/deploy"] },
+    { group: "Overview", pages: ["index"] },
+    { group: "Tutorials", pages: ["tutorials/getting-started", "tutorials/deploy"] },
+    { group: "Guides", pages: ["guides/components", "guides/configuration"] },
+    { group: "Reference", pages: ["reference/config", "reference/components", "reference/cli"] },
+    { group: "Concepts", pages: ["concepts/how-tome-works", "concepts/file-routing"] },
   ],
 };
 ```

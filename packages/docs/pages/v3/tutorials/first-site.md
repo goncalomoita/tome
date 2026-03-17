@@ -28,11 +28,24 @@ my-docs/
 ├── .tome/entry.tsx    # Theme bootstrap (don't edit)
 ├── pages/             # Your documentation pages
 │   ├── index.md
-│   ├── quickstart.md
-│   └── components.mdx
+│   ├── tutorials/
+│   │   ├── getting-started.md
+│   │   └── deploy.md
+│   ├── guides/
+│   │   ├── components.mdx
+│   │   └── configuration.md
+│   ├── reference/
+│   │   ├── cli.md
+│   │   ├── components.md
+│   │   └── config.md
+│   └── concepts/
+│       ├── how-tome-works.md
+│       └── file-routing.md
 ├── public/            # Static assets
 └── styles/            # Custom CSS (optional)
 ```
+
+Pages are organized using the [Diataxis framework](https://diataxis.fr/) — tutorials, guides, reference, and concepts.
 
 ## 2. Install dependencies
 
@@ -79,17 +92,22 @@ export default {
     mode: "auto",
   },
   navigation: [
+    { group: "Overview", pages: ["index"] },
     {
-      group: "Getting Started",
-      pages: ["index", "quickstart"],
+      group: "Tutorials",
+      pages: ["tutorials/getting-started", "tutorials/deploy"],
     },
     {
       group: "Guides",
-      pages: ["guides/deployment"],
+      pages: ["guides/components", "guides/configuration", "guides/deployment"],
     },
     {
       group: "Reference",
-      pages: ["components"],
+      pages: ["reference/config", "reference/components", "reference/cli"],
+    },
+    {
+      group: "Concepts",
+      pages: ["concepts/how-tome-works", "concepts/file-routing"],
     },
   ],
 };
