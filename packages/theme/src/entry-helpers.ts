@@ -1,5 +1,31 @@
 import type { MinimalRoute } from "./routing.js";
 
+// ── NAVIGATION ERRORS ─────────────────────────────────────
+export class PageNotFoundError extends Error {
+  readonly code = "PAGE_NOT_FOUND" as const;
+  constructor(pageId: string) {
+    super(`Page not found: ${pageId}`);
+    this.name = "PageNotFoundError";
+  }
+}
+
+export class PageLoadError extends Error {
+  readonly code = "PAGE_LOAD_ERROR" as const;
+  constructor(pageId: string, cause?: unknown) {
+    super(`Failed to load page: ${pageId}`);
+    this.name = "PageLoadError";
+    if (cause) this.cause = cause;
+  }
+}
+
+export class NavigationCancelledError extends Error {
+  readonly code = "NAVIGATION_CANCELLED" as const;
+  constructor() {
+    super("Navigation was cancelled by a newer navigation");
+    this.name = "NavigationCancelledError";
+  }
+}
+
 // ── PAGE TYPES ────────────────────────────────────────────
 export interface HtmlPage {
   isMdx: false;
@@ -76,39 +102,39 @@ export async function loadPage(
   id: string,
   routes: RouteWithMeta[],
   loadPageModule: (id: string) => Promise<any>,
-): Promise<LoadedPage | null> {
+): Promise<LoadedPage> {
+  const route = routes.find((r) => r.id === id);
+  let mod: any;
   try {
-    const route = routes.find((r) => r.id === id);
-    const mod = await loadPageModule(id);
-
-    if (route?.isMdx && mod.meta) {
-      // MDX page — mod.default is the React component
-      return {
-        isMdx: true,
-        component: mod.default,
-        frontmatter: mod.meta.frontmatter,
-        headings: mod.meta.headings,
-      };
-    }
-
-    // Regular .md page — mod.default is { html, frontmatter, headings }
-    if (!mod.default) return null;
-
-    // API reference page (synthetic route from OpenAPI spec)
-    if (mod.isApiReference && mod.apiManifest) {
-      return { isMdx: false, isApiReference: true, ...mod.default, apiManifest: mod.apiManifest };
-    }
-
-    // Changelog page type
-    if (mod.isChangelog && mod.changelogEntries) {
-      return { isMdx: false, ...mod.default, changelogEntries: mod.changelogEntries };
-    }
-
-    return { isMdx: false, ...mod.default };
+    mod = await loadPageModule(id);
   } catch (err) {
-    console.error(`Failed to load page: ${id}`, err);
-    return null;
+    throw new PageLoadError(id, err);
   }
+
+  if (route?.isMdx && mod.meta) {
+    // MDX page — mod.default is the React component
+    return {
+      isMdx: true,
+      component: mod.default,
+      frontmatter: mod.meta.frontmatter,
+      headings: mod.meta.headings,
+    };
+  }
+
+  // Regular .md page — mod.default is { html, frontmatter, headings }
+  if (!mod.default) throw new PageNotFoundError(id);
+
+  // API reference page (synthetic route from OpenAPI spec)
+  if (mod.isApiReference && mod.apiManifest) {
+    return { isMdx: false, isApiReference: true, ...mod.default, apiManifest: mod.apiManifest };
+  }
+
+  // Changelog page type
+  if (mod.isChangelog && mod.changelogEntries) {
+    return { isMdx: false, ...mod.default, changelogEntries: mod.changelogEntries };
+  }
+
+  return { isMdx: false, ...mod.default };
 }
 
 // ── VERSION DETECTION ─────────────────────────────────────

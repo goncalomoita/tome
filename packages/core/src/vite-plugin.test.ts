@@ -198,6 +198,16 @@ describe("vite-plugin load", () => {
     expect(result).toContain("api-reference");
   });
 
+  it("page loader throws on unknown page ID", async () => {
+    const plugin = await createPlugin({
+      "pages/index.md": "---\ntitle: Home\n---\n# Home\n",
+    });
+    const load = plugin.load as Function;
+    const result = await load("\0virtual:tome/page-loader");
+    // The generated loadPageModule function should throw for unknown IDs
+    expect(result).toContain('throw new Error("Unknown page: " + id)');
+  });
+
   it("api virtual module returns manifest when configured", async () => {
     const plugin = await createPlugin(
       {

@@ -81,26 +81,26 @@ describe("CLI init command", () => {
       join(tmpDir, "test-docs", "pages", "index.md"),
       "utf-8",
     );
-    expect(index).toContain("Welcome to test-docs");
+    expect(index).toContain("# test-docs");
     expect(index).toContain("title:");
   });
 
-  it("writes quickstart.md", () => {
+  it("writes tutorials/getting-started.md", () => {
     runInit("test-docs");
-    const qs = readFileSync(
-      join(tmpDir, "test-docs", "pages", "quickstart.md"),
+    const gs = readFileSync(
+      join(tmpDir, "test-docs", "pages", "tutorials", "getting-started.md"),
       "utf-8",
     );
-    expect(qs).toContain("title: Quickstart");
+    expect(gs).toContain("title: Getting Started");
   });
 
-  it("writes components.mdx", () => {
+  it("writes guides/components.mdx", () => {
     runInit("test-docs");
     const comp = readFileSync(
-      join(tmpDir, "test-docs", "pages", "components.mdx"),
+      join(tmpDir, "test-docs", "pages", "guides", "components.mdx"),
       "utf-8",
     );
-    expect(comp).toContain("title: Components");
+    expect(comp).toContain("title: Using Components");
     expect(comp).toContain("Callout");
   });
 
