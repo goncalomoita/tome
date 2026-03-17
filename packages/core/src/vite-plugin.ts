@@ -577,7 +577,8 @@ export default function tomePlugin(options: TomePluginOptions = {}): Plugin[] {
           const loaders = {\n${entries.join(",\n")}\n          };
           export default function loadPageModule(id) {
             const loader = loaders[id];
-            return loader ? loader() : Promise.resolve({ default: null });
+            if (!loader) throw new Error("Unknown page: " + id);
+            return loader();
           }
         `;
       }

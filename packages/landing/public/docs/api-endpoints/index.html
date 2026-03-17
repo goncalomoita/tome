@@ -6,7 +6,7 @@
 <title>Endpoints | Tome</title>
 <meta name="description" content="How Tome renders API endpoints from your OpenAPI spec — methods, parameters, schemas, and the interactive playground.">
 <link rel="canonical" href="/docs/api-endpoints">
-<script type="module" src="/docs/assets/index-xgRSP5Jl.js"></script>
+<script type="module" src="/docs/assets/index-DR4Zg6Fr.js"></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Endpoints","description":"How Tome renders API endpoints from your OpenAPI spec — methods, parameters, schemas, and the interactive playground.","url":"/api-endpoints","isPartOf":{"@type":"WebSite","name":"Tome"}}</script>
 </head>
 <body>
@@ -78,7 +78,7 @@ Arrays, enums, and `oneOf`/`anyOf` unions are all supported.
 
 ## Interactive playground
 
-When `playground.enabled` is true in your config, each endpoint gets a "Try it" section where users can:
+When `playground` is true in your config, each endpoint gets a "Try it" section where users can:
 
 - Fill in path and query parameters
 - Edit the request body as JSON
@@ -88,10 +88,8 @@ When `playground.enabled` is true in your config, each endpoint gets a "Try it" 
 ```javascript
 api: {
   spec: "./openapi.yaml",
-  playground: {
-    enabled: true,
-    baseUrl: "https://api.example.com",  // Override base URL
-  },
+  playground: true,
+  baseUrl: "https://api.example.com",  // Override base URL
 },
 ```
 

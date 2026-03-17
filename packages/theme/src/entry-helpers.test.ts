@@ -4,6 +4,9 @@ import {
   resolveInitialPageId,
   loadPage,
   detectCurrentVersion,
+  PageNotFoundError,
+  PageLoadError,
+  NavigationCancelledError,
 } from "./entry-helpers.js";
 import type { MinimalRoute } from "./routing.js";
 
@@ -196,22 +199,16 @@ describe("loadPage", () => {
     }
   });
 
-  it("returns null when module has no default export", async () => {
+  it("throws PageNotFoundError when module has no default export", async () => {
     const mockLoader = vi.fn().mockResolvedValue({ default: null });
-    const page = await loadPage("quickstart", routesWithMeta, mockLoader);
-    expect(page).toBeNull();
+    await expect(loadPage("quickstart", routesWithMeta, mockLoader)).rejects.toThrow(PageNotFoundError);
+    await expect(loadPage("quickstart", routesWithMeta, mockLoader)).rejects.toMatchObject({ code: "PAGE_NOT_FOUND" });
   });
 
-  it("returns null on loader error", async () => {
+  it("throws PageLoadError on loader error", async () => {
     const mockLoader = vi.fn().mockRejectedValue(new Error("Module not found"));
-    const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
-    const page = await loadPage("quickstart", routesWithMeta, mockLoader);
-    expect(page).toBeNull();
-    expect(consoleSpy).toHaveBeenCalledWith(
-      expect.stringContaining("Failed to load page"),
-      expect.any(Error),
-    );
-    consoleSpy.mockRestore();
+    await expect(loadPage("quickstart", routesWithMeta, mockLoader)).rejects.toThrow(PageLoadError);
+    await expect(loadPage("quickstart", routesWithMeta, mockLoader)).rejects.toMatchObject({ code: "PAGE_LOAD_ERROR" });
   });
 
   it("loads a changelog page with entries", async () => {
@@ -388,5 +385,56 @@ describe("detectCurrentVersion", () => {
 
   it("returns undefined when route has no version and versions has no current", () => {
     expect(detectCurrentVersion({ version: undefined }, { current: undefined })).toBeUndefined();
+  });
+});
+
+// ── Error type distinguishability ─────────────────────────
+
+describe("loadPage — distinguishable error types", () => {
+  const routesWithMeta = [
+    { id: "index", urlPath: "/", isMdx: false },
+  ];
+
+  it("PageNotFoundError has code PAGE_NOT_FOUND", async () => {
+    const mockLoader = vi.fn().mockResolvedValue({ default: null });
+    try {
+      await loadPage("index", routesWithMeta, mockLoader);
+      expect.fail("should have thrown");
+    } catch (err: any) {
+      expect(err).toBeInstanceOf(PageNotFoundError);
+      expect(err.code).toBe("PAGE_NOT_FOUND");
+      expect(err.message).toContain("index");
+    }
+  });
+
+  it("PageLoadError has code PAGE_LOAD_ERROR and preserves cause", async () => {
+    const cause = new Error("network failure");
+    const mockLoader = vi.fn().mockRejectedValue(cause);
+    try {
+      await loadPage("index", routesWithMeta, mockLoader);
+      expect.fail("should have thrown");
+    } catch (err: any) {
+      expect(err).toBeInstanceOf(PageLoadError);
+      expect(err.code).toBe("PAGE_LOAD_ERROR");
+      expect(err.cause).toBe(cause);
+    }
+  });
+
+  it("NavigationCancelledError has code NAVIGATION_CANCELLED", () => {
+    const err = new NavigationCancelledError();
+    expect(err).toBeInstanceOf(Error);
+    expect(err.code).toBe("NAVIGATION_CANCELLED");
+  });
+
+  it("all three error types are distinguishable from each other", () => {
+    const e1 = new PageNotFoundError("x");
+    const e2 = new PageLoadError("x");
+    const e3 = new NavigationCancelledError();
+    expect(e1.code).not.toBe(e2.code);
+    expect(e2.code).not.toBe(e3.code);
+    expect(e1.code).not.toBe(e3.code);
+    expect(e1).toBeInstanceOf(Error);
+    expect(e2).toBeInstanceOf(Error);
+    expect(e3).toBeInstanceOf(Error);
   });
 });

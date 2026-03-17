@@ -6,7 +6,7 @@
 <title>Architecture | Tome</title>
 <meta name="description" content="How Tome works internally — the Vite plugin, virtual modules, build pipeline, and theme system.">
 <link rel="canonical" href="/docs/v1/concepts/architecture">
-<script type="module" src="/docs/assets/index-xgRSP5Jl.js"></script>
+<script type="module" src="/docs/assets/index-DR4Zg6Fr.js"></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Architecture","description":"How Tome works internally — the Vite plugin, virtual modules, build pipeline, and theme system.","url":"/v1/concepts/architecture","isPartOf":{"@type":"WebSite","name":"Tome"}}</script>
 </head>
 <body>
@@ -107,9 +107,11 @@ The output is a single-page application. Search is fully static. The `llms.txt` 
 
 | Package | Purpose |
 |---------|---------|
-| `@tomehq/cli` | CLI commands (init, dev, build, deploy) |
-| `@tomehq/core` | Config, routing, Vite plugin, markdown processing |
+| `@tomehq/cli` | CLI commands (init, dev, build, deploy, mcp, typedoc) |
+| `@tomehq/core` | Config, routing, Vite plugin, markdown processing, MCP server |
 | `@tomehq/theme` | Shell UI, presets, search, AI chat |
-| `@tomehq/components` | MDX components (Callout, Tabs, Card, etc.) |</div>
+| `@tomehq/components` | MDX components (Callout, Tabs, Card, etc.) |
+| `@tomehq/landing` | Marketing landing page |
+| `@tomehq/dashboard` | Tome Cloud dashboard |</div>
 </body>
 </html>

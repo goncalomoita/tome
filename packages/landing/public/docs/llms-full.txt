@@ -14,11 +14,9 @@ Add auth settings to your API config:
 export default {
   api: {
     spec: "./openapi.yaml",
-    playground: {
-      enabled: true,
-      auth: {
-        type: "bearer",  // "bearer", "apiKey", or "basic"
-      },
+    playground: true,
+    auth: {
+      type: "bearer",  // "bearer", "apiKey", or "basic"
     },
   },
 };
@@ -160,7 +158,7 @@ Arrays, enums, and `oneOf`/`anyOf` unions are all supported.
 
 ## Interactive playground
 
-When `playground.enabled` is true in your config, each endpoint gets a "Try it" section where users can:
+When `playground` is true in your config, each endpoint gets a "Try it" section where users can:
 
 - Fill in path and query parameters
 - Edit the request body as JSON
@@ -170,10 +168,8 @@ When `playground.enabled` is true in your config, each endpoint gets a "Try it" 
 ```javascript
 api: {
   spec: "./openapi.yaml",
-  playground: {
-    enabled: true,
-    baseUrl: "https://api.example.com",  // Override base URL
-  },
+  playground: true,
+  baseUrl: "https://api.example.com",  // Override base URL
 },
 ```
 
@@ -194,9 +190,7 @@ export default {
   name: "My API Docs",
   api: {
     spec: "./openapi.yaml",   // Path to your OpenAPI spec
-    playground: {
-      enabled: true,          // Enable interactive playground
-    },
+    playground: true,           // Enable interactive playground
   },
 };
 ```
@@ -237,8 +231,8 @@ For the best results, make sure your OpenAPI spec includes:
 
 ## Next steps
 
-- **[Endpoints](#api-endpoints)** for details on how endpoints are rendered
-- **[Authentication](#api-auth)** for configuring auth in the playground
+- **[Endpoints](api-endpoints)** for details on how endpoints are rendered
+- **[Authentication](api-auth)** for configuring auth in the playground
 
 ---
 
@@ -368,6 +362,19 @@ Initialize an Algolia DocSearch index. Prompts for credentials and creates a cra
 
 ---
 
+### `tome typedoc <files...>`
+
+Generate API reference documentation from TypeScript source files.
+
+```bash
+tome typedoc src/index.ts
+tome typedoc src/index.ts src/utils.ts
+```
+
+Parses exported functions, interfaces, and type aliases using the TypeScript compiler API. Generates a Markdown page per export with signatures, parameters, return types, and JSDoc descriptions.
+
+---
+
 ### `tome mcp`
 
 Start the MCP (Model Context Protocol) stdio server for AI tool integration. Exposes documentation content as MCP resources and tools.
@@ -480,10 +487,12 @@ Six machine-readable files are auto-generated at build time to make your docs di
 
 | Package | Purpose |
 |---------|---------|
-| `@tomehq/cli` | CLI commands (init, dev, build, deploy) |
-| `@tomehq/core` | Config, routing, Vite plugin, markdown processing |
+| `@tomehq/cli` | CLI commands (init, dev, build, deploy, mcp, typedoc) |
+| `@tomehq/core` | Config, routing, Vite plugin, markdown processing, MCP server |
 | `@tomehq/theme` | Shell UI, presets, search, AI chat |
 | `@tomehq/components` | MDX components (Callout, Tabs, Card, etc.) |
+| `@tomehq/landing` | Marketing landing page |
+| `@tomehq/dashboard` | Tome Cloud dashboard |
 
 ---
 
@@ -805,7 +814,7 @@ Content sources let you pull documentation from external services — GitHub rep
 Add content sources to the `contentSources` array in your config:
 
 ```javascript
-import { githubSource, notionSource } from "@tomehq/core";
+import { githubSource, notionSource } from "@tomehq/core/content-source";
 
 export default {
   name: "My Docs",
@@ -824,7 +833,7 @@ export default {
 Pull `.md` and `.mdx` files from a GitHub repository:
 
 ```javascript
-import { githubSource } from "@tomehq/core";
+import { githubSource } from "@tomehq/core/content-source";
 
 githubSource({
   owner: "acme",          // GitHub org or user
@@ -854,7 +863,7 @@ githubSource({
 Pull pages from a Notion database:
 
 ```javascript
-import { notionSource } from "@tomehq/core";
+import { notionSource } from "@tomehq/core/content-source";
 
 notionSource({
   databaseId: "abc123...",           // Notion database ID
@@ -880,7 +889,7 @@ Each page in the database is converted to Markdown:
 Use `defineContentSource` to create your own source with full type checking:
 
 ```javascript
-import { defineContentSource } from "@tomehq/core";
+import { defineContentSource } from "@tomehq/core/content-source";
 
 const apiSource = defineContentSource({
   name: "my-api",
@@ -931,7 +940,7 @@ defineContentSource({
 You can combine any number of content sources. Remote pages are merged with local files — if a remote page has the same ID as a local page, the local page takes priority.
 
 ```javascript
-import { githubSource, notionSource } from "@tomehq/core";
+import { githubSource, notionSource } from "@tomehq/core/content-source";
 
 export default {
   name: "My Docs",
@@ -943,6 +952,10 @@ export default {
 ```
 
 Content is fetched once at build time (and on startup in dev mode). Failed sources log a warning but don't block the build — your local pages will still work.
+
+## External group in the sidebar
+
+When you use an explicit `navigation` array in your config, remote pages that are **not** listed in the navigation will automatically appear under an "External" group at the bottom of the sidebar. This ensures fetched content is always accessible even if you haven't manually added every remote page to your navigation config. If you want full control over placement, add the remote page IDs to your `navigation` array and they will appear in the specified group instead.
 
 ---
 
@@ -974,7 +987,7 @@ theme: {
 }
 ```
 
-See [Theme presets reference](/docs/reference/theme-presets) for the exact color values.
+See [Theme presets reference](reference/theme-presets) for the exact color values.
 
 ## Accent color
 
@@ -1032,7 +1045,7 @@ For fine-grained control, override CSS variables in a custom stylesheet. The key
 | `--tx2` | Secondary text |
 | `--txM` | Muted text |
 
-See the [Theme presets reference](/docs/reference/theme-presets) for the complete variable list with values per preset.
+See the [Theme presets reference](reference/theme-presets) for the complete variable list with values per preset.
 
 ## Border radius
 
@@ -1208,7 +1221,7 @@ export default defineConfig({
 });
 ```
 
-See the [Redirects guide](/docs/guides/redirects) for more on how redirects work.
+See the [Redirects guide](guides/redirects) for more on how redirects work.
 
 ### Start the dev server
 
@@ -1465,7 +1478,7 @@ During `tome build`, Tome emits two types of redirect outputs to ensure compatib
 
 ## Migration redirects
 
-When migrating from GitBook or Mintlify, the migration tools automatically extract redirects from the source project configuration and add them to your `tome.config.js`. See the [Migration guide](/docs/guides/migration) for details.
+When migrating from GitBook or Mintlify, the migration tools automatically extract redirects from the source project configuration and add them to your `tome.config.js`. See the [Migration guide](guides/migration) for details.
 
 ---
 
@@ -1791,10 +1804,10 @@ cd my-docs && npm install && npm run dev
 
 ## Learn more
 
-- **[Quickstart](#quickstart)** — Get a docs site running in under a minute.
-- **[Installation](#installation)** — Detailed setup instructions and prerequisites.
-- **[Configuration](#configuration)** — Customize your site name, navigation, theme, and more.
-- **[CLI Reference](#cli)** — Every command and flag available in the `tome` CLI.
+- **[Quickstart](quickstart)** — Get a docs site running in under a minute.
+- **[Installation](installation)** — Detailed setup instructions and prerequisites.
+- **[Configuration](configuration)** — Customize your site name, navigation, theme, and more.
+- **[CLI Reference](cli)** — Every command and flag available in the `tome` CLI.
 
 ---
 
@@ -1990,9 +2003,9 @@ This outputs a static site to `out/` ready to deploy to any hosting provider —
 
 ## Next steps
 
-- **[Installation](#installation)** for detailed setup and prerequisites
-- **[Configuration](#configuration)** to customize your site
-- **[Components](#components)** to use tabs, callouts, and other interactive elements
+- **[Installation](installation)** for detailed setup and prerequisites
+- **[Configuration](configuration)** to customize your site
+- **[Components](components)** to use tabs, callouts, and other interactive elements
 
 ---
 
@@ -2207,6 +2220,19 @@ Initialize an Algolia DocSearch index. Prompts for credentials and creates a cra
 
 ---
 
+### `tome typedoc <files...>`
+
+Generate API reference documentation from TypeScript source files.
+
+```bash
+tome typedoc src/index.ts
+tome typedoc src/index.ts src/utils.ts
+```
+
+Parses exported functions, interfaces, and type aliases using the TypeScript compiler API. Generates a Markdown page per export with signatures, parameters, return types, and JSDoc descriptions.
+
+---
+
 ### `tome mcp`
 
 Start the MCP (Model Context Protocol) stdio server for AI tool integration. Exposes documentation content as MCP resources and tools.
@@ -2337,7 +2363,7 @@ When an OpenAPI spec is configured, additional components are auto-generated:
 - **ApiPlayground** — Interactive request builder
 - **ApiResponse** — Formatted response viewer
 
-See the [API reference guide](/docs/guides/api-reference) for setup.
+See the [API reference guide](guides/api-reference) for setup.
 
 ---
 
@@ -2512,7 +2538,7 @@ Add social media icons to the site header. Each entry specifies a platform and U
 socialLinks: [
   { platform: "github", url: "https://github.com/my-org/my-repo" },
   { platform: "discord", url: "https://discord.gg/my-server" },
-  { platform: "twitter", url: "https://twitter.com/my-handle" },
+  { platform: "twitter", url: "https://x.com/my-handle" },
   { platform: "custom", url: "https://mastodon.social/@me", icon: "mastodon" },
 ]
 ```
@@ -2915,7 +2941,7 @@ Tome Cloud hosts your documentation site on a global CDN with automatic SSL, cus
 
 ## Prerequisites
 
-- A Tome documentation project (see [Create your first site](/docs/tutorials/first-site))
+- A Tome documentation project (see [Create your first site](tutorials/first-site))
 - Node.js 20+
 
 ## 1. Authenticate
@@ -3048,8 +3074,8 @@ Each deploy creates an immutable snapshot. You can view deployment history and a
 
 ## Next steps
 
-- **[Configuration guide](/docs/guides/configuration)** to customize your site before deploying
-- **[CLI reference](/docs/reference/cli)** for the full list of deployment commands
+- **[Configuration guide](guides/configuration)** to customize your site before deploying
+- **[CLI reference](reference/cli)** for the full list of deployment commands
 
 ---
 
@@ -3172,9 +3198,9 @@ This outputs a static site to `out/` with a pre-built search index. The output i
 
 ## Next steps
 
-- **[Deploy to Tome Cloud](/docs/tutorials/deploy-to-cloud)** to publish with a single command
-- **[Configuration guide](/docs/guides/configuration)** for all available options
-- **[Components reference](/docs/reference/components)** for the full list of MDX components
+- **[Deploy to Tome Cloud](tutorials/deploy-to-cloud)** to publish with a single command
+- **[Configuration guide](guides/configuration)** for all available options
+- **[Components reference](reference/components)** for the full list of MDX components
 
 ---
 
@@ -3413,8 +3439,8 @@ For the best results, make sure your OpenAPI spec includes:
 
 ## Next steps
 
-- **[Endpoints](#api-endpoints)** for details on how endpoints are rendered
-- **[Authentication](#api-auth)** for configuring auth in the playground
+- **[Endpoints](v2/api-endpoints)** for details on how endpoints are rendered
+- **[Authentication](v2/api-auth)** for configuring auth in the playground
 
 ---
 
@@ -3647,10 +3673,12 @@ The output is a single-page application. Search is fully static. The `llms.txt` 
 
 | Package | Purpose |
 |---------|---------|
-| `@tomehq/cli` | CLI commands (init, dev, build, deploy) |
-| `@tomehq/core` | Config, routing, Vite plugin, markdown processing |
+| `@tomehq/cli` | CLI commands (init, dev, build, deploy, mcp, typedoc) |
+| `@tomehq/core` | Config, routing, Vite plugin, markdown processing, MCP server |
 | `@tomehq/theme` | Shell UI, presets, search, AI chat |
 | `@tomehq/components` | MDX components (Callout, Tabs, Card, etc.) |
+| `@tomehq/landing` | Marketing landing page |
+| `@tomehq/dashboard` | Tome Cloud dashboard |
 
 ---
 
@@ -3833,7 +3861,7 @@ theme: {
 },
 ```
 
-See **[Theming](#theming)** for full customization details.
+See **[Theming](v2/theming)** for full customization details.
 
 ## Base path
 
@@ -4654,10 +4682,10 @@ cd my-docs && npm install && npm run dev
 
 ## Learn more
 
-- **[Quickstart](#quickstart)** — Get a docs site running in under a minute.
-- **[Installation](#installation)** — Detailed setup instructions and prerequisites.
-- **[Configuration](#configuration)** — Customize your site name, navigation, theme, and more.
-- **[CLI Reference](#cli)** — Every command and flag available in the `tome` CLI.
+- **[Quickstart](v2/quickstart)** — Get a docs site running in under a minute.
+- **[Installation](v2/installation)** — Detailed setup instructions and prerequisites.
+- **[Configuration](v2/configuration)** — Customize your site name, navigation, theme, and more.
+- **[CLI Reference](v2/cli)** — Every command and flag available in the `tome` CLI.
 
 ---
 
@@ -4853,9 +4881,9 @@ This outputs a static site to `out/` ready to deploy to any hosting provider —
 
 ## Next steps
 
-- **[Installation](#installation)** for detailed setup and prerequisites
-- **[Configuration](#configuration)** to customize your site
-- **[Components](#components)** to use tabs, callouts, and other interactive elements
+- **[Installation](v2/installation)** for detailed setup and prerequisites
+- **[Configuration](v2/configuration)** to customize your site
+- **[Components](v2/components)** to use tabs, callouts, and other interactive elements
 
 ---
 
@@ -6176,8 +6204,8 @@ For the best results, make sure your OpenAPI spec includes:
 
 ## Next steps
 
-- **[Endpoints](#api-endpoints)** for details on how endpoints are rendered
-- **[Authentication](#api-auth)** for configuring auth in the playground
+- **[Endpoints](v1/api-endpoints)** for details on how endpoints are rendered
+- **[Authentication](v1/api-auth)** for configuring auth in the playground
 
 ---
 
@@ -6410,10 +6438,12 @@ The output is a single-page application. Search is fully static. The `llms.txt` 
 
 | Package | Purpose |
 |---------|---------|
-| `@tomehq/cli` | CLI commands (init, dev, build, deploy) |
-| `@tomehq/core` | Config, routing, Vite plugin, markdown processing |
+| `@tomehq/cli` | CLI commands (init, dev, build, deploy, mcp, typedoc) |
+| `@tomehq/core` | Config, routing, Vite plugin, markdown processing, MCP server |
 | `@tomehq/theme` | Shell UI, presets, search, AI chat |
 | `@tomehq/components` | MDX components (Callout, Tabs, Card, etc.) |
+| `@tomehq/landing` | Marketing landing page |
+| `@tomehq/dashboard` | Tome Cloud dashboard |
 
 ---
 
@@ -6596,7 +6626,7 @@ theme: {
 },
 ```
 
-See **[Theming](#theming)** for full customization details.
+See **[Theming](v1/theming)** for full customization details.
 
 ## Base path
 
@@ -7232,10 +7262,10 @@ cd my-docs && npm install && npm run dev
 
 ## Learn more
 
-- **[Quickstart](#quickstart)** — Get a docs site running in under a minute.
-- **[Installation](#installation)** — Detailed setup instructions and prerequisites.
-- **[Configuration](#configuration)** — Customize your site name, navigation, theme, and more.
-- **[CLI Reference](#cli)** — Every command and flag available in the `tome` CLI.
+- **[Quickstart](v1/quickstart)** — Get a docs site running in under a minute.
+- **[Installation](v1/installation)** — Detailed setup instructions and prerequisites.
+- **[Configuration](v1/configuration)** — Customize your site name, navigation, theme, and more.
+- **[CLI Reference](v1/cli)** — Every command and flag available in the `tome` CLI.
 
 ---
 
@@ -7431,9 +7461,9 @@ This outputs a static site to `out/` ready to deploy to any hosting provider —
 
 ## Next steps
 
-- **[Installation](#installation)** for detailed setup and prerequisites
-- **[Configuration](#configuration)** to customize your site
-- **[Components](#components)** to use tabs, callouts, and other interactive elements
+- **[Installation](v1/installation)** for detailed setup and prerequisites
+- **[Configuration](v1/configuration)** to customize your site
+- **[Components](v1/components)** to use tabs, callouts, and other interactive elements
 
 ---
 

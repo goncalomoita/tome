@@ -7,6 +7,7 @@ import {
   computeEditUrl,
   resolveInitialPageId,
   detectCurrentVersion,
+  NavigationCancelledError,
   type LoadedPage,
 } from "./entry-helpers.js";
 
@@ -60,8 +61,8 @@ const MDX_COMPONENTS: Record<string, React.ComponentType<any>> = {
 const contentStyles = `
   @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,700&family=Fira+Code:wght@400;500;600&display=swap');
 
-  html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
-  #tome-root { height: 100%; overflow: hidden; }
+  html, body { margin: 0; padding: 0; height: 100%; overflow: clip; }
+  #tome-root { height: 100%; overflow: clip; }
 
   .tome-content h1 { display: none; }
   .tome-content h2 { font-family: var(--font-body); font-size: 1.35em; font-weight: 600; margin-top: 2em; margin-bottom: 0.5em; display: flex; align-items: center; gap: 10px; letter-spacing: 0.01em; }
@@ -307,16 +308,38 @@ function App() {
   const [pageData, setPageData] = useState<LoadedPage | null>(null);
   const [loading, setLoading] = useState(true);
 
+  // Navigation counter for race condition protection — only the latest navigation wins
+  const navCounterRef = useRef(0);
+
   const navigateTo = useCallback(async (id: string, opts?: { replace?: boolean; skipScroll?: boolean }) => {
+    // Increment counter — this navigation's ID
+    const navId = ++navCounterRef.current;
+
     setLoading(true);
-    setCurrentPageId(id);
+
+    // Load the page BEFORE updating any state — on failure or cancellation, nothing changes
+    let data: LoadedPage | null;
+    try {
+      data = await loadPage(id, routes, loadPageModule);
+    } catch (err) {
+      // If a newer navigation started while we were loading, bail silently
+      if (navCounterRef.current !== navId) return;
+      console.error(`[tome] Navigation failed for page: ${id}`, err);
+      data = null;
+    }
+
+    // If a newer navigation started while we were loading, bail silently
+    if (navCounterRef.current !== navId) return;
+
+    // Only update state and push history after successful page load
     const fullPath = pageIdToPath(id);
     if (opts?.replace) {
       window.history.replaceState(null, "", fullPath);
     } else {
       window.history.pushState(null, "", fullPath);
     }
-    const data = await loadPage(id, routes, loadPageModule);
+
+    setCurrentPageId(id);
     setPageData(data);
     setLoading(false);
     // Scroll to heading anchor if present, otherwise scroll to top
