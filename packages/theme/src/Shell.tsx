@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useLayoutEffect, useRef, useCallback } from "react";
 import { THEME_PRESETS, type PresetName } from "./presets.js";
 import { AiChat } from "./AiChat.js";
 
@@ -688,14 +688,13 @@ export function Shell({
 
   // Set HTML content via ref so React doesn't re-set innerHTML on re-renders
   // (scroll-spy state changes would otherwise destroy client-side mermaid SVGs)
-  useEffect(() => {
+  // useLayoutEffect ensures innerHTML is set synchronously before paint — no flash
+  useLayoutEffect(() => {
     if (!htmlContentRef.current || !pageHtml) return;
     const stripped = pageHtml.replace(/<h1[^>]*>[\s\S]*?<\/h1>\s*/, "");
-    if (stripped !== lastHtmlRef.current) {
-      htmlContentRef.current.innerHTML = stripped;
-      lastHtmlRef.current = stripped;
-    }
-  }, [pageHtml]);
+    htmlContentRef.current.innerHTML = stripped;
+    lastHtmlRef.current = stripped;
+  }, [pageHtml, currentPageId]);
 
   // Smooth scroll handler for TOC links
   const scrollToHeading = useCallback((e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
@@ -772,7 +771,7 @@ export function Shell({
   const bannerIsInternal = bannerLink ? (bannerLink.startsWith("#") || (basePath && bannerLink.startsWith(basePath + "/"))) : false;
 
   return (
-    <div dir={dir} className="tome-grain" style={{ ...cssVars as React.CSSProperties, color: "var(--tx)", background: "var(--bg)", fontFamily: "var(--font-body)", height: "100vh", overflow: "hidden" }}>
+    <div dir={dir} className="tome-grain" style={{ ...cssVars as React.CSSProperties, color: "var(--tx)", background: "var(--bg)", fontFamily: "var(--font-body)", height: "100vh", overflow: "clip" }}>
       {/* Banner */}
       {config.banner?.text && !bannerDismissed && (
         <div style={{
@@ -1410,6 +1409,7 @@ export function Shell({
                   </div>
                 ) : (
                   <div
+                    key={currentPageId}
                     className="tome-content"
                     ref={htmlContentRef}
                   />

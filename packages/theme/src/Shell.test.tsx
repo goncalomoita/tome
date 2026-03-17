@@ -858,6 +858,31 @@ describe("Shell feedback widget", () => {
     fireEvent.click(screen.getByText("\uD83D\uDC4E"));
     expect(screen.getByText("Thanks for your feedback!")).toBeInTheDocument();
   });
+
+  it("feedback section is inside the scrollable content container, not clipped by root", () => {
+    renderShell();
+    const feedbackEl = screen.getByText("Was this helpful?");
+    // The feedback widget must be a descendant of the overflow:auto scroll container
+    const scrollContainer = feedbackEl.closest('[style*="overflow: auto"]') || feedbackEl.closest('[style*="overflow:auto"]');
+    expect(scrollContainer).not.toBeNull();
+    // The root container must use overflow:clip (not hidden) to avoid clip containment issues
+    const root = feedbackEl.closest(".tome-grain");
+    expect(root).not.toBeNull();
+    expect((root as HTMLElement).style.overflow).toBe("clip");
+  });
+
+  it("feedback section remains in DOM and is not conditionally removed", () => {
+    const { container } = renderShell();
+    // Feedback must always render inside <main>
+    const main = container.querySelector("main");
+    expect(main).not.toBeNull();
+    const feedbackText = within(main!).getByText("Was this helpful?");
+    expect(feedbackText).toBeInTheDocument();
+    // Verify feedback is not position:fixed or absolute (it flows with content)
+    const feedbackParent = feedbackText.closest("div")!;
+    expect(feedbackParent.style.position).not.toBe("fixed");
+    expect(feedbackParent.style.position).not.toBe("absolute");
+  });
 });
 
 // ── Breadcrumbs ──────────────────────────────────────────

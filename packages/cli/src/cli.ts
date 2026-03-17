@@ -47,9 +47,12 @@ program
       process.exit(1);
     }
 
-    // Create project directory
+    // Create project directory with diataxis structure
     mkdirSync(targetDir, { recursive: true });
-    mkdirSync(join(targetDir, "pages"), { recursive: true });
+    mkdirSync(join(targetDir, "pages", "tutorials"), { recursive: true });
+    mkdirSync(join(targetDir, "pages", "guides"), { recursive: true });
+    mkdirSync(join(targetDir, "pages", "reference"), { recursive: true });
+    mkdirSync(join(targetDir, "pages", "concepts"), { recursive: true });
     mkdirSync(join(targetDir, "public"), { recursive: true });
     mkdirSync(join(targetDir, "styles"), { recursive: true });
 
@@ -65,10 +68,30 @@ export default {
   },
   navigation: [
     {
-      group: "Getting Started",
-      pages: ["index", "quickstart", "components"],
+      group: "Overview",
+      pages: ["index"],
+    },
+    {
+      group: "Tutorials",
+      pages: ["tutorials/getting-started", "tutorials/deploy"],
+    },
+    {
+      group: "Guides",
+      pages: ["guides/components", "guides/configuration"],
+    },
+    {
+      group: "Reference",
+      pages: ["reference/config", "reference/components", "reference/cli"],
+    },
+    {
+      group: "Concepts",
+      pages: ["concepts/how-tome-works", "concepts/file-routing"],
     },
   ],
+  // socialLinks: [
+  //   { platform: "github", url: "https://github.com/your-org/your-repo" },
+  //   { platform: "twitter", url: "https://x.com/your-handle" },
+  // ],
 };
 `
     );
@@ -98,244 +121,247 @@ export default {
       ) + "\n"
     );
 
-    // Write example pages
+    // ── Overview ──────────────────────────────────────────
     writeFileSync(
       join(targetDir, "pages", "index.md"),
       `---
-title: Welcome to ${projectName}
-description: Beautiful, fast documentation powered by Tome. Write in Markdown, ship in seconds.
+title: Welcome
+description: Documentation for ${projectName}, powered by Tome.
 ---
 
-# Welcome to ${projectName}
+# ${projectName}
 
-Your documentation is ready. This site was scaffolded with **Tome** — a modern documentation platform that turns Markdown into a polished, searchable docs site with zero configuration.
-
-## Why Tome?
-
-| Feature | Description |
-|---------|-------------|
-| **Instant Setup** | Run \`tome init\` and start writing. No build config needed. |
-| **Markdown & MDX** | Write in standard Markdown or use MDX for interactive components. |
-| **Built-in Components** | Callouts, tabs, cards, steps, and more — out of the box. |
-| **Fast Dev Server** | Hot-reloading dev server powered by Vite. |
-| **Deploy Anywhere** | Static output works on Vercel, Netlify, Cloudflare, or any host. |
+Welcome to your documentation site. This project was scaffolded with [Tome](https://tome.center) — write in Markdown, ship beautiful docs.
 
 ## Quick Start
 
 \`\`\`bash
-# Start the dev server
-npm run dev
-
-# Build for production
-npm run build
+npm run dev       # Start dev server at localhost:3000
+npm run build     # Build static site to out/
 \`\`\`
 
 ## Project Structure
 
 \`\`\`text
 ${projectName}/
-├── tome.config.js     # Site configuration
-├── pages/             # Your documentation pages
-│   ├── index.md       # This page
-│   ├── quickstart.md  # Getting started guide
-│   └── components.mdx # Component showcase (MDX)
-├── public/            # Static assets (images, fonts, etc.)
+├── tome.config.js         # Site configuration
+├── pages/                 # Documentation pages
+│   ├── index.md           # This page
+│   ├── tutorials/         # Step-by-step lessons
+│   ├── guides/            # Task-oriented how-tos
+│   ├── reference/         # Technical reference
+│   └── concepts/          # Explanations and architecture
+├── public/                # Static assets (images, fonts)
 └── package.json
 \`\`\`
 
+This site follows the [Diataxis](https://diataxis.fr) documentation framework — four categories that serve different reader needs:
+
+| Category | Purpose | Example |
+|----------|---------|---------|
+| **Tutorials** | Learning-oriented. Walk a beginner through a task. | "Build your first docs site" |
+| **Guides** | Task-oriented. Solve a specific problem. | "Add a callout component" |
+| **Reference** | Information-oriented. Describe the machinery. | "Configuration options" |
+| **Concepts** | Understanding-oriented. Explain how things work. | "How file routing works" |
+
 ## Next Steps
 
-- **[Quickstart Guide](/quickstart)** — Install dependencies, configure your site, and deploy.
-- **[Components](/components)** — Explore the built-in MDX components you can use in your docs.
-- **Edit this page** — Open \`pages/index.md\` in your editor to start customizing.
-
-> **Tip:** Tome watches your files and reloads instantly. Just save and see your changes.
+- **[Getting Started](/tutorials/getting-started)** — Build and customize your first page.
+- **[Components Guide](/guides/components)** — Add interactive elements to your docs.
+- **[Configuration Reference](/reference/config)** — Every option in \`tome.config.js\`.
 `
     );
 
+    // ── Tutorials ─────────────────────────────────────────
     writeFileSync(
-      join(targetDir, "pages", "quickstart.md"),
+      join(targetDir, "pages", "tutorials", "getting-started.md"),
       `---
-title: Quickstart
-description: Get up and running with Tome in under 5 minutes — from installation to deployment.
+title: Getting Started
+description: Build your first documentation page from scratch — from writing content to seeing it in the browser.
 icon: rocket
 ---
 
-# Quickstart
+# Getting Started
 
-This guide walks you through setting up a Tome documentation site from scratch, configuring it, and deploying it to production.
+This tutorial walks you through creating and customizing your first documentation page. By the end, you will have a working page with formatted content and navigation.
 
 ## Prerequisites
 
-Before you begin, make sure you have:
+- Node.js 20 or later ([download](https://nodejs.org))
+- A code editor (VS Code, Cursor, etc.)
+- A terminal
 
-- **Node.js 20** or later installed ([download](https://nodejs.org))
-- A package manager: \`npm\`, \`yarn\`, or \`pnpm\`
-- A terminal and a code editor
+## Step 1: Start the dev server
 
-## 1. Install Dependencies
-
-After running \`tome init\`, install your project dependencies:
+If you haven't already, install dependencies and start the server:
 
 \`\`\`bash
 cd ${projectName}
 npm install
-\`\`\`
-
-## 2. Start the Dev Server
-
-Launch the local development server with hot reloading:
-
-\`\`\`bash
 npm run dev
 \`\`\`
 
-Open [http://localhost:3000](http://localhost:3000) in your browser. Every time you save a file, the page updates instantly.
+Open [http://localhost:3000](http://localhost:3000). You should see this documentation site.
 
-## 3. Write Your First Page
+## Step 2: Create a new page
 
-Create a new file in the \`pages/\` directory. Each \`.md\` or \`.mdx\` file becomes a page on your site.
+Create a new file at \`pages/tutorials/my-first-page.md\`:
 
 \`\`\`markdown
 ---
-title: My New Page
-description: A brief summary for search and navigation
+title: My First Page
+description: A page I created from scratch.
 ---
 
-# My New Page
+# My First Page
 
-Write your content using standard **Markdown** syntax.
-You can use headings, lists, tables, code blocks, and more.
+This is my first documentation page. It supports **bold**, *italic*, \\\`code\\\`, and more.
+
+## A section
+
+Content is organized with headings. Each heading appears in the table of contents.
+
+- Bullet lists work
+- So do numbered lists
+- And [links](https://tome.center)
 \`\`\`
 
-### Frontmatter Reference
+Save the file. The browser reloads automatically.
 
-Every page can include YAML frontmatter at the top:
+## Step 3: Add it to the sidebar
 
-| Field | Type | Description |
-|-------|------|-------------|
-| \`title\` | string | Page title shown in sidebar and browser tab |
-| \`description\` | string | Short summary for SEO and navigation |
-| \`icon\` | string | Icon name displayed next to the title in the sidebar |
-| \`sidebarTitle\` | string | Override the title shown in the sidebar |
-| \`hidden\` | boolean | Hide this page from the sidebar navigation |
-| \`tags\` | string[] | Tags for search and categorization |
-
-## 4. Configure Your Site
-
-Edit \`tome.config.js\` to customize your documentation site:
+Open \`tome.config.js\` and add your page to the navigation:
 
 \`\`\`javascript
-export default {
-  name: "${projectName}",
-  theme: {
-    preset: "amber",    // Theme preset: "amber" or "editorial"
-    accent: "#e8a845",  // Custom accent color (hex)
-    mode: "auto",       // Color mode: "light", "dark", or "auto"
-  },
-  navigation: [
-    {
-      group: "Getting Started",
-      pages: ["index", "quickstart", "components"],
-    },
-  ],
-};
+{
+  group: "Tutorials",
+  pages: ["tutorials/getting-started", "tutorials/my-first-page", "tutorials/deploy"],
+},
 \`\`\`
 
-### Navigation
+The page ID is the file path relative to \`pages/\`, without the extension.
 
-The \`navigation\` array controls your sidebar. Each group has a label and a list of page IDs (the filename without the extension):
+## Step 4: Add frontmatter
 
-\`\`\`javascript
-navigation: [
-  {
-    group: "Getting Started",
-    pages: ["index", "quickstart"],
-  },
-  {
-    group: "Reference",
-    pages: ["components", "api"],
-  },
-],
-\`\`\`
-
-## 5. Using MDX Components
-
-Tome includes a set of built-in components you can use in \`.mdx\` files without any imports. See the [Components](/components) page for a full showcase.
+Every page supports YAML frontmatter at the top:
 
 \`\`\`markdown
-<!-- Use a callout in any .mdx file -->
-<Callout type="tip" title="Pro Tip">
-  Components are automatically available — no import needed.
-</Callout>
+---
+title: My First Page
+description: A page I created from scratch.
+icon: book
+sidebarTitle: First Page
+---
 \`\`\`
 
-## 6. Build and Deploy
+| Field | Description |
+|-------|-------------|
+| \`title\` | Page title in browser tab and sidebar |
+| \`description\` | Summary for search and SEO |
+| \`icon\` | Icon next to the title in the sidebar |
+| \`sidebarTitle\` | Override the sidebar label |
+| \`hidden\` | Set to \`true\` to hide from sidebar |
 
-When you are ready to publish, build your site into static files:
+## What you learned
+
+You created a Markdown page, added it to navigation, and configured frontmatter. Next, try adding [interactive components](/guides/components) to your pages.
+`
+    );
+
+    writeFileSync(
+      join(targetDir, "pages", "tutorials", "deploy.md"),
+      `---
+title: Deploy Your Site
+description: Build your docs for production and deploy to any static hosting provider.
+icon: globe
+---
+
+# Deploy Your Site
+
+Tome builds to static files that work on any hosting platform. This tutorial covers building and deploying.
+
+## Build for production
 
 \`\`\`bash
 npm run build
 \`\`\`
 
-This outputs a production-ready static site to the \`out/\` directory. Deploy it to any static hosting provider:
+This outputs a static site to the \`out/\` directory.
+
+## Deploy options
+
+### Vercel
 
 \`\`\`bash
-# Vercel
-vercel deploy ./out
-
-# Netlify
-netlify deploy --dir=./out
-
-# Cloudflare Pages
-wrangler pages deploy ./out
+npx vercel deploy ./out
 \`\`\`
 
----
+### Netlify
 
-That is it! You now have a fully functional documentation site. Explore the [Components](/components) page to see all the interactive elements you can add to your pages.
+\`\`\`bash
+npx netlify deploy --dir=./out --prod
+\`\`\`
+
+### Cloudflare Pages
+
+\`\`\`bash
+npx wrangler pages deploy ./out
+\`\`\`
+
+### Tome Cloud
+
+\`\`\`bash
+npm run deploy
+\`\`\`
+
+This uses \`tome deploy\` which uploads your site to Tome Cloud with hash-based deduplication.
+
+## CI/CD
+
+This project includes a GitHub Actions workflow at \`.github/workflows/deploy.yml\` that automatically deploys on push to \`main\` and creates preview deployments for pull requests.
+
+## What you learned
+
+You built your site to static files and deployed it. Your docs are now live.
 `
     );
 
+    // ── Guides ────────────────────────────────────────────
     writeFileSync(
-      join(targetDir, "pages", "components.mdx"),
+      join(targetDir, "pages", "guides", "components.mdx"),
       `---
-title: Components
-description: A showcase of every built-in MDX component available in Tome.
+title: Using Components
+description: Add interactive elements like callouts, tabs, cards, and steps to your documentation.
 icon: puzzle
 ---
 
-# Components
+# Using Components
 
-Tome ships with a set of built-in components you can use in any \`.mdx\` file. No imports required — just use them directly in your content.
+Tome includes built-in components you can use in any \`.mdx\` file. No imports required.
 
----
+## Callouts
 
-## Callout
-
-Callouts draw attention to important information. There are four types: **info**, **tip**, **warning**, and **danger**.
+Draw attention to important information:
 
 <Callout type="info" title="Information">
-  This is an **info** callout. Use it to highlight useful context or background details.
+  Use info callouts for context and background details.
 </Callout>
 
-<Callout type="tip" title="Helpful Tip">
-  This is a **tip** callout. Great for best practices and pro tips.
+<Callout type="tip" title="Tip">
+  Use tip callouts for best practices and helpful suggestions.
 </Callout>
 
 <Callout type="warning" title="Warning">
-  This is a **warning** callout. Use it when the reader should proceed with caution.
+  Use warning callouts when the reader should proceed with caution.
 </Callout>
 
 <Callout type="danger" title="Danger">
-  This is a **danger** callout. Reserve it for critical warnings about destructive actions.
+  Use danger callouts for critical warnings about destructive actions.
 </Callout>
-
----
 
 ## Tabs
 
-Tabs let you present multiple variants of content — perfect for showing code in different languages or instructions for different platforms.
+Present content in multiple variants — different languages, platforms, or package managers:
 
 <Tabs items={["npm", "yarn", "pnpm"]}>
   <div>
@@ -355,73 +381,439 @@ Tabs let you present multiple variants of content — perfect for showing code i
   </div>
 </Tabs>
 
----
+## Cards
 
-## Card & CardGroup
-
-Cards are great for linking to related pages or showcasing features in a visual grid.
+Link to related pages or showcase features:
 
 <CardGroup cols={2}>
-  <Card title="Getting Started" icon="\u{1F680}" href="/quickstart">
-    Set up your first Tome project and start writing docs in minutes.
+  <Card title="Tutorials" icon="\u{1F393}" href="/tutorials/getting-started">
+    Step-by-step lessons to learn the basics.
   </Card>
-  <Card title="Configuration" icon="\u2699\uFE0F">
-    Customize themes, navigation, and site metadata in tome.config.js.
-  </Card>
-  <Card title="Markdown & MDX" icon="\u{1F4DD}">
-    Write pages in standard Markdown or use MDX for interactive components.
-  </Card>
-  <Card title="Deployment" icon="\u{1F310}">
-    Deploy your static site to Vercel, Netlify, Cloudflare Pages, or any host.
+  <Card title="Reference" icon="\u{1F4D6}" href="/reference/config">
+    Technical details on every configuration option.
   </Card>
 </CardGroup>
 
----
-
 ## Steps
 
-Steps guide the reader through a sequential process with numbered indicators.
+Guide readers through a sequential process:
 
 <Steps>
   <div>
-    **Create a new project**
+    **Create an MDX file**
 
-    Run \`tome init my-docs\` to scaffold a new documentation project with all the starter files.
+    Create a new file with the \`.mdx\` extension in your \`pages/\` directory.
   </div>
   <div>
-    **Install dependencies**
+    **Add a component**
 
-    Navigate into your project directory and run \`npm install\` to install all required packages.
+    Use any built-in component directly in your content. No imports needed.
   </div>
   <div>
-    **Start writing**
+    **Save and preview**
 
-    Open \`pages/index.md\` in your editor, make changes, and see them reflected instantly in the dev server.
-  </div>
-  <div>
-    **Deploy to production**
-
-    Run \`npm run build\` and upload the \`out/\` directory to any static hosting provider.
+    The dev server reloads automatically when you save.
   </div>
 </Steps>
 
+## Accordions
+
+Collapse content behind a toggle — useful for FAQs:
+
+<Accordion title="Do I need to import components?">
+  No. All built-in components are automatically available in every \`.mdx\` file.
+</Accordion>
+
+<Accordion title="Can I use components in .md files?">
+  Components only work in \`.mdx\` files. Rename your file from \`.md\` to \`.mdx\` to use them.
+</Accordion>
+`
+    );
+
+    writeFileSync(
+      join(targetDir, "pages", "guides", "configuration.md"),
+      `---
+title: Customizing Your Site
+description: Change your site name, theme, colors, and navigation layout.
+icon: settings
 ---
+
+# Customizing Your Site
+
+All configuration lives in \`tome.config.js\` at the root of your project.
+
+## Change the site name
+
+\`\`\`javascript
+export default {
+  name: "My Project",
+};
+\`\`\`
+
+The name appears in the sidebar header and browser tab.
+
+## Switch themes
+
+Tome ships with two presets:
+
+\`\`\`javascript
+theme: {
+  preset: "amber",      // Warm, approachable (default)
+  // preset: "editorial", // Clean, typographic
+  mode: "auto",          // "light", "dark", or "auto"
+},
+\`\`\`
+
+## Custom accent color
+
+Override the default accent with any hex color:
+
+\`\`\`javascript
+theme: {
+  preset: "amber",
+  accent: "#3b82f6",  // Blue accent
+  mode: "auto",
+},
+\`\`\`
+
+## Organize navigation
+
+The sidebar is defined by the \`navigation\` array. Each group has a label and a list of page IDs:
+
+\`\`\`javascript
+navigation: [
+  {
+    group: "Getting Started",
+    pages: ["index", "tutorials/getting-started"],
+  },
+  {
+    group: "API",
+    pages: ["reference/endpoints", "reference/auth"],
+  },
+],
+\`\`\`
+
+Page IDs are file paths relative to \`pages/\`, without the extension.
+
+## Add social links
+
+\`\`\`javascript
+socialLinks: [
+  { platform: "github", url: "https://github.com/your-org/your-repo" },
+  { platform: "discord", url: "https://discord.gg/your-server" },
+  { platform: "twitter", url: "https://x.com/your-handle" },
+],
+\`\`\`
+
+See the [Configuration Reference](/reference/config) for every available option.
+`
+    );
+
+    // ── Reference ─────────────────────────────────────────
+    writeFileSync(
+      join(targetDir, "pages", "reference", "config.md"),
+      `---
+title: Configuration
+description: Complete reference for every option in tome.config.js.
+icon: file-cog
+---
+
+# Configuration Reference
+
+All options for \`tome.config.js\`.
+
+## Top-level options
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| \`name\` | \`string\` | \`"My Docs"\` | Site name shown in sidebar and title |
+| \`description\` | \`string\` | — | Site description for SEO |
+| \`logo\` | \`string\` | — | Path to logo image |
+| \`favicon\` | \`string\` | — | Path to favicon |
+| \`navigation\` | \`array\` | \`[]\` | Sidebar navigation groups |
+| \`socialLinks\` | \`array\` | \`[]\` | Social links in the header |
+
+## theme
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| \`preset\` | \`"amber" \\| "editorial"\` | \`"amber"\` | Theme preset |
+| \`accent\` | \`string\` | — | Custom accent color (hex) |
+| \`mode\` | \`"light" \\| "dark" \\| "auto"\` | \`"auto"\` | Color mode |
+
+## navigation
+
+\`\`\`javascript
+navigation: [
+  {
+    group: "Section Name",
+    pages: ["page-id", "folder/page-id"],
+  },
+],
+\`\`\`
+
+Page IDs are file paths relative to \`pages/\`, without the file extension.
+
+## socialLinks
+
+\`\`\`javascript
+socialLinks: [
+  { platform: "github", url: "https://github.com/..." },
+  { platform: "twitter", url: "https://x.com/..." },
+  { platform: "discord", url: "https://discord.gg/..." },
+  { platform: "custom", url: "https://...", icon: "mastodon" },
+],
+\`\`\`
+
+Supported platforms: \`github\`, \`twitter\`, \`discord\`, \`linkedin\`, \`custom\`.
+`
+    );
+
+    writeFileSync(
+      join(targetDir, "pages", "reference", "components.md"),
+      `---
+title: Component Reference
+description: API reference for every built-in MDX component.
+icon: box
+---
+
+# Component Reference
+
+All built-in components are available in \`.mdx\` files without imports.
+
+## Callout
+
+\`\`\`jsx
+<Callout type="info" title="Title">
+  Content here.
+</Callout>
+\`\`\`
+
+| Prop | Type | Required | Description |
+|------|------|----------|-------------|
+| \`type\` | \`"info" \\| "tip" \\| "warning" \\| "danger"\` | Yes | Visual style |
+| \`title\` | \`string\` | No | Header text |
+
+## Tabs
+
+\`\`\`jsx
+<Tabs items={["Tab 1", "Tab 2"]}>
+  <div>Content for tab 1</div>
+  <div>Content for tab 2</div>
+</Tabs>
+\`\`\`
+
+| Prop | Type | Required | Description |
+|------|------|----------|-------------|
+| \`items\` | \`string[]\` | Yes | Tab labels |
+
+## Card
+
+\`\`\`jsx
+<Card title="Title" icon="\u{1F680}" href="/link">
+  Description text.
+</Card>
+\`\`\`
+
+| Prop | Type | Required | Description |
+|------|------|----------|-------------|
+| \`title\` | \`string\` | Yes | Card heading |
+| \`icon\` | \`string\` | No | Emoji or icon |
+| \`href\` | \`string\` | No | Link target |
+
+## CardGroup
+
+\`\`\`jsx
+<CardGroup cols={2}>
+  <Card title="A" />
+  <Card title="B" />
+</CardGroup>
+\`\`\`
+
+| Prop | Type | Required | Description |
+|------|------|----------|-------------|
+| \`cols\` | \`number\` | No | Column count (default: 3) |
+
+## Steps
+
+\`\`\`jsx
+<Steps>
+  <div>**Step 1** — Description</div>
+  <div>**Step 2** — Description</div>
+</Steps>
+\`\`\`
+
+Each direct child \`<div>\` becomes a numbered step.
 
 ## Accordion
 
-Accordions let you hide content behind a collapsible header — useful for FAQs, optional details, or long reference sections.
-
-<Accordion title="What file formats does Tome support?">
-  Tome supports **.md** (Markdown) and **.mdx** (Markdown with JSX) files. Markdown files are processed with syntax highlighting, GFM tables, and more. MDX files can additionally use React components inline.
+\`\`\`jsx
+<Accordion title="Question?">
+  Answer content.
 </Accordion>
+\`\`\`
 
-<Accordion title="Do I need to import components in MDX files?">
-  No. All built-in components (Callout, Tabs, Card, CardGroup, Steps, Accordion) are automatically available in every \`.mdx\` file. Just use them directly in your content.
-</Accordion>
+| Prop | Type | Required | Description |
+|------|------|----------|-------------|
+| \`title\` | \`string\` | Yes | Toggle header |
+`
+    );
 
-<Accordion title="How do I add custom components?">
-  You can create your own React components and use them in \`.mdx\` files by importing them at the top of the file. Built-in components do not require imports.
-</Accordion>
+    writeFileSync(
+      join(targetDir, "pages", "reference", "cli.md"),
+      `---
+title: CLI Reference
+description: Every command and flag available in the Tome CLI.
+icon: terminal
+---
+
+# CLI Reference
+
+## tome init
+
+Create a new documentation project.
+
+\`\`\`bash
+tome init [name]
+\`\`\`
+
+| Option | Description |
+|--------|-------------|
+| \`-t, --template <name>\` | Starter template (default: \`"default"\`) |
+
+## tome dev
+
+Start the development server with hot reloading.
+
+\`\`\`bash
+tome dev
+\`\`\`
+
+| Option | Description |
+|--------|-------------|
+| \`-p, --port <number>\` | Port number (default: \`3000\`) |
+| \`--host\` | Expose to network |
+
+## tome build
+
+Build the site for production.
+
+\`\`\`bash
+tome build
+\`\`\`
+
+Outputs static files to the \`out/\` directory.
+
+## tome deploy
+
+Deploy to Tome Cloud.
+
+\`\`\`bash
+tome deploy
+\`\`\`
+
+| Option | Description |
+|--------|-------------|
+| \`--preview\` | Create a preview deployment |
+
+Requires \`TOME_TOKEN\` environment variable or \`tome login\`.
+`
+    );
+
+    // ── Concepts ──────────────────────────────────────────
+    writeFileSync(
+      join(targetDir, "pages", "concepts", "how-tome-works.md"),
+      `---
+title: How Tome Works
+description: Understand the architecture behind Tome — from Markdown files to a running documentation site.
+icon: lightbulb
+---
+
+# How Tome Works
+
+Tome turns a folder of Markdown files into a single-page application. Here is how.
+
+## The pipeline
+
+1. **You write Markdown** — \`.md\` and \`.mdx\` files in the \`pages/\` directory.
+2. **Tome reads your config** — \`tome.config.js\` defines navigation, theme, and site metadata.
+3. **Vite builds the app** — Tome's Vite plugin transforms your content into React components at build time.
+4. **The theme renders it** — The shell component handles layout, sidebar, search, and navigation.
+5. **Static output** — \`tome build\` produces static HTML, CSS, and JS in the \`out/\` directory.
+
+## Key pieces
+
+| Package | Role |
+|---------|------|
+| \`@tomehq/cli\` | CLI commands — \`init\`, \`dev\`, \`build\`, \`deploy\` |
+| \`@tomehq/core\` | Config loading, routing, Vite plugin, markdown processing |
+| \`@tomehq/theme\` | UI shell, sidebar, search, dark mode, presets |
+| \`@tomehq/components\` | MDX components — Callout, Tabs, Card, Steps, etc. |
+
+## Dev vs build
+
+In **development**, Tome runs a Vite dev server with hot module replacement. Edit a file, save, and the browser updates instantly.
+
+In **production**, \`tome build\` pre-renders all routes to static HTML with client-side hydration. The output works on any static host — no server required.
+
+## Agent-friendly output
+
+Every build automatically generates:
+
+- \`llms.txt\` — Structured content for LLMs
+- \`search.json\` — Full-text search index
+- \`mcp.json\` — MCP server configuration
+- \`robots.txt\` — Crawler directives
+- JSON-LD schema markup in every page
+`
+    );
+
+    writeFileSync(
+      join(targetDir, "pages", "concepts", "file-routing.md"),
+      `---
+title: File Routing
+description: How files in the pages directory map to URLs on your site.
+icon: folder
+---
+
+# File Routing
+
+Tome uses file-system routing. Every \`.md\` or \`.mdx\` file in the \`pages/\` directory becomes a page.
+
+## How paths map to URLs
+
+| File | URL |
+|------|-----|
+| \`pages/index.md\` | \`/\` |
+| \`pages/quickstart.md\` | \`/quickstart\` |
+| \`pages/guides/setup.md\` | \`/guides/setup\` |
+| \`pages/reference/config.md\` | \`/reference/config\` |
+
+## Rules
+
+- **\`index.md\`** in any directory becomes the root of that path (\`pages/guides/index.md\` → \`/guides\`).
+- **Nested directories** create nested URL paths.
+- **File extension** is stripped — both \`.md\` and \`.mdx\` work the same way.
+- **Underscored files** (e.g., \`_draft.md\`) are ignored.
+
+## Navigation vs routing
+
+File routing determines what URLs exist. The \`navigation\` array in \`tome.config.js\` determines what appears in the sidebar and in what order. Pages that exist but are not listed in navigation are still accessible by URL — they just do not appear in the sidebar.
+
+## Organizing content
+
+We recommend the [Diataxis](https://diataxis.fr) structure:
+
+\`\`\`text
+pages/
+├── index.md
+├── tutorials/       # Learning-oriented
+├── guides/          # Task-oriented
+├── reference/       # Information-oriented
+└── concepts/        # Understanding-oriented
+\`\`\`
+
+This gives your readers a clear mental model of where to find what they need.
 `
     );
 

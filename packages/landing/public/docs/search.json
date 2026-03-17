@@ -19,7 +19,7 @@
         "Security notes"
       ],
       "tags": [],
-      "wordCount": 275
+      "wordCount": 272
     },
     {
       "id": "api-endpoints",
@@ -34,7 +34,7 @@
         "Interactive playground"
       ],
       "tags": [],
-      "wordCount": 356
+      "wordCount": 353
     },
     {
       "id": "api-overview",
@@ -49,7 +49,7 @@
         "Next steps"
       ],
       "tags": [],
-      "wordCount": 277
+      "wordCount": 274
     },
     {
       "id": "cli",
@@ -69,10 +69,11 @@
         "tome domains:list",
         "tome domains:remove &lt;domain&gt;",
         "tome algolia:init",
+        "tome typedoc &lt;files...&gt;",
         "tome mcp"
       ],
       "tags": [],
-      "wordCount": 356
+      "wordCount": 404
     },
     {
       "id": "components",
@@ -99,7 +100,7 @@
         "Package structure"
       ],
       "tags": [],
-      "wordCount": 611
+      "wordCount": 629
     },
     {
       "id": "concepts/file-routing",
@@ -183,10 +184,11 @@
         "Notion source",
         "Setting up the Notion integration",
         "Custom content sources",
-        "Using multiple sources"
+        "Using multiple sources",
+        "External group in the sidebar"
       ],
       "tags": [],
-      "wordCount": 599
+      "wordCount": 682
     },
     {
       "id": "guides/custom-theme",
@@ -411,10 +413,11 @@
         "tome migrate gitbook &lt;source-dir&gt;",
         "tome migrate mintlify &lt;source-dir&gt;",
         "tome algolia:init",
+        "tome typedoc &lt;files...&gt;",
         "tome mcp"
       ],
       "tags": [],
-      "wordCount": 824
+      "wordCount": 872
     },
     {
       "id": "reference/components",
@@ -649,7 +652,7 @@
         "Package structure"
       ],
       "tags": [],
-      "wordCount": 510
+      "wordCount": 528
     },
     {
       "id": "v2/concepts/file-routing",
@@ -1131,7 +1134,7 @@
         "Package structure"
       ],
       "tags": [],
-      "wordCount": 510
+      "wordCount": 528
     },
     {
       "id": "v1/concepts/file-routing",
