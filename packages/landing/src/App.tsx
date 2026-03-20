@@ -528,7 +528,7 @@ function HeroContent() {
         </div>
         <div className="hero-badges" style={{ display: "flex", alignItems: "center", gap: 20 }}>
           <span style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 13, color: "var(--tx2)", fontFamily: "Inter, sans-serif" }}><CheckIcon /> Optimized for Agents</span>
-          <span style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 13, color: "var(--tx2)", fontFamily: "Inter, sans-serif" }}><CheckIcon /> 5 theme presets included</span>
+          <span style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 13, color: "var(--tx2)", fontFamily: "Inter, sans-serif" }}><CheckIcon /> 4 theme presets included</span>
         </div>
       </div>
       <LiquidRing block radius={8} bg="#ffffff">
