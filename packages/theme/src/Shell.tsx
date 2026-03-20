@@ -643,8 +643,8 @@ export function Shell({
   // Prev / Next
   const allNavPages = navigation.flatMap(g => g.pages);
   const idx = allNavPages.findIndex(p => p.id === currentPageId);
-  const prev = idx > 0 ? allNavPages[idx - 1] : null;
-  const next = idx < allNavPages.length - 1 ? allNavPages[idx + 1] : null;
+  const prev = idx > 0 ? allNavPages[idx - 1] : allNavPages[allNavPages.length - 1] ?? null;
+  const next = idx < allNavPages.length - 1 ? allNavPages[idx + 1] : allNavPages[0] ?? null;
 
   // Breadcrumbs
   const breadcrumbs = getBreadcrumbs(navigation, currentPageId, pageTitle);
