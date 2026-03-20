@@ -152,7 +152,7 @@ const THEMES = {
   light: {
     "--bg": "#f5f2ed", "--sf": "#ffffff", "--sfH": "#eeece6",
     "--bd": "#ddd9d0", "--bdA": "#c8c3b8", "--bdLight": "#e8e4dc",
-    "--tx": "#1a1716", "--tx2": "#4a443e", "--txM": "#8a847c",
+    "--tx": "#1a1716", "--tx2": "#4a443e", "--txM": "#696360",
     "--accent": "#8b3a2f", "--accentLight": "#a34838",
     "--accentFaint": "rgba(139,58,47,0.08)", "--accentGlow": "rgba(139,58,47,0.25)",
     "--coralBtn": "#8b3a2f", "--coral": "#8b3a2f",
@@ -206,6 +206,14 @@ const CSS = `
   100%{transform:translate(-50%,-50%) rotate(360deg)}
 }
 
+/* Focus visible for keyboard navigation */
+a:focus-visible,button:focus-visible{outline:2px solid var(--coral);outline-offset:2px;border-radius:4px}
+
+/* Reduced motion */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important}
+}
+
 .rv{animation:revealUp .5s cubic-bezier(.22,1,.36,1) both}
 .rv1{animation-delay:.05s}.rv2{animation-delay:.1s}.rv3{animation-delay:.15s}
 .rv4{animation-delay:.2s}.rv5{animation-delay:.25s}
@@ -242,8 +250,8 @@ const CSS = `
 .btn-danger{color:var(--red);border-color:rgba(239,68,68,0.3)}
 .btn-danger:hover{border-color:var(--red) !important;color:var(--red) !important}
 
-.card-accent{transition:all .4s cubic-bezier(.34,1.56,.64,1)}
-.card-accent:hover{transform:translateY(-3px);filter:brightness(1.08)}
+.card-accent{transition:filter .4s ease}
+.card-accent:hover{filter:brightness(1.05)}
 .btn-on-accent:hover{border-color:#fff !important;box-shadow:0 8px 30px rgba(0,0,0,0.25) !important}
 .btn-ghost:active{box-shadow:0 2px 8px var(--shadowColor)}
 
@@ -268,6 +276,21 @@ const CSS = `
 .nav-link:hover{color:var(--coral)}
 .nav-link[data-active="true"]{color:var(--coral);text-decoration:underline;text-underline-offset:4px}
 
+.action-link{
+  color:var(--coral);text-decoration:none;font-family:Inter,sans-serif;
+  font-size:13px;font-weight:500;display:inline-flex;align-items:center;gap:4px;
+  transition:opacity .2s ease,text-decoration-color .2s ease;
+  text-decoration:underline;text-decoration-color:transparent;text-underline-offset:3px;
+}
+.action-link:hover{text-decoration-color:var(--coral);opacity:0.8}
+.action-link-white{
+  color:#fff;text-decoration:underline;text-decoration-color:rgba(255,255,255,0.5);
+  text-underline-offset:3px;font-family:Inter,sans-serif;font-size:13px;font-weight:500;
+  display:inline-block;margin-top:16px;
+  transition:text-decoration-color .2s ease,opacity .2s ease;
+}
+.action-link-white:hover{text-decoration-color:#fff;opacity:0.9}
+
 .status-live{color:var(--green)}
 .status-uploading{color:var(--yellow)}
 .status-failed{color:var(--red)}
@@ -277,7 +300,7 @@ const CSS = `
   box-shadow:var(--shadowFloat);
   transition:all .4s cubic-bezier(.34,1.56,.64,1);
 }
-.card:hover{transform:translateY(-3px);box-shadow:var(--shadowFloatHover)}
+.card:hover{box-shadow:var(--shadowFloatHover)}
 
 .stat-card{
   background:var(--sf);border:1px solid var(--bd);border-radius:12px;padding:20px;
@@ -995,7 +1018,7 @@ function ProjectsPage({ token }: { token: string }) {
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
                     Last update: {timeAgo(p.lastDeployAt)}
                   </span>
-                  <span style={{ fontFamily: "Inter, sans-serif", fontSize: 13, fontWeight: 500, color: "var(--coral)", display: "flex", alignItems: "center", gap: 4 }}>
+                  <span className="action-link">
                     View Details <span style={{ fontSize: 16 }}>→</span>
                   </span>
                 </div>
@@ -1276,6 +1299,7 @@ function ProjectDetailPage({ slug, token }: { slug: string; token: string }) {
             <input
               className="input-field"
               placeholder="e.g. docs.example.com"
+              aria-label="Custom domain"
               value={newDomain}
               onChange={(e) => setNewDomain(e.target.value)}
               style={{ flex: 1 }}
@@ -1523,7 +1547,7 @@ function BillingPage({ token, user }: { token: string; user: User }) {
             </div>
             <div>
               <div style={{ fontFamily: "Inter, sans-serif", fontSize: 14, fontWeight: 500, color: "var(--tx)" }}>Billing Support</div>
-              <a href="mailto:support@tome.center" style={{ fontFamily: "Inter, sans-serif", fontSize: 13, color: "var(--coral)", textDecoration: "none" }}>
+              <a href="mailto:support@tome.center" className="action-link">
                 Contact support →
               </a>
             </div>
@@ -1648,8 +1672,8 @@ function SettingsPage({ user, token, onLogout }: { user: User; token: string; on
               <button className="nav-link" onClick={() => setShowToken(!showToken)} style={{ fontSize: 12, padding: "4px 8px" }}>
                 {showToken ? "Hide" : "Show"}
               </button>
-              <button className="nav-link" onClick={copyToken} style={{ fontSize: 12, padding: "4px 8px" }}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <button className="nav-link" onClick={copyToken} style={{ fontSize: 12, padding: "4px 8px" }} aria-label="Copy API token">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
                   <rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                 </svg>
               </button>
@@ -1667,15 +1691,14 @@ function SettingsPage({ user, token, onLogout }: { user: User; token: string; on
         {/* Active Plan */}
         <LiquidRing block radius={12} bg="var(--coral)" onAccent>
         <div className="card-accent" style={{ padding: 28, background: "var(--coral)", color: "#fff", borderRadius: 12 }}>
-          <div style={{ fontFamily: "Inter, sans-serif", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.5px", opacity: 0.8, marginBottom: 8 }}>Active Plan</div>
+          <div style={{ fontFamily: "Inter, sans-serif", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.5px", color: "rgba(255,255,255,0.9)", marginBottom: 8 }}>Active Plan</div>
           <div style={{ fontFamily: '"Cormorant Garamond", serif', fontSize: 28, fontWeight: 400, marginBottom: 4 }}>
             {plan.name}
           </div>
           <div style={{ fontFamily: "Inter, sans-serif", fontSize: 14, opacity: 0.8 }}>
             {plan.price}
           </div>
-          <a href={`${BASE}/billing`} onClick={(e) => { e.preventDefault(); navigate("/billing"); }}
-            style={{ fontFamily: "Inter, sans-serif", fontSize: 13, fontWeight: 500, color: "#fff", textDecoration: "underline", textUnderlineOffset: 3, marginTop: 16, display: "inline-block" }}>
+          <a href={`${BASE}/billing`} onClick={(e) => { e.preventDefault(); navigate("/billing"); }} className="action-link-white">
             Manage plan →
           </a>
         </div>

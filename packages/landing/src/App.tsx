@@ -180,7 +180,7 @@ const THEMES = {
   light: {
     "--bg": "#f5f2ed", "--bgAlt": "#edeae4", "--sf": "#ffffff",
     "--bd": "#ddd9d0", "--bdLight": "#e8e4dc",
-    "--tx": "#1a1716", "--tx2": "#4a443e", "--txM": "#8a847c",
+    "--tx": "#1a1716", "--tx2": "#4a443e", "--txM": "#696360",
     "--accent": "#8b3a2f", "--accentLight": "#a34838",
     "--accentFaint": "rgba(139,58,47,0.08)", "--accentGlow": "rgba(139,58,47,0.25)",
     "--hdBg": "rgba(245,242,237,0.92)",
@@ -271,6 +271,28 @@ const CSS = `
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{overflow:hidden;height:100%;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 
+/* Focus visible for keyboard navigation */
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+
+/* Reduced motion */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important}
+}
+
+/* ── Responsive ────────────────────────────────── */
+@media(max-width:767px){
+  .landing-hero-grid{grid-template-columns:1fr!important}
+  .features-grid{grid-template-columns:1fr!important}
+  .section-dots{display:none!important}
+  .nav-links{display:none!important}
+  .cta-buttons{flex-direction:column!important;align-items:stretch!important}
+  .cta-badges{flex-direction:column!important;align-items:center!important;gap:8px!important}
+  .hero-badges{flex-direction:column!important;align-items:flex-start!important;gap:8px!important}
+}
+@media(max-width:480px){
+  .landing-nav{padding:12px 16px!important}
+}
+
 /* ── Spring easing ──────────────────────────────────── */
 /* Overshooting spring: cubic-bezier(0.34, 1.56, 0.64, 1) */
 /* Smooth decel:        cubic-bezier(0.22, 1, 0.36, 1)    */
@@ -295,14 +317,16 @@ html,body{overflow:hidden;height:100%;-webkit-font-smoothing:antialiased;-moz-os
 
 .btn-primary-landing{
   box-shadow:var(--shadowFloat);
-  transition:box-shadow .3s ease,border-color .3s ease;
+  transition:box-shadow .3s ease,transform .3s ease;
 }
 .btn-primary-landing:hover{
+  transform:translateY(-2px);
   box-shadow:var(--shadowFloatHover);
 }
 .btn-primary-landing:active{
+  transform:translateY(0);
   box-shadow:0 2px 8px var(--shadowColor);
-  transition:box-shadow .12s ease;
+  transition:box-shadow .12s ease,transform .12s ease;
 }
 
 .btn-ghost-landing{
@@ -320,16 +344,17 @@ html,body{overflow:hidden;height:100%;-webkit-font-smoothing:antialiased;-moz-os
 
 
 .btn-cta-white{
-  position:relative;overflow:hidden;
-  box-shadow:0 6px 24px rgba(0,0,0,0.15),0 2px 8px rgba(0,0,0,0.1),0 0 1px rgba(0,0,0,0.1);
-  transition:box-shadow .4s ease;
+  box-shadow:0 6px 24px rgba(0,0,0,0.15),0 2px 8px rgba(0,0,0,0.1);
+  transition:box-shadow .3s ease,transform .3s ease;
 }
 .btn-cta-white:hover{
-  box-shadow:0 16px 48px rgba(0,0,0,0.25),0 6px 20px rgba(0,0,0,0.15),0 0 1px rgba(0,0,0,0.1);
+  transform:translateY(-2px);
+  box-shadow:0 16px 48px rgba(0,0,0,0.25),0 6px 20px rgba(0,0,0,0.15);
 }
 .btn-cta-white:active{
+  transform:translateY(0);
   box-shadow:0 2px 8px rgba(0,0,0,0.12);
-  transition:box-shadow .12s ease;
+  transition:box-shadow .12s ease,transform .12s ease;
 }
 
 .btn-cta-outline{
@@ -388,6 +413,12 @@ html,body{overflow:hidden;height:100%;-webkit-font-smoothing:antialiased;-moz-os
   border:1.5px solid var(--txM);background:transparent;
   cursor:pointer;padding:0;
   transition:all .4s cubic-bezier(0.34,1.56,0.64,1);
+  /* 44x44 touch target via transparent hit area */
+  box-shadow:0 0 0 18px transparent;
+  position:relative;
+}
+.dot::before{
+  content:"";position:absolute;inset:-18px;
 }
 .dot:hover{border-color:var(--accent);transform:scale(1.4)}
 .dot-active{
@@ -406,7 +437,7 @@ function Nav({ isDark, toggle }: { isDark: boolean; toggle: () => void }) {
     background: "none", border: "none", padding: 0, fontWeight: 400,
   };
   return (
-    <nav style={{
+    <nav className="landing-nav" style={{
       display: "flex", alignItems: "center", justifyContent: "space-between",
       padding: "18px 48px", maxWidth: 1200, margin: "0 auto",
       position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
@@ -416,7 +447,7 @@ function Nav({ isDark, toggle }: { isDark: boolean; toggle: () => void }) {
         <a href="/" style={{ textDecoration: "none", color: "var(--accent)" }}>
           <span style={{ fontFamily: '"Cormorant Garamond", serif', fontSize: 22, fontWeight: 600, fontStyle: "italic", letterSpacing: "-0.01em" }}>Tome.</span>
         </a>
-        <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
+        <div className="nav-links" style={{ display: "flex", alignItems: "center", gap: 24 }}>
           <a className="nav-link" href="/docs" style={{ ...s, color: "var(--accent)", textDecoration: "underline", textUnderlineOffset: 4 }}>Guide</a>
           <a className="nav-link" href="https://github.com/tomehq/tome" style={s}>GitHub</a>
         </div>
@@ -435,7 +466,7 @@ function Nav({ isDark, toggle }: { isDark: boolean; toggle: () => void }) {
 
 function SectionDots({ current, goTo }: { current: number; goTo: (i: number) => void }) {
   return (
-    <div style={{
+    <div className="section-dots" style={{
       position: "fixed", right: 28, top: "50%", transform: "translateY(-50%)",
       zIndex: 90, display: "flex", flexDirection: "column", gap: 12,
     }}>
@@ -479,7 +510,7 @@ function Section({ active, direction, children }: { active: boolean; direction: 
 
 function HeroContent() {
   return (
-    <div style={{ maxWidth: 1200, width: "100%", padding: "0 48px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60, alignItems: "center" }}>
+    <div className="landing-hero-grid" style={{ maxWidth: 1200, width: "100%", padding: "0 48px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60, alignItems: "center" }}>
       <div>
         <div style={{ display: "inline-flex", alignItems: "center", gap: 6, fontFamily: "Inter, sans-serif", fontSize: 12, fontWeight: 500, color: "var(--accent)", letterSpacing: ".06em", textTransform: "uppercase", marginBottom: 24 }}>
           <SparkleIcon /> INTRODUCING V3.0
@@ -495,7 +526,7 @@ function HeroContent() {
           <a className="btn-primary-landing" href="/dashboard" style={{ background: "var(--accent)", color: "#fff", border: "none", borderRadius: 6, padding: "14px 28px", fontSize: 15, fontWeight: 600, fontFamily: "Inter, sans-serif", cursor: "pointer", textDecoration: "none", display: "inline-flex", alignItems: "center", boxShadow: "var(--shadowFloat)", transition: "all .3s ease" }}>Get Started</a>
           <a className="btn-ghost-landing" href="https://github.com/tomehq/tome" style={{ background: "var(--bg)", color: "var(--tx)", border: "1px solid var(--bd)", borderRadius: 6, padding: "14px 28px", fontSize: 15, fontWeight: 500, fontFamily: "Inter, sans-serif", cursor: "pointer", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 8, boxShadow: "var(--shadowFloat)", transition: "all .3s ease" }}><GitHubIcon /> Star on GitHub</a>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+        <div className="hero-badges" style={{ display: "flex", alignItems: "center", gap: 20 }}>
           <span style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 13, color: "var(--tx2)", fontFamily: "Inter, sans-serif" }}><CheckIcon /> Optimized for Agents</span>
           <span style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 13, color: "var(--tx2)", fontFamily: "Inter, sans-serif" }}><CheckIcon /> 5 theme presets included</span>
         </div>
@@ -532,7 +563,7 @@ function HeroContent() {
               <p style={{ fontSize: 11, lineHeight: 1.7, color: "#4a443e", marginBottom: 10 }}>
                 Tome transforms your Markdown and MDX files into stunning, fully-searchable documentation sites.
               </p>
-              <div style={{ padding: 10, background: "rgba(139,58,47,0.06)", borderLeft: "3px solid #8b3a2f", borderRadius: 4 }}>
+              <div style={{ padding: 10, background: "rgba(139,58,47,0.06)", borderLeft: "3px solid #8b3a2f", borderRadius: 0 }}>
                 <div style={{ fontSize: 10, fontWeight: 700, color: "#8b3a2f", textTransform: "uppercase", letterSpacing: ".04em", marginBottom: 3 }}>Open Source Forever</div>
                 <p style={{ fontSize: 10, lineHeight: 1.6, color: "#4a443e", margin: 0 }}>Tome is MIT licensed. No vendor lock-in, no surprise pricing changes.</p>
               </div>
@@ -596,7 +627,7 @@ function FeaturesContent() {
       <h2 style={{ fontFamily: '"Cormorant Garamond", serif', fontSize: "clamp(28px, 4vw, 40px)", fontWeight: 400, fontStyle: "italic", letterSpacing: "-0.01em", marginBottom: 48 }}>
         Crafted for the Technical Mind
       </h2>
-      <div style={{ display: "grid", gridTemplateColumns: "1.2fr 0.8fr", gridTemplateRows: "auto auto", gap: 16 }}>
+      <div className="features-grid" style={{ display: "grid", gridTemplateColumns: "1.2fr 0.8fr", gridTemplateRows: "auto auto", gap: 16 }}>
         <LiquidRing block radius={12} bg="var(--sf)" style={{ height: "100%" }}>
           <div className="feature-card" style={{ background: "var(--sf)", borderRadius: 12, padding: 36, height: "100%" }}>
             <CiCdIcon />
@@ -615,7 +646,7 @@ function FeaturesContent() {
           <div className="feature-card-accent" style={{ background: "var(--accent)", borderRadius: 12, padding: 36, color: "#fff", height: "100%" }}>
             <GlobeIcon />
             <h3 style={{ fontFamily: "Inter, sans-serif", fontSize: 20, fontWeight: 600, marginTop: 16, marginBottom: 10 }}>Custom Domains</h3>
-            <p style={{ fontFamily: "Inter, sans-serif", fontSize: 14, lineHeight: 1.65, opacity: 0.85, marginBottom: 20 }}>Your brand, your identity. Fully managed SSL certificates and global edge caching included.</p>
+            <p style={{ fontFamily: "Inter, sans-serif", fontSize: 14, lineHeight: 1.65, color: "rgba(255,255,255,0.9)", marginBottom: 20 }}>Your brand, your identity. Fully managed SSL certificates and global edge caching included.</p>
             <DomainAnimation />
           </div>
         </LiquidRing>
@@ -623,7 +654,7 @@ function FeaturesContent() {
           <div className="feature-card-accent" style={{ background: "var(--accent)", borderRadius: 12, padding: 28, color: "#fff", height: "100%" }}>
             <CodeIcon />
             <h3 style={{ fontFamily: "Inter, sans-serif", fontSize: 18, fontWeight: 600, marginTop: 12, marginBottom: 8 }}>DX-first</h3>
-            <p style={{ fontFamily: "Inter, sans-serif", fontSize: 13, lineHeight: 1.6, opacity: 0.85 }}>Markdown, MDX, and Markdoc support. Designed by developers who value speed.</p>
+            <p style={{ fontFamily: "Inter, sans-serif", fontSize: 13, lineHeight: 1.6, color: "rgba(255,255,255,0.9)" }}>Markdown, MDX, and Markdoc support. Designed by developers who value speed.</p>
           </div>
         </LiquidRing>
         <LiquidRing block radius={12} bg="var(--sf)" style={{ height: "100%" }}>
@@ -693,14 +724,14 @@ function CTAContent() {
           <h2 style={{ fontFamily: '"Cormorant Garamond", serif', fontSize: "clamp(32px, 5vw, 48px)", fontWeight: 400, fontStyle: "italic", color: "#fff", marginBottom: 32, letterSpacing: "-0.01em" }}>
             Ready to build your legacy?
           </h2>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, marginBottom: 28 }}>
+          <div className="cta-buttons" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, marginBottom: 28 }}>
             <a className="btn-cta-white" href="/dashboard" style={{ background: "#fff", color: "var(--accent)", border: "none", borderRadius: 6, padding: "14px 28px", fontSize: 15, fontWeight: 600, fontFamily: "Inter, sans-serif", cursor: "pointer", textDecoration: "none", display: "inline-flex", alignItems: "center", boxShadow: "0 4px 16px rgba(0,0,0,0.2), 0 1px 4px rgba(0,0,0,0.1)", transition: "all .3s ease" }}>Get Started for Free</a>
             <a className="btn-cta-outline" href="/docs" style={{ background: "transparent", color: "#fff", border: "1px solid rgba(255,255,255,0.35)", borderRadius: 6, padding: "14px 28px", fontSize: 15, fontWeight: 500, fontFamily: "Inter, sans-serif", cursor: "pointer", textDecoration: "none", display: "inline-flex", alignItems: "center", boxShadow: "0 4px 16px rgba(0,0,0,0.15)", transition: "all .3s ease" }}>View the Docs</a>
           </div>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 20 }}>
-            <span style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 12, color: "rgba(255,255,255,0.7)", fontFamily: "Inter, sans-serif" }}><CheckIconWhite /> Open source core</span>
-            <span style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 12, color: "rgba(255,255,255,0.7)", fontFamily: "Inter, sans-serif" }}><CheckIconWhite /> Built-in AI chat</span>
-            <span style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 12, color: "rgba(255,255,255,0.7)", fontFamily: "Inter, sans-serif" }}><CheckIconWhite /> Deploy in seconds</span>
+          <div className="cta-badges" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 20 }}>
+            <span style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 12, color: "rgba(255,255,255,0.85)", fontFamily: "Inter, sans-serif" }}><CheckIconWhite /> Open source core</span>
+            <span style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 12, color: "rgba(255,255,255,0.85)", fontFamily: "Inter, sans-serif" }}><CheckIconWhite /> Built-in AI chat</span>
+            <span style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 12, color: "rgba(255,255,255,0.85)", fontFamily: "Inter, sans-serif" }}><CheckIconWhite /> Deploy in seconds</span>
           </div>
         </div>
       </LiquidRing>
