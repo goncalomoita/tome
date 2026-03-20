@@ -36,7 +36,7 @@ cd my-docs && npm install && npm run dev
 - **Markdown and MDX** — Write docs in `.md` or use `.mdx` for interactive components like tabs, callouts, and code playgrounds.
 - **File-system routing** — Drop files into `pages/` and they become pages. No router config, no manifest files.
 - **Built-in components** — Callouts, tabs, cards, steps, accordions, and API playgrounds work out of the box.
-- **Two theme presets** — Ship with a warm amber aesthetic or an editorial brutalist look. Both support dark mode.
+- **Four theme presets** — Amber, Editorial, Cipher, and Mint. Each with light and dark mode support.
 - **Search included** — Pagefind indexes your site at build time. No external service required.
 - **API reference** — Point Tome at an OpenAPI spec and get a rendered reference with an interactive playground.
 - **Versioning** — Maintain multiple documentation versions side by side with a version switcher.

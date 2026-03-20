@@ -1478,7 +1478,7 @@ function BillingPage({ token, user }: { token: string; user: User }) {
                 <span style={{ fontFamily: '"Cormorant Garamond", serif', fontSize: 32, fontWeight: 400, color: "var(--coral)" }}>{plan.price === "Free" ? "Free" : plan.price.replace("/mo", "")}</span>
                 {plan.price !== "Free" && <span style={{ fontFamily: "Inter, sans-serif", fontSize: 13, color: "var(--txM)" }}>/mo</span>}
               </div>
-              {plan.price !== "Free" && <div style={{ fontFamily: "Inter, sans-serif", fontSize: 12, color: "var(--txM)" }}>Billed monthly</div>}
+              {plan.price !== "Free" && <div style={{ fontFamily: "Inter, sans-serif", fontSize: 12, color: "var(--txM)", marginTop: 6 }}>Billed monthly</div>}
             </div>
           </div>
 
