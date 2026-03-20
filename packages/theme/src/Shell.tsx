@@ -643,8 +643,8 @@ export function Shell({
   // Prev / Next
   const allNavPages = navigation.flatMap(g => g.pages);
   const idx = allNavPages.findIndex(p => p.id === currentPageId);
-  const prev = idx > 0 ? allNavPages[idx - 1] : null;
-  const next = idx < allNavPages.length - 1 ? allNavPages[idx + 1] : null;
+  const prev = idx > 0 ? allNavPages[idx - 1] : allNavPages[allNavPages.length - 1] ?? null;
+  const next = idx < allNavPages.length - 1 ? allNavPages[idx + 1] : allNavPages[0] ?? null;
 
   // Breadcrumbs
   const breadcrumbs = getBreadcrumbs(navigation, currentPageId, pageTitle);
@@ -1186,7 +1186,7 @@ export function Shell({
               </div>
 
               {/* TOM-48: Edit this page link + TOM-54: Last updated + Feedback + Prev/Next */}
-              {overrides?.PageFooter ? (
+              {!pageHtml && !pageComponent ? null : overrides?.PageFooter ? (
                 <overrides.PageFooter
                   editUrl={editUrl}
                   lastUpdated={lastUpdated}
@@ -1243,23 +1243,41 @@ export function Shell({
                 )}
               </div>
 
-              {/* Prev / Next */}
-              <div style={{ display: "flex", flexDirection: mobile ? "column" : "row", justifyContent: "space-between", marginTop: 16, paddingTop: 24, borderTop: "1px solid var(--bd)", gap: mobile ? 12 : 16 }}>
+              {/* Prev / Next link cards */}
+              <div style={{ display: "grid", gridTemplateColumns: mobile ? "1fr" : "1fr 1fr", marginTop: 24, paddingTop: 32, paddingBottom: 40, borderTop: "1px solid var(--bd)", gap: 16 }}>
                 {prev ? (
                   <button onClick={() => onNavigate(prev.id)} style={{
-                    display: "flex", alignItems: "center", gap: 8, background: "none",
-                    border: "1px solid var(--bd)", borderRadius: 2, padding: "10px 16px",
-                    cursor: "pointer", color: "var(--tx2)", fontSize: 13, fontFamily: "var(--font-body)",
-                    transition: "border-color .15s, color .15s",
-                  }}>{isRtl ? <ArrowRight /> : <ArrowLeft />} {prev.title}</button>
+                    display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 6,
+                    background: "var(--sf)", border: "1px solid var(--bd)", borderRadius: 8,
+                    padding: "16px 20px", cursor: "pointer", textAlign: "left",
+                    fontFamily: "var(--font-body)", transition: "all .3s ease",
+                    boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
+                  }}
+                  onMouseOver={(e) => { e.currentTarget.style.borderColor = "var(--ac)"; e.currentTarget.style.boxShadow = "0 4px 16px rgba(0,0,0,0.1)"; }}
+                  onMouseOut={(e) => { e.currentTarget.style.borderColor = "var(--bd)"; e.currentTarget.style.boxShadow = "0 2px 8px rgba(0,0,0,0.06)"; }}
+                  >
+                    <span style={{ fontSize: 11, color: "var(--txM)", textTransform: "uppercase", letterSpacing: "0.5px", display: "flex", alignItems: "center", gap: 4 }}>
+                      {isRtl ? <ArrowRight /> : <ArrowLeft />} Previous
+                    </span>
+                    <span style={{ fontSize: 14, fontWeight: 500, color: "var(--tx)" }}>{prev.title}</span>
+                  </button>
                 ) : <div />}
                 {next ? (
                   <button onClick={() => onNavigate(next.id)} style={{
-                    display: "flex", alignItems: "center", gap: 8, background: "none",
-                    border: "1px solid var(--bd)", borderRadius: 2, padding: "10px 16px",
-                    cursor: "pointer", color: "var(--tx2)", fontSize: 13, fontFamily: "var(--font-body)",
-                    transition: "border-color .15s, color .15s",
-                  }}>{next.title} {isRtl ? <ArrowLeft /> : <ArrowRight />}</button>
+                    display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 6,
+                    background: "var(--sf)", border: "1px solid var(--bd)", borderRadius: 8,
+                    padding: "16px 20px", cursor: "pointer", textAlign: "right",
+                    fontFamily: "var(--font-body)", transition: "all .3s ease",
+                    boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
+                  }}
+                  onMouseOver={(e) => { e.currentTarget.style.borderColor = "var(--ac)"; e.currentTarget.style.boxShadow = "0 4px 16px rgba(0,0,0,0.1)"; }}
+                  onMouseOut={(e) => { e.currentTarget.style.borderColor = "var(--bd)"; e.currentTarget.style.boxShadow = "0 2px 8px rgba(0,0,0,0.06)"; }}
+                  >
+                    <span style={{ fontSize: 11, color: "var(--txM)", textTransform: "uppercase", letterSpacing: "0.5px", display: "flex", alignItems: "center", gap: 4 }}>
+                      Next {isRtl ? <ArrowLeft /> : <ArrowRight />}
+                    </span>
+                    <span style={{ fontSize: 14, fontWeight: 500, color: "var(--tx)" }}>{next.title}</span>
+                  </button>
                 ) : <div />}
               </div>
               </>

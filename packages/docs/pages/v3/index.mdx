@@ -5,11 +5,20 @@ description: Tome is an open-source documentation platform for Markdown and MDX.
 
 # Tome
 
-Welcome to Tome — beautiful documentation, zero vendor lock-in.
-
----
-
-Tome is an open-source documentation platform built for developers who believe great docs shouldn't cost $250/month. Write in Markdown or MDX, deploy anywhere, and own your content forever.
+<CardGroup cols={2}>
+  <Card title="Tutorials" href="./tutorials/first-site" icon="book">
+    Step-by-step walkthroughs to get started and deploy your first site.
+  </Card>
+  <Card title="Guides" href="./guides/search" icon="compass">
+    How-to recipes for search, theming, migration, and more.
+  </Card>
+  <Card title="Reference" href="./reference/cli" icon="terminal">
+    Complete specs for config, CLI, components, and frontmatter.
+  </Card>
+  <Card title="Concepts" href="./concepts/architecture" icon="lightbulb">
+    Architecture, file routing, and how Tome works under the hood.
+  </Card>
+</CardGroup>
 
 ## What is Tome?
 
@@ -36,7 +45,7 @@ cd my-docs && npm install && npm run dev
 - **Markdown and MDX** — Write docs in `.md` or use `.mdx` for interactive components like tabs, callouts, and code playgrounds.
 - **File-system routing** — Drop files into `pages/` and they become pages. No router config, no manifest files.
 - **Built-in components** — Callouts, tabs, cards, steps, accordions, and API playgrounds work out of the box.
-- **Two theme presets** — Ship with a warm amber aesthetic or an editorial brutalist look. Both support dark mode.
+- **Four theme presets** — Amber, Editorial, Cipher, and Mint. Each with light and dark mode support.
 - **Search included** — Pagefind indexes your site at build time. No external service required.
 - **API reference** — Point Tome at an OpenAPI spec and get a rendered reference with an interactive playground.
 - **Versioning** — Maintain multiple documentation versions side by side with a version switcher.
@@ -44,10 +53,3 @@ cd my-docs && npm install && npm run dev
 - **Agent-friendly** — Every build generates `llms.txt`, `skill.md`, `robots.txt`, `search.json`, `mcp.json`, and JSON-LD schema markup. Your docs work for humans and machines.
 - **Mermaid and math** — Diagrams and LaTeX math render in both `.md` and `.mdx` files with zero config.
 - **Deploy anywhere** — Static output works on Vercel, Netlify, Cloudflare Pages, or Tome Cloud.
-
-## Learn more
-
-- **[Quickstart](./quickstart)** — Get a docs site running in under a minute.
-- **[Installation](./installation)** — Detailed setup instructions and prerequisites.
-- **[Configuration](./configuration)** — Customize your site name, navigation, theme, and more.
-- **[CLI Reference](./cli)** — Every command and flag available in the `tome` CLI.

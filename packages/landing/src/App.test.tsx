@@ -8,22 +8,18 @@ import { App } from "./App.js";
 describe("Hero", () => {
   it("renders the site name", () => {
     render(<App />);
-    expect(screen.getByText("Tome")).toBeInTheDocument();
+    // Logo renders "Tome." as a single text node
+    expect(screen.getAllByText("Tome.").length).toBeGreaterThanOrEqual(1);
   });
 
   it("renders the tagline", () => {
     render(<App />);
-    expect(screen.getByText("zero friction")).toBeInTheDocument();
-  });
-
-  it("renders the install snippet", () => {
-    render(<App />);
-    expect(screen.getByText(/npx create-tome my-docs/)).toBeInTheDocument();
+    expect(screen.getByText("zero friction.")).toBeInTheDocument();
   });
 
   it("renders Get Started CTA links", () => {
     render(<App />);
-    const links = screen.getAllByRole("link", { name: "Get Started" });
+    const links = screen.getAllByText("Get Started");
     expect(links.length).toBeGreaterThanOrEqual(1);
   });
 });
@@ -32,66 +28,46 @@ describe("Hero", () => {
 
 describe("Features", () => {
   const featureTitles = [
-    "Markdown & MDX",
-    "Full-Text Search",
-    "API Reference",
-    "AI Chat Assistant",
-    "Multi-Version Docs",
-    "Analytics & Custom Domains",
+    "CI/CD Integration",
+    "Custom Domains",
+    "DX-first",
+    "Semantic Search",
   ];
 
-  it("renders all 6 feature titles", () => {
+  it("renders all 4 feature titles", () => {
     render(<App />);
     for (const title of featureTitles) {
       expect(screen.getByText(title)).toBeInTheDocument();
     }
   });
-});
 
-// ── Pricing Section ──────────────────────────────────────
-
-describe("Pricing", () => {
-  it("renders the Community tier", () => {
+  it("renders the section heading", () => {
     render(<App />);
-    expect(screen.getByText("Community")).toBeInTheDocument();
-    expect(screen.getByText("Free")).toBeInTheDocument();
-  });
-
-  it("renders the Cloud tier", () => {
-    render(<App />);
-    expect(screen.getByText("Cloud")).toBeInTheDocument();
-    expect(screen.getByText("$19.99")).toBeInTheDocument();
-  });
-
-  it("renders the Team tier", () => {
-    render(<App />);
-    expect(screen.getByText("Team")).toBeInTheDocument();
-    expect(screen.getByText("$49.99")).toBeInTheDocument();
-  });
-
-  it("renders all 3 pricing tier names", () => {
-    render(<App />);
-    expect(screen.getByText("Community")).toBeInTheDocument();
-    expect(screen.getByText("Cloud")).toBeInTheDocument();
-    expect(screen.getByText("Team")).toBeInTheDocument();
+    expect(screen.getByText("Crafted for the Technical Mind")).toBeInTheDocument();
   });
 });
 
-// ── Footer ───────────────────────────────────────────────
+// ── CTA Section ─────────────────────────────────────────
 
-describe("Footer", () => {
-  it("renders footer links", () => {
+describe("CTA", () => {
+  it("renders the CTA heading", () => {
     render(<App />);
-    const githubLinks = screen.getAllByRole("link", { name: "GitHub" });
-    expect(githubLinks.length).toBeGreaterThanOrEqual(1);
-    expect(
-      screen.getByRole("link", { name: "Documentation" }),
-    ).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Contact" })).toBeInTheDocument();
+    expect(screen.getByText(/Ready to build your legacy/)).toBeInTheDocument();
   });
 
-  it('renders "Built with Tome" tagline', () => {
+  it("renders Get Started for Free button", () => {
     render(<App />);
-    expect(screen.getByText("Built with Tome")).toBeInTheDocument();
+    expect(screen.getByText("Get Started for Free")).toBeInTheDocument();
+  });
+});
+
+// ── Navigation ──────────────────────────────────────────
+
+describe("Navigation", () => {
+  it("renders nav links", () => {
+    render(<App />);
+    expect(screen.getByText("Guide")).toBeInTheDocument();
+    expect(screen.getAllByText("GitHub").length).toBeGreaterThanOrEqual(1);
+    expect(screen.getByText("Sign In")).toBeInTheDocument();
   });
 });
