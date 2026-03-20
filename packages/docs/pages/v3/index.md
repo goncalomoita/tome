@@ -45,9 +45,19 @@ cd my-docs && npm install && npm run dev
 - **Mermaid and math** — Diagrams and LaTeX math render in both `.md` and `.mdx` files with zero config.
 - **Deploy anywhere** — Static output works on Vercel, Netlify, Cloudflare Pages, or Tome Cloud.
 
-## Learn more
+## Get Started
 
-- **[Quickstart](./quickstart)** — Get a docs site running in under a minute.
-- **[Installation](./installation)** — Detailed setup instructions and prerequisites.
-- **[Configuration](./configuration)** — Customize your site name, navigation, theme, and more.
-- **[CLI Reference](./cli)** — Every command and flag available in the `tome` CLI.
+<CardGroup cols={2}>
+  <Card title="Quickstart" href="./quickstart" icon="⚡">
+    Get a docs site running in under a minute.
+  </Card>
+  <Card title="Installation" href="./installation" icon="📦">
+    Detailed setup instructions and prerequisites.
+  </Card>
+  <Card title="Configuration" href="./configuration" icon="⚙️">
+    Customize your site name, navigation, theme, and more.
+  </Card>
+  <Card title="CLI Reference" href="./reference/cli" icon="💻">
+    Every command and flag available in the tome CLI.
+  </Card>
+</CardGroup>

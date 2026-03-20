@@ -234,7 +234,8 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--coral);outline-offs
   box-shadow:var(--shadowFloat);
   transition:all .4s cubic-bezier(.34,1.56,.64,1);
 }
-.btn-primary:hover{box-shadow:var(--shadowFloatHover)}
+.btn-primary:hover{box-shadow:var(--shadowFloatHover);transform:translateY(-2px)}
+.btn-primary:active{transform:translateY(0);box-shadow:var(--shadowFloat);transition:all .12s ease}
 .btn-primary:active{box-shadow:0 2px 8px var(--shadowColor)}
 .btn-primary:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
 
@@ -1169,7 +1170,6 @@ function ProjectDetailPage({ slug, token }: { slug: string; token: string }) {
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           {latestDeployment?.url && (
-            <LiquidRing radius={6}>
               <a
                 href={latestDeployment.url}
                 target="_blank"
@@ -1179,7 +1179,6 @@ function ProjectDetailPage({ slug, token }: { slug: string; token: string }) {
               >
                 Visit Site <ExternalLinkIcon />
               </a>
-            </LiquidRing>
           )}
         </div>
       </div>
