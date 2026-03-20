@@ -42,7 +42,7 @@ const mockDeployments = [
 
 const mockProviders = [
   { id: "github", name: "GitHub", authorizeUrl: "https://github.com/login/oauth/authorize?test=1" },
-  { id: "google", name: "Google", authorizeUrl: "https://accounts.google.com/o/oauth2/v2/auth?test=1" },
+  { id: "google", name: "Google", authorizeUrl: "https://accounts.google.com/o/oauth2/auth?test=1" },
 ];
 
 function mockFetch(overrides: Record<string, unknown> = {}) {
@@ -50,7 +50,6 @@ function mockFetch(overrides: Record<string, unknown> = {}) {
     const path = new URL(url).pathname;
     const method = opts?.method ?? "GET";
 
-    // Auth endpoints
     if (method === "GET" && path === "/api/auth/providers") {
       return Response.json({ providers: overrides.providers ?? mockProviders, emailEnabled: false });
     }
@@ -61,36 +60,27 @@ function mockFetch(overrides: Record<string, unknown> = {}) {
       if (overrides.authFail) return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401 });
       return Response.json(mockUser);
     }
-
-    // Projects
     if (method === "GET" && path === "/api/deploy/projects") {
       return Response.json(overrides.projects ?? mockProjects);
     }
     if (method === "GET" && path.match(/\/api\/deploy\/projects\/[\w-]+\/deployments/)) {
       return Response.json(overrides.deployments ?? mockDeployments);
     }
-
-    // Domains
     if (method === "GET" && (path === "/api/domains" || path === "/api/domains/")) {
       return Response.json(overrides.domains ?? []);
     }
     if (method === "POST" && (path === "/api/domains" || path === "/api/domains/")) {
       return Response.json({ domain: "docs.example.com", verified: false, sslStatus: "pending", dnsRecords: [] });
     }
-
-    // Analytics
     if (method === "GET" && path === "/api/analytics/summary") {
       return Response.json(overrides.analytics ?? { totalPageViews: 0, uniqueVisitors: 0, topPages: [], topReferrers: [], viewsByDay: [] });
     }
-
-    // Billing
     if (method === "POST" && path === "/api/billing/checkout") {
       return Response.json({ url: "https://checkout.stripe.com/test", sessionId: "cs_test" });
     }
     if (method === "POST" && path === "/api/billing/portal") {
       return Response.json({ url: "https://billing.stripe.com/test" });
     }
-
     return new Response(JSON.stringify({ error: "Not found" }), { status: 404 });
   }) as typeof fetch;
 }
@@ -137,7 +127,6 @@ describe("Login", () => {
       expect(screen.getByText("Loading…")).toBeInTheDocument();
     });
 
-    // Resolve to prevent act warnings
     resolveProviders!(Response.json({ providers: mockProviders, emailEnabled: false }));
   });
 
@@ -152,9 +141,7 @@ describe("Login", () => {
   it("redirects to login when token is invalid", async () => {
     localStorage.setItem("tome_token", "tome_invalid");
     vi.stubGlobal("fetch", mockFetch({ authFail: true }));
-
     render(<App />);
-
     await waitFor(() => {
       expect(localStorage.getItem("tome_token")).toBeNull();
     });
@@ -167,24 +154,32 @@ describe("Projects", () => {
   it("renders project list after auth", async () => {
     localStorage.setItem("tome_token", "tome_test123");
     vi.stubGlobal("fetch", mockFetch());
-
     render(<App />);
 
     await waitFor(() => {
       expect(screen.getByText("my-docs")).toBeInTheDocument();
     });
+    // Status badge shows uppercase
     expect(screen.getByText("live")).toBeInTheDocument();
-    expect(screen.getByText("12 files")).toBeInTheDocument();
+    // Stats show as separate label + value
+    expect(screen.getByText("12")).toBeInTheDocument();
   });
 
   it("shows empty state when no projects", async () => {
     localStorage.setItem("tome_token", "tome_test123");
     vi.stubGlobal("fetch", mockFetch({ projects: [] }));
-
     render(<App />);
-
     await waitFor(() => {
       expect(screen.getByText("No projects yet")).toBeInTheDocument();
+    });
+  });
+
+  it("renders Your Projects heading with description", async () => {
+    localStorage.setItem("tome_token", "tome_test123");
+    vi.stubGlobal("fetch", mockFetch());
+    render(<App />);
+    await waitFor(() => {
+      expect(screen.getByText("Your Projects")).toBeInTheDocument();
     });
   });
 });
@@ -200,11 +195,31 @@ describe("Project Detail", () => {
   it("renders deployment history", async () => {
     vi.stubGlobal("fetch", mockFetch());
     render(<App />);
-
     await waitFor(() => {
-      expect(screen.getByText("dep-1-fu")).toBeInTheDocument(); // truncated ID
+      expect(screen.getByText("dep-1-full-u")).toBeInTheDocument(); // 12-char truncated ID
     });
     expect(screen.getByText("Deployments")).toBeInTheDocument();
+  });
+
+  it("renders stat cards", async () => {
+    vi.stubGlobal("fetch", mockFetch());
+    render(<App />);
+    await waitFor(() => {
+      expect(screen.getByText("Current Status")).toBeInTheDocument();
+    });
+    expect(screen.getByText("Total Assets")).toBeInTheDocument();
+    expect(screen.getByText("Total Size")).toBeInTheDocument();
+  });
+
+  it("renders breadcrumb navigation", async () => {
+    vi.stubGlobal("fetch", mockFetch());
+    render(<App />);
+    await waitFor(() => {
+      // my-docs appears in breadcrumb and page title
+      expect(screen.getAllByText("my-docs").length).toBeGreaterThanOrEqual(2);
+    });
+    // Projects appears in sidebar nav and breadcrumb
+    expect(screen.getAllByText("Projects").length).toBeGreaterThanOrEqual(2);
   });
 
   it("renders analytics summary when data exists", async () => {
@@ -218,7 +233,6 @@ describe("Project Detail", () => {
       },
     }));
     render(<App />);
-
     await waitFor(() => {
       expect(screen.getByText("1,500")).toBeInTheDocument();
     });
@@ -236,11 +250,10 @@ describe("Project Detail", () => {
       }],
     }));
     render(<App />);
-
     await waitFor(() => {
       expect(screen.getByText("docs.acme.io")).toBeInTheDocument();
     });
-    expect(screen.getByText("VERIFIED")).toBeInTheDocument();
+    expect(screen.getByText("Verified & Active")).toBeInTheDocument();
   });
 });
 
@@ -255,21 +268,27 @@ describe("Billing", () => {
   it("shows current plan", async () => {
     vi.stubGlobal("fetch", mockFetch());
     render(<App />);
-
     await waitFor(() => {
-      expect(screen.getByText("Community")).toBeInTheDocument();
+      // Community appears in current plan card and all plans list
+      expect(screen.getAllByText("Community").length).toBeGreaterThanOrEqual(1);
     });
-    expect(screen.getByText("Free")).toBeInTheDocument();
   });
 
-  it("shows upgrade buttons for free users", async () => {
+  it("shows billing page heading", async () => {
     vi.stubGlobal("fetch", mockFetch());
     render(<App />);
-
     await waitFor(() => {
-      expect(screen.getByText("Upgrade to Cloud")).toBeInTheDocument();
+      expect(screen.getByText("Billing & Subscription")).toBeInTheDocument();
     });
-    expect(screen.getByText("Upgrade to Team")).toBeInTheDocument();
+  });
+
+  it("shows included features with check icons", async () => {
+    vi.stubGlobal("fetch", mockFetch());
+    render(<App />);
+    await waitFor(() => {
+      expect(screen.getByText("10 deploys/mo")).toBeInTheDocument();
+    });
+    expect(screen.getByText("Pagefind search")).toBeInTheDocument();
   });
 });
 
@@ -284,21 +303,27 @@ describe("Settings", () => {
   it("shows user email and account info", async () => {
     vi.stubGlobal("fetch", mockFetch());
     render(<App />);
-
     await waitFor(() => {
-      expect(screen.getByText("Member since")).toBeInTheDocument();
+      expect(screen.getByText("Account Settings")).toBeInTheDocument();
     });
-    expect(screen.getByText("Email")).toBeInTheDocument();
+    expect(screen.getByText("Email Address")).toBeInTheDocument();
+    expect(screen.getByText("Member Since")).toBeInTheDocument();
+  });
+
+  it("shows API credentials section", async () => {
+    vi.stubGlobal("fetch", mockFetch());
+    render(<App />);
+    await waitFor(() => {
+      expect(screen.getByText("API Credentials")).toBeInTheDocument();
+    });
   });
 
   it("shows API token with show/hide toggle", async () => {
     vi.stubGlobal("fetch", mockFetch());
     render(<App />);
-
     await waitFor(() => {
       expect(screen.getByText("Show")).toBeInTheDocument();
     });
-
     const user = userEvent.setup();
     await user.click(screen.getByText("Show"));
     expect(screen.getByText("Hide")).toBeInTheDocument();
@@ -307,14 +332,11 @@ describe("Settings", () => {
   it("signs out and clears token", async () => {
     vi.stubGlobal("fetch", mockFetch());
     render(<App />);
-
     await waitFor(() => {
       expect(screen.getByText("Sign Out")).toBeInTheDocument();
     });
-
     const user = userEvent.setup();
     await user.click(screen.getByText("Sign Out"));
-
     expect(localStorage.getItem("tome_token")).toBeNull();
   });
 });
@@ -322,11 +344,10 @@ describe("Settings", () => {
 // ── Navigation ─────────────────────────────────────────────
 
 describe("Navigation", () => {
-  it("renders nav links when authenticated", async () => {
+  it("renders sidebar nav links when authenticated", async () => {
     localStorage.setItem("tome_token", "tome_test123");
     vi.stubGlobal("fetch", mockFetch());
     render(<App />);
-
     await waitFor(() => {
       expect(screen.getByText("Projects")).toBeInTheDocument();
     });
@@ -335,7 +356,7 @@ describe("Navigation", () => {
   });
 });
 
-// ── Responsive CSS Classes ──────────────────────────────────
+// ── Responsive CSS ──────────────────────────────────────────
 
 describe("Responsive layout", () => {
   it("applies responsive class names to layout elements", async () => {
@@ -347,11 +368,9 @@ describe("Responsive layout", () => {
       expect(screen.getByText("Projects")).toBeInTheDocument();
     });
 
-    // Header elements have responsive classes
-    expect(container.querySelector(".dash-header")).toBeInTheDocument();
-    expect(container.querySelector(".dash-header-left")).toBeInTheDocument();
-    expect(container.querySelector(".dash-header-right")).toBeInTheDocument();
-    expect(container.querySelector(".dash-nav")).toBeInTheDocument();
+    // Sidebar layout uses dash-layout and dash-sidebar
+    expect(container.querySelector(".dash-layout")).toBeInTheDocument();
+    expect(container.querySelector(".dash-sidebar")).toBeInTheDocument();
     expect(container.querySelector(".dash-main")).toBeInTheDocument();
   });
 
@@ -362,7 +381,7 @@ describe("Responsive layout", () => {
     const { container } = render(<App />);
 
     await waitFor(() => {
-      expect(screen.getByText("Member since")).toBeInTheDocument();
+      expect(screen.getByText("Account Settings")).toBeInTheDocument();
     });
 
     expect(container.querySelector(".dash-settings-grid")).toBeInTheDocument();
