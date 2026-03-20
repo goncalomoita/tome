@@ -1244,7 +1244,7 @@ export function Shell({
               </div>
 
               {/* Prev / Next link cards */}
-              <div style={{ display: "grid", gridTemplateColumns: mobile ? "1fr" : "1fr 1fr", marginTop: 24, paddingTop: 32, borderTop: "1px solid var(--bd)", gap: 16 }}>
+              <div style={{ display: "grid", gridTemplateColumns: mobile ? "1fr" : "1fr 1fr", marginTop: 24, paddingTop: 32, paddingBottom: 40, borderTop: "1px solid var(--bd)", gap: 16 }}>
                 {prev ? (
                   <button onClick={() => onNavigate(prev.id)} style={{
                     display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 6,
