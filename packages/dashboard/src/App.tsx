@@ -1106,7 +1106,7 @@ function ProjectDetailPage({ slug, token }: { slug: string; token: string }) {
       setDeployments(deps);
       setDomains(doms);
       const defaultAnalytics: AnalyticsSummary = { totalPageViews: 0, uniqueVisitors: 0, avgTimeOnPage: 0, topPages: [] };
-      api<AnalyticsSummary>(`/api/analytics/summary?siteId=${slug}&range=30`)
+      api<AnalyticsSummary>(`/api/analytics/summary?siteId=${slug}&range=30`, { token })
         .then(setAnalytics)
         .catch(() => setAnalytics(defaultAnalytics));
     } catch {
